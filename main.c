@@ -63,8 +63,8 @@ typedef struct s_data {
 } t_data;
 
 int is_wall(double x, double y) {
-    int grid_x = (int)(x / TILE_SIZE);
-    int grid_y = (int)(y / TILE_SIZE);
+    int grid_x = floor(x / TILE_SIZE);
+    int grid_y = floor(y / TILE_SIZE);
     if (grid_x < 0 || grid_x >= MAP_WIDTH || grid_y < 0 || grid_y >= MAP_HEIGHT)
         return 1;
     return g_map[grid_y][grid_x] == '1';
@@ -153,11 +153,6 @@ void draw_wall_slice(t_data *data, int x, double distance, int ray_num) {
     }
 }
 
-#include <mlx.h>
-#include <math.h>
-#include <stdio.h>
-
-// [Previous #defines and structs remain the same...]
 
 void draw_map(t_data *data) {
     // Draw grid and walls (same as before)
@@ -195,7 +190,7 @@ void draw_map(t_data *data) {
     
     // Draw angle reference lines (0° and 90°)
     draw_line(data, px, py, px + 50, py, WHITE, 2); // 0° reference (right)
-    draw_line(data, px, py, px, py + 50, WHITE, 2); // 90° reference (up)
+    draw_line(data, px, py, px, py + 50, WHITE, 2); // 90° reference (down)
 }
 
 void cast_rays(t_data *data) {
@@ -222,19 +217,19 @@ void cast_rays(t_data *data) {
         }
         
         // Highlight the selected ray in yellow
-        if (i == data->debug_ray_index) {
-            draw_line(data, data->player.x, data->player.y, ray_x, ray_y, YELLOW, 2);
+        // if (i == data->debug_ray_index) {
+        //     draw_line(data, data->player.x, data->player.y, ray_x, ray_y, YELLOW, 2);
             
-            // Print detailed angle info
-            printf("\n--- Ray %d ---\n", i);
-            printf("Absolute Angle: %.2f° (0°=right, 90°=up)\n", ray_angle * 180/PI);
-            printf("Relative to Player: %.2f°\n", 
-                  (ray_angle - data->player.angle) * 180/PI);
-            printf("Hit at: (%.2f, %.2f)\n", ray_x, ray_y);
-            printf("Raw Distance: %.2f\n", distance);
-            printf("Corrected Distance: %.2f\n", 
-                  distance * cos(ray_angle - data->player.angle));
-        }
+        //     // Print detailed angle info
+        //     printf("\n--- Ray %d ---\n", i);
+        //     printf("Absolute Angle: %.2f° (0°=right, 90°=up)\n", ray_angle * 180/PI);
+        //     printf("Relative to Player: %.2f°\n", 
+        //           (ray_angle - data->player.angle) * 180/PI);
+        //     printf("Hit at: (%.2f, %.2f)\n", ray_x, ray_y);
+        //     printf("Raw Distance: %.2f\n", distance);
+        //     printf("Corrected Distance: %.2f\n", 
+        //           distance * cos(ray_angle - data->player.angle));
+        // }
         
         distance *= cos(ray_angle - data->player.angle);
         draw_wall_slice(data, i, distance, i);
@@ -265,12 +260,12 @@ int handle_key(int key, t_data *data) {
         data->player.y -= sin(data->player.angle) * PLAYER_SPEED;
     }
     if (key == 97) { // A
-        data->player.x -= sin(data->player.angle) * PLAYER_SPEED;
-        data->player.y += cos(data->player.angle) * PLAYER_SPEED;
-    }
-    if (key == 100) { // D
         data->player.x += sin(data->player.angle) * PLAYER_SPEED;
         data->player.y -= cos(data->player.angle) * PLAYER_SPEED;
+    }
+    if (key == 100) { // D
+        data->player.x -= sin(data->player.angle) * PLAYER_SPEED;
+        data->player.y += cos(data->player.angle) * PLAYER_SPEED;
     }
     
     // Rotation
@@ -288,9 +283,9 @@ int handle_key(int key, t_data *data) {
 	}
     
     // Debug controls
-    if (key == 65451) data->debug_ray_index = (data->debug_ray_index + 1) % NUM_RAYS; // +
-    if (key == 65453) data->debug_ray_index = (data->debug_ray_index - 1 + NUM_RAYS) % NUM_RAYS; // -
-    if (key == 32) data->debug_ray_index = -1; // Space = show all rays
+    // if (key == 65451) data->debug_ray_index = (data->debug_ray_index + 1) % NUM_RAYS; // +
+    // if (key == 65453) data->debug_ray_index = (data->debug_ray_index - 1 + NUM_RAYS) % NUM_RAYS; // -
+    // if (key == 32) data->debug_ray_index = -1; // Space = show all rays
     
     // Update both views
     mlx_clear_window(data->mlx, data->win_2d);
@@ -309,7 +304,7 @@ int main(void) {
     
     data.player.x = TILE_SIZE * 3 + TILE_SIZE / 2;
     data.player.y = TILE_SIZE * 3 + TILE_SIZE / 2;
-    data.player.angle = PI / 3;
+    data.player.angle = PI / 2;
     data.debug_ray_index = NUM_RAYS / 2; // Start with center ray
     
     draw_map(&data);
