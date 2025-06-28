@@ -1,6 +1,6 @@
 NAME = cube_3D
 CC = cc
-CFLAGS = -g3 -Wall -Wextra -Werror -Ilibft
+CFLAGS = -g3 -fsanitize=address -Wall -Wextra -Werror -Ilibft
 LFLAGS = -lmlx -lXext -lX11 -lm
 
 # main_src = main.c
