@@ -1,0 +1,9 @@
+N ./path_to_the_north_texture
+S ./path_to_the_south_texture
+W ./path_to_the_west_texture
+E ./path_to_the_east_texture
+
+
+F 0,30,100
+C 26,30,0
+

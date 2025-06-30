@@ -1,11 +1,11 @@
 NAME = cube_3D
 CC = cc
-CFLAGS = -g3 -Wall -Wextra -Werror -Ilibft
+CFLAGS = -g3 -Wall -Wextra -Werror -Ilibft -fsanitize=address
 LFLAGS = -lmlx -lXext -lX11 -lm
 
 # main_src = main.c
 
-SRCS = main.c
+SRCS = main.c parsing.c	map_check.c
 
 OBJS = $(SRCS:.c=.o)
 

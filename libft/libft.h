@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: omben-ch <omben-ch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:41:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/04/12 17:00:49 by omben-ch         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:52:10 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "get_next_line.h"
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 
 typedef struct s_list
 {
@@ -75,7 +76,7 @@ int					ft_memcmp(void *s1, void *s2, int n);
 
 char				*ft_strnstr(char *haystack, char *needle, int len);
 
-int					ft_atoi(char *str);
+int     ft_atoi(const char *str, int *flag);
 
 void				*ft_calloc(int count, int size);
 

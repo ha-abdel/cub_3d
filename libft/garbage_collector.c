@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage_collector.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:31:28 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/05/16 18:31:29 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/06/26 14:40:11 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,17 @@ void	*ft_malloc(size_t size, int flag)
 	if (!flag)
 		return (ft_free(&allocations), NULL);
 	new = malloc(sizeof(t_allocs));
+	if (!(new->ptr))
+	{
+		ft_free(&allocations);
+		exit(1);
+	}
 	new->ptr = malloc(size);
 	if (!(new->ptr))
-		return (NULL);
+	{
+		ft_free(&allocations);
+		exit(1);
+	}
 	ft_memset(new->ptr, 0, size);
 	new->next = allocations;
 	allocations = new;
