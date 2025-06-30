@@ -10,6 +10,7 @@
 #define PLAYER_SPEED 5
 #define ROTATION_SPEED 0.1
 #define MAX_RAY_DISTANCE 10000
+#define MAX_DIST_PIXEL 3200
 
 
 // Color definitions

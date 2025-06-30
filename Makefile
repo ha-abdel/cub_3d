@@ -5,7 +5,7 @@ LFLAGS = -lmlx -lXext -lX11 -lm
 
 # main_src = main.c
 
-SRCS = main.c
+SRCS = ray_casting.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -88,7 +88,8 @@ void draw_square(t_data *data, int x, int y, int color, int win) {
 void draw_line(t_data *data, int x0, int y0, int x1, int y1, int color, int win) {
     double dx = x1 - x0;
     double dy = y1 - y0;
-    double steps = fabs(dx) > fabs(dy) ? fabs(dx) : fabs(dy);
+    double steps = fmax(fabs(dx),fabs(dy));
+    steps = fmin(steps, MAX_DIST_PIXEL);
     double inc_x = dx / steps;
     double inc_y = dy / steps;
     double x = x0;
@@ -315,13 +316,15 @@ void cast_rays(t_data *data) {
 
         double h_dist = (hx - data->player.x) * (hx - data->player.x) + (hy - data->player.y) * (hy - data->player.y);
         double v_dist = (vx - data->player.x) * (vx - data->player.x) + (vy - data->player.y) * (vy - data->player.y);
-
+        int color;
         double ray_end_x, ray_end_y;
         if (h_dist < v_dist) {
+            color = RED;
             distance = sqrt(h_dist);
             ray_end_x = hx;
             ray_end_y = hy;
         } else {
+            color = BLUE;
             distance = sqrt(v_dist);
             ray_end_x = vx;
             ray_end_y = vy;
@@ -329,12 +332,13 @@ void cast_rays(t_data *data) {
         distance *= cos(ray_angle - data->player.angle);
         draw_line(data, data->player.x, data->player.y, ray_end_x, ray_end_y, BLUE, 2);
         double dist_projection_plane = ((MAP_WIDTH * TILE_SIZE) / 2) / tan ((FOV / 2) * PI / 180);
+        // double dist_projection_plane = 2;
         double wall_strip = (TILE_SIZE / distance) * dist_projection_plane ;
 
         // draw_line(data, i , ((MAP_HEIGHT * TILE_SIZE) / 2) - (wall_strip / 2), i,(wall_strip / 2)  + wall_strip, WHITE, 1);
         int wall_top = (MAP_HEIGHT * TILE_SIZE) / 2 - wall_strip / 2;
         int wall_bottom = wall_top + wall_strip;
-        draw_line(data, i, wall_top, i, wall_bottom, WHITE, 1);
+        draw_line(data, i, wall_top, i, wall_bottom, color, 1);
 
         ray_angle += angle_step;
     }
