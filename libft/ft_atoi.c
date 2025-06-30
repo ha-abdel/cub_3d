@@ -3,37 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 15:19:26 by abdel-ha          #+#    #+#             */
-/*   Updated: 2024/11/06 10:29:33 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/06/24 15:51:19 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(char *str)
+int     ft_atoi(const char *str, int *flag)
 {
-	long	nb;
-	int		sign;
-	int		i;
+        int     re;
+        int     i;
 
-	nb = 0;
-	sign = 1;
-	i = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = -sign;
-		i++;
-	}
-	while ((str[i] >= '0' && str[i] <= '9'))
-	{
-		nb = nb * 10 + str[i] - '0';
-		i++;
-	}
-	nb = nb * sign;
-	return (nb);
+        i = 0;
+        re = 0;
+        if (str[i] >= '0' && str[i] <= '9')
+        {
+                while (str[i])
+                {
+                        if ((re > ((INT_MAX - (str[i] - '0')) / 10)) || str[i] < '0'
+                                || str[i] > '9')
+                        {
+                                *flag = 1;
+                                break ;
+                        }
+                        re = (re * 10) + (str[i] - '0');
+                        i++;
+                }
+        }
+        else
+                *flag = 1;
+        return (re);
 }

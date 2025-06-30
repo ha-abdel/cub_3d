@@ -57,7 +57,7 @@ typedef struct s_sprite
 	// int					frame_count;
 	// int					frame_index;
 	// char				action;
-	int					dir;
+	// int					dir;
 }						t_sprite;
 
 // typedef struct s_validation_infos
@@ -86,14 +86,35 @@ typedef struct s_player {
     int is_facing_left;
 } t_player;
 
-typedef struct s_data {
-    void *mlx;
-    void *win_3d;
-    void *win_2d;
-    t_player player;
-	t_sprite bg;
-	t_sprite bg1;
-    // int debug_ray_index; // Which ray to highlight in debug view
-} t_data;
+
+typedef struct s_map
+{
+	char	**map;
+	int		direction;
+	int		f_color;
+	int		c_color;
+	int		height;
+	int		width;
+	char	*n_path;
+	char	*s_path;
+	char	*e_path;
+	char	*w_path;
+}	t_map;
+
+typedef struct s_data
+{
+	void				*mlx;
+	// void				*win;
+	void 				*win_3d;
+    void 				*win_2d;
+    t_player 			player;
+	t_sprite 			bg;
+	t_sprite 			bg1;
+	t_player			player;
+	t_map				map;
+}						t_data;
+void	print_map(char **map);
+int		main_function_parsing(t_data *data, char *file);
+int		map_check(t_data *data, char *file, char *line, int fd);
 
 #endif
