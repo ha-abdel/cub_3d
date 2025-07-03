@@ -110,7 +110,6 @@ typedef struct s_data
     t_player 			player;
 	t_sprite 			bg;
 	t_sprite 			bg1;
-	t_player			player;
 	t_map				map;
 }						t_data;
 void	print_map(char **map);

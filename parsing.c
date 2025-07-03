@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 08:15:15 by salahian          #+#    #+#             */
-/*   Updated: 2025/06/28 14:43:26 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/02 15:39:22 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,7 +303,7 @@ int		main_function_parsing(t_data *data, char *file)
 		printf("\nError\n MAP\n");
 		return (0);
 	}
-	print_data(data);
+	//print_data(data);
 	printf("\nSUCCESS\n");
 	return (1);
 	//return (info);

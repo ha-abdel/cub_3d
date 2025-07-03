@@ -297,68 +297,111 @@
 //    return 0;
 //}
 
-void    init_data(t_data *data)
-{
-    data->map.c_color = -1;
-    data->map.f_color = -1;
-    data->map.direction = 0;
-    data->map.height = 0;
-    data->map.width = 0;
-    data->map.map = NULL;
-    data->player.angle = -1;
-    data->map.n_path = NULL;
-    data->map.s_path = NULL;
-    data->map.w_path = NULL;
-    data->map.e_path = NULL;
-    data->player.y = -1;
-    data->player.x = -1;
+//void    init_data(t_data *data)
+//{
+//    data->map.c_color = -1;
+//    data->map.f_color = -1;
+//    data->map.direction = 0;
+//    data->map.height = 0;
+//    data->map.width = 0;
+//    data->map.map = NULL;
+//    data->player.angle = -1;
+//    data->map.n_path = NULL;
+//    data->map.s_path = NULL;
+//    data->map.w_path = NULL;
+//    data->map.e_path = NULL;
+//    data->player.y = -1;
+//    data->player.x = -1;
+//}
+
+int handle_key(int key, t_data *data) {
+    if (key == ESC_KEY) {
+        mlx_destroy_window(data->mlx, data->win_3d);
+        mlx_destroy_window(data->mlx, data->win_2d);
+        exit(0);
+    }
+    // clear_image(&data->bg, BLACK);
+    // clear_image(&data->bg1, BLACK);
+
+    
+    if (key == W_KEY) {
+        data->player.x += cos(data->player.angle) * PLAYER_SPEED;
+        data->player.y += sin(data->player.angle) * PLAYER_SPEED;
+    }
+    if (key == S_KEY) {
+        data->player.x -= cos(data->player.angle) * PLAYER_SPEED;
+        data->player.y -= sin(data->player.angle) * PLAYER_SPEED;
+    }
+    if (key == A_KEY) {
+        data->player.x += sin(data->player.angle) * PLAYER_SPEED;
+        data->player.y -= cos(data->player.angle) * PLAYER_SPEED;
+    }
+    if (key == D_KEY) {
+        data->player.x -= sin(data->player.angle) * PLAYER_SPEED;
+        data->player.y += cos(data->player.angle) * PLAYER_SPEED;
+    }
+    
+    if (key == LEFT_ARROW)
+	{
+	 	data->player.angle -= ROTATION_SPEED;
+		if (data->player.angle < 0)
+			data->player.angle += 2 * PI;
+	}
+		
+    if (key == RIGHT_ARROW){
+		data->player.angle += ROTATION_SPEED;
+		if (data->player.angle > 2 * PI)
+			data->player.angle -= 2 * PI;
+	}
+    
+    // draw_map(data);
+    // cast_rays(data);
+    // mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
+    // mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
+    
+    return 0;
 }
 
-int main(int ac, char **av)
+int    render(t_data *data)
 {
+    static int frame_counter;
+    if (frame_counter == 60)
+    {
+        clear_image(&data->bg1, BLACK);
+        clear_image(&data->bg, BLACK);
+
+        draw_map(data);
+        cast_rays(data);
+        mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
+        mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
+        frame_counter = 0;
+    }
+    frame_counter++;
+
+    return 0;
+}
+
+int main(int ac, char **av) {
     t_data data;
     (void)ac;
     
-    init_data(&data);
+    initial_data(&data);
     main_function_parsing(&data, av[1]);
-    //data.mlx = mlx_init();
-    ////data.win_3d = mlx_new_window(data.mlx, NUM_RAYS, MAP_HEIGHT * TILE_SIZE, "3D View");
-    //data.win = mlx_new_window(data.mlx, 800, 800, "2D Debug View");
-
+    init_data(&data);
+    draw_map(&data);
+    cast_rays(&data);
+    // mlx_put_image_to_window(data.mlx, data.win_2d, data.bg.img, 0, 0);
+    // mlx_put_image_to_window(data.mlx, data.win_3d, data.bg1.img, 0, 0);
+    mlx_hook(data.win_3d, 2, 1L<<0, handle_key, &data);
+    mlx_hook(data.win_2d, 2, 1L<<0, handle_key, &data);
     
+    // printf("Controls:\n");
+    // printf("WASD - Move\n");
+    // printf("Arrow keys - Rotate\n");
+    // printf("+/- - Select next/previous ray for debugging\n");
+    // printf("Space - Show all rays\n");
     
-    //mlx_pixel_put(data.mlx, data.win, 400, 400, data.map.c_color);
-    //mlx_pixel_put(data.mlx, data.win, 401, 401, data.map.c_color);
-    //mlx_pixel_put(data.mlx, data.win, 402, 402, data.map.c_color);
-    //mlx_pixel_put(data.mlx, data.win, 403, 403, data.map.c_color);
-    //mlx_pixel_put(data.mlx, data.win, 404, 405, data.map.c_color);
-    //mlx_pixel_put(data.mlx, data.win, 405, 406, data.map.c_color);
-    //mlx_pixel_put(data.mlx, data.win, 406, 407, data.map.c_color);
-    //mlx_pixel_put(data.mlx, data.win, 407, 408, data.map.c_color);
-    //mlx_pixel_put(data.mlx, data.win, 408, 409, data.map.c_color);
-    //mlx_pixel_put(data.mlx, data.win, 409, 410, data.map.c_color);
-    //mlx_pixel_put(data.mlx, data.win, 410, 411, data.map.c_color);
-    //mlx_pixel_put(data.mlx, data.win, 410, 412, data.map.c_color);
-
-    //mlx_destroy_window(data.mlx, data.win);
-    //mlx_destroy_display(data.mlx);
-    //data.player.x = TILE_SIZE * 3 + TILE_SIZE / 2;
-    //data.player.y = TILE_SIZE * 3 + TILE_SIZE / 2;
-    //data.player.angle = PI / 2;
-    //data.debug_ray_index = NUM_RAYS / 2; // Start with center ray
-    
-    //draw_map(&data);
-    //cast_rays(&data);
-    
-    //mlx_hook(data.win_3d, 2, 1L<<0, handle_key, &data);
-    //mlx_hook(data.win_2d, 2, 1L<<0, handle_key, &data);
-    
-    //printf("Controls:\n");
-    //printf("WASD - Move\n");
-    //printf("Arrow keys - Rotate\n");
-    //printf("+/- - Select next/previous ray for debugging\n");
-    //printf("Space - Show all rays\n");
-    
-    //mlx_loop(data.mlx);
+   mlx_loop_hook(data.mlx, render, &data);
+    mlx_loop(data.mlx);
     return 0;
 }

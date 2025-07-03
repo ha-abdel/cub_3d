@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 16:06:27 by salahian          #+#    #+#             */
-/*   Updated: 2025/06/27 18:02:26 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/03 10:45:20 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ int	valid_map(t_data *data)
 					//printf("here////[%s]//here\n", data->map.map[i]);
 					return (0);
 				}
-				data->player.y = i + 1;
-				data->player.x = j + 1;
+				data->player.y = i;
+				data->player.x = j;
 			}
 			if (data->map.map[i][j] == '0')
 			{
