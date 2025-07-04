@@ -1,16 +1,18 @@
 #ifndef CUBE_H
 # define CUBE_H
 
+#define screen_width 3000
+#define screen_height 1600
 #define TILE_SIZE 100
 #define FOV 60.0
-#define NUM_RAYS 1600
+#define NUM_RAYS 3000
 #define PI 3.1415926535
 #define MAP_WIDTH 16
 #define MAP_HEIGHT 12
 #define PLAYER_SPEED 5
 #define ROTATION_SPEED 0.1
 #define MAX_RAY_DISTANCE 10000
-#define MAX_DIST_PIXEL 3200
+#define MAX_DIST_PIXEL NUM_RAYS * 2
 
 
 // Color definitions
@@ -80,11 +82,13 @@ typedef struct s_player {
     double y;
     double angle;
 	char *path;
-    int is_facing_up;
-    int is_facing_down;
-    int is_facing_right;
-    int is_facing_left;
 } t_player;
+
+typedef struct s_point
+{
+	double x;
+	double y;
+} t_point;
 
 
 typedef struct s_map
@@ -115,5 +119,28 @@ typedef struct s_data
 void	print_map(char **map);
 int		main_function_parsing(t_data *data, char *file);
 int		map_check(t_data *data, char *file, char *line, int fd);
+
+
+/* FUNCTIONS */
+int is_facing_right(double angle);
+int is_facing_left(double angle);
+int is_facing_down(double angle);
+int is_facing_up(double angle);
+void ft_player_debug(t_data * data);
+int is_wall(t_data *data, double x, double y);
+int    render(t_data *data);
+void	my_mlx_pixel_put(t_sprite *img, int x, int y, int color);
+int inside_bounds(t_data *data, double x, double y) ;
+void draw_square(t_data *data, int x, int y, int color, int win);
+void draw_line(t_data *data, t_point start_p, t_point end_p, int color, int win);
+void    draw_walls(t_data *data);
+void    draw_grid_lines(t_data *data);
+void    draw_player(t_data *data);
+void    draw_direction_lines(t_data *data);
+void    init_data(t_data *data);
+void    initial_data(t_data *data);
+void cast_rays(t_data *data);
+void draw_map(t_data *data) ;
+void clear_image(t_sprite *img, int color);
 
 #endif

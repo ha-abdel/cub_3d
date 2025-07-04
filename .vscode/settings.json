@@ -3,5 +3,6 @@
         "unistd.h": "c",
         "stdlib.h": "c",
         "cube.h": "c"
-    }
+    },
+    "functionHeaderExtension.headerFilePath": "/home/abdel-ha/Desktop/cub_3d/cube.h"
 }
