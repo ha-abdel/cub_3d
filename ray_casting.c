@@ -1,69 +1,5 @@
 #include "cube.h"
 
-// Modified map with player marker
-// static char *g_map[] = {
-//     "1111111111111111",
-//     "1000000000000001",
-//     "1000000000000001",
-//     "10000000000N0001",
-//     "1000001000000001",
-//     "1000000000000001",
-//     "1001000000000001",
-//     "1000000000000001",
-//     "1000001000000001",
-//     "1000000000000001",
-//     "1000000000000001",
-//     "1111111111111111",
-//     NULL
-// };
-
-//int is_wall(t_data *data, double x, double y) {
-//    int grid_x = floor(x / TILE_SIZE);
-//    int grid_y = floor(y / TILE_SIZE);
-//    if (grid_x < 0 || grid_x >= data->map.width || grid_y < 0 || grid_y >= data->map.height || grid_x >= data->map.width || data->map.map[grid_y][grid_x] == '1')
-//        return 1;
-//    return (0);
-//}
-
-
-
-
-
-//int	check_for_obstacl(t_data *data, int y, int x, int end)
-//{
-//	while (x <= end)
-//	{
-//		if (data->map.map[y][x] == '1')
-//			return (0);
-//		x++;
-//	}
-//	return (1);
-//}
-
-//int	is_valid_pos(t_data *data, int new_x, int new_y)
-//{
-//	int	newr;
-//	int	newl;
-//	int	newd;
-//	int	x;
-//	int	y;
-
-//	newr = (new_x + TILE_SIZE - 1) / TILE_SIZE;
-//	newl = new_x / TILE_SIZE;
-//	newd = (new_y + TILE_SIZE - 1) / TILE_SIZE;
-//	y = new_y / TILE_SIZE;
-//	while (y <= newd)
-//	{
-//		x = newl;
-//		if (!check_for_obstacl(data, y, x, newr))
-//			return (0);
-//		y++;
-//	}
-//	return (1);
-//}
-
-
-
 int is_facing_up(double angle)
 {
     if (angle >= PI)
@@ -102,154 +38,186 @@ int is_perpendicular_to_Xaxis(double ray_angle)
     return 0;
 }
 
-void check_horizontal_intersect(t_data *data, t_point *h_intersect, double ray_angle) {
-    ray_angle = fmod(ray_angle, 2 * PI);
-    if (ray_angle < 0)
-        ray_angle += 2 * PI;
-    // call function normalize angle
+void    normalize_angle(double *angle)
+{
+    (*angle) = fmod(*angle, 2 * PI);
+    if (*angle < 0)
+        (*angle) += 2 * PI;
+}
 
-    if (is_perpendicular_to_Yaxis(ray_angle))
+void    calc_first_h_intersect(t_data *data, t_ray *ray, double tan_val)
+{
+    if (is_facing_up(ray->ray_angle))
+        ray->first_y = floor(data->player.y / TILE_SIZE) * TILE_SIZE;
+    else
+        ray->first_y = (floor(data->player.y / TILE_SIZE) + 1) * TILE_SIZE;
+    ray->first_x = data->player.x + (ray->first_y - data->player.y) / tan_val;
+}
+void    calc_horizontal_step(t_data *data, t_ray *ray, double tan_val)
+{
+    (void)data;
+    if (is_facing_up(ray->ray_angle))
+        ray->y_step = -TILE_SIZE;
+    else
+        ray->y_step = TILE_SIZE;
+    ray->x_step = TILE_SIZE / fabs(tan_val);
+    if (is_facing_left(ray->ray_angle))
+        ray->x_step = -(ray->x_step);
+}
+void    calc_first_v_intersect(t_data *data, t_ray *ray, double tan_val)
+{
+    if (is_facing_right(ray->ray_angle))
+        ray->first_x = (floor(data->player.x / TILE_SIZE) + 1) * TILE_SIZE;
+    else
+        ray->first_x = floor(data->player.x / TILE_SIZE) * TILE_SIZE;
+    ray->first_y = data->player.y + (ray->first_x - data->player.x) * tan_val;
+}
+void    calc_vertical_step(t_data *data, t_ray *ray, double tan_val)
+{
+    (void)data;
+    if (is_facing_right(ray->ray_angle))
+        ray->x_step = TILE_SIZE;
+    else
+        ray->x_step = -TILE_SIZE;
+    ray->y_step = TILE_SIZE * fabs(tan_val);
+    if (is_facing_up(ray->ray_angle))
+        ray->y_step = -ray->y_step;
+}
+
+void check_horizontal_intersect(t_data *data, t_ray *ray)
+{
+    double tan_val;
+    normalize_angle(&ray->ray_angle);
+    if (is_perpendicular_to_Yaxis(ray->ray_angle))
     {
-        if (is_facing_right(ray_angle))
-            (*h_intersect).x = data->player.x + 3000;
+        if (is_facing_right(ray->ray_angle))
+            (ray->h_intersect).x = data->player.x + 3000;
         else
-            (*h_intersect).x = data->player.x - 3000;
-        (*h_intersect).y = data->player.y;
+            (ray->h_intersect).x = data->player.x - 3000;
+        (ray->h_intersect).y = data->player.y;
         return;
     }
-    double tan_val = tan(ray_angle);
+    tan_val = tan(ray->ray_angle);
     if (fabs(tan_val) <= 0.000001)
-        tan_val = (tan_val >= 0) ? 0.000001 : -0.000001;
-
-    double first_y;
-    double y_step;
-    if (is_facing_up(ray_angle)) {
-        first_y = floor(data->player.y / TILE_SIZE) * TILE_SIZE;
-        y_step = -TILE_SIZE;
-    } else {
-        first_y = (floor(data->player.y / TILE_SIZE) + 1) * TILE_SIZE;
-        y_step = TILE_SIZE;
+    {
+        if (tan_val >= 0)
+            tan_val = 0.000001;
+        else
+            tan_val = -0.000001;
     }
-    double first_x = data->player.x + (first_y - data->player.y) / tan_val;
-    double x_step = TILE_SIZE / fabs(tan_val);
-    if (is_facing_left(ray_angle))
-        x_step = -x_step;
-    (*h_intersect).x = first_x;
-    (*h_intersect).y = first_y;
-
-    while (!is_wall(data, (*h_intersect).x, (*h_intersect).y - is_facing_up(ray_angle)) && inside_bounds(data, (*h_intersect).x, (*h_intersect).y)) {
-        (*h_intersect).x += x_step;
-        (*h_intersect).y += y_step;
+    calc_first_h_intersect(data, ray, tan_val);
+    calc_horizontal_step(data, ray, tan_val);
+    (ray->h_intersect).x = ray->first_x;
+    (ray->h_intersect).y = ray->first_y;
+    while (!is_wall(data, (ray->h_intersect).x, (ray->h_intersect).y - is_facing_up(ray->ray_angle)) && inside_bounds(data, (ray->h_intersect).x, (ray->h_intersect).y)) {
+        (ray->h_intersect).x += ray->x_step;
+        (ray->h_intersect).y += ray->y_step;
     }
 }
 
-void check_vertical_intersect(t_data *data, t_point *v_intersect, double ray_angle) {
-    ray_angle = fmod(ray_angle, 2 * PI);
-    if (ray_angle < 0)
-        ray_angle += 2 * PI;
-    // call function normalise angle 
-
-    if (is_perpendicular_to_Xaxis(ray_angle))
+void check_vertical_intersect(t_data *data, t_ray *ray)
+{
+    double tan_val;
+    normalize_angle(&ray->ray_angle);
+    if (is_perpendicular_to_Xaxis(ray->ray_angle))
     {
-        (*v_intersect).x = data->player.x;
-        if (is_facing_up(ray_angle))
-            (*v_intersect).y = data->player.y + 3000;
+        ray->v_intersect.x = data->player.x;
+        if (is_facing_up(ray->ray_angle))
+            ray->v_intersect.y = data->player.y + 3000;
         else
-            (*v_intersect).y = data->player.y - 3000;
+            ray->v_intersect.y = data->player.y - 3000;
         return ;
     }
-    double tan_val = tan(ray_angle);
-    double first_x;
-    double x_step;
-    if (is_facing_right(ray_angle))
-    {
-        first_x = (floor(data->player.x / TILE_SIZE) + 1) * TILE_SIZE;
-        x_step = TILE_SIZE;
-    } else
-    {
-        first_x = floor(data->player.x / TILE_SIZE) * TILE_SIZE;
-        x_step = -TILE_SIZE;
+    tan_val = tan(ray->ray_angle);
+    calc_first_v_intersect(data, ray, tan_val);
+    calc_vertical_step(data, ray, tan_val);
+    ray->v_intersect.x = ray->first_x;
+    ray->v_intersect.y = ray->first_y;
+    while (!is_wall(data, ray->v_intersect.x - is_facing_left(ray->ray_angle), ray->v_intersect.y) && inside_bounds(data, ray->v_intersect.x, ray->v_intersect.y)) {
+        ray->v_intersect.x += ray->x_step;
+        ray->v_intersect.y += ray->y_step;
     }
-    double first_y = data->player.y + (first_x - data->player.x) * tan_val;
-    double y_step = TILE_SIZE * fabs(tan_val);
-    if (is_facing_up(ray_angle))
-        y_step = -y_step;
-    (*v_intersect).x = first_x;
-    (*v_intersect).y = first_y;
-    while (!is_wall(data, (*v_intersect).x - is_facing_left(ray_angle), (*v_intersect).y) && inside_bounds(data, (*v_intersect).x, (*v_intersect).y)) {
-        (*v_intersect).x += x_step;
-        (*v_intersect).y += y_step;
+}
+
+void    calc_distance(t_data *data, t_ray *ray, int *color)
+{
+    ray->h_dist = (ray->h_intersect.x - data->player.x) * (ray->h_intersect.x - data->player.x) + (ray->h_intersect.y - data->player.y) * (ray->h_intersect.y - data->player.y);
+    ray->v_dist = (ray->v_intersect.x - data->player.x) * (ray->v_intersect.x - data->player.x) + (ray->v_intersect.y - data->player.y) * (ray->v_intersect.y - data->player.y);
+
+    if (ray->h_dist < ray->v_dist)
+    {
+        *color = GREEN;
+        ray->distance = sqrt(ray->h_dist);
+        ray->ray_end.x = ray->h_intersect.x;
+        ray->ray_end.y = ray->h_intersect.y;
+    } else 
+    {
+        *color = WHITE;
+        ray->distance = sqrt(ray->v_dist);
+        ray->ray_end.x = ray->v_intersect.x;
+        ray->ray_end.y = ray->v_intersect.y;
     }
+    ray->distance *= cos(ray->ray_angle - data->player.angle);
+    draw_line(data, ray->player, ray->ray_end, BLUE, 2);
+}
+
+void    wall_projection(t_data *data, t_ray *ray, int *color, int col)
+{
+    ray->dist_projection_plane = (screen_width / 2.0) / tan ((FOV / 2.0) * PI / 180);
+    ray->wall_strip = (TILE_SIZE / ray->distance) * ray->dist_projection_plane;
+    ray->ceil = (screen_height) / 2 - ray->wall_strip / 2;
+    ray->floor = ray->ceil + ray->wall_strip;
+    if (ray->ceil < 0)
+        ray->ceil = 0;
+    if (ray->floor > screen_height)
+        ray->floor = screen_height;
+    ray->wall_start.x = col;
+    ray->wall_start.y = ray->ceil;
+    ray->wall_end.x = col;
+    ray->wall_end.y = ray->floor;
+    
+    ray->ceil_start.x = col;
+    ray->ceil_start.y = 0;
+    ray->ceil_end.x = col;
+    ray->ceil_end.y = ray->ceil - 1;
+
+    ray->floor_start.x = col;
+    ray->floor_start.y = ray->ceil + ray->wall_strip;
+    ray->floor_end.x = col;
+    ray->floor_end.y = screen_height;
+    draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
+    draw_line(data, ray->wall_start, ray->wall_end, *color, 1);
+    draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
+}
+
+void    init_ray(t_ray *ray, t_data *data)
+{
+    ray->ray_angle = data->player.angle - (FOV / 2 * PI / 180.0);
+    ray->angle_step = (FOV * PI / 180.0) / NUM_RAYS;
+    ray->distance = 0;
+    ray->player.x = data->player.x;
+    ray->player.y = data->player.y;
 }
 
 void cast_rays(t_data *data)
 {
-    double ray_angle = data->player.angle - (FOV / 2 * PI / 180.0);
-    double angle_step = (FOV * PI / 180.0) / NUM_RAYS;
-    double distance = 0;
-    int i = 0;
-    while( i < NUM_RAYS) {
-        // double hx = -1; 
-        // double hy = -1;
-        // double vx = -1;
-        // double vy = -1;
-        t_point h_intersect;
-        t_point v_intersect;
-        int color;
-        t_point player;
-        player.x = data->player.x;
-        player.y = data->player.y;
-        t_point ray_end;
-        check_horizontal_intersect(data, &h_intersect, ray_angle);
-        check_vertical_intersect(data, &v_intersect, ray_angle);
-        double h_dist = (h_intersect.x - data->player.x) * (h_intersect.x - data->player.x) + (h_intersect.y - data->player.y) * (h_intersect.y - data->player.y);
-        double v_dist = (v_intersect.x - data->player.x) * (v_intersect.x - data->player.x) + (v_intersect.y - data->player.y) * (v_intersect.y - data->player.y);
-                
-        // if(i == 0 || i == NUM_RAYS - 1 || i == NUM_RAYS /2)
-        // {
-        // printf(" Ray %d\n",i);
-        // printf("hdist : %0.2f\nvdist : %0.2f\n",sqrt(h_dist),sqrt(v_dist));
-        // ft_player_debug(data);
-        // }
-      
+    t_ray   ray;
+    int     i;
+    int     color;
+    
+    i = 0;
+    init_ray(&ray, data);
 
-        if (h_dist < v_dist) {
-            color = RED;
-            distance = sqrt(h_dist);
-            ray_end.x = h_intersect.x;
-            ray_end.y = h_intersect.y;
-        } else {
-            color = BLUE;
-            distance = sqrt(v_dist);
-            ray_end.x = v_intersect.x;
-            ray_end.y = v_intersect.y;
-        }
-        distance *= cos(ray_angle - data->player.angle);
-        draw_line(data, player, ray_end, BLUE, 2);
-        double dist_projection_plane = (screen_width / 2.0) / tan ((FOV / 2.0) * PI / 180);
-        double wall_strip = (TILE_SIZE / distance) * dist_projection_plane ;
-
-        int wall_top = (screen_height) / 2 - wall_strip / 2;
-        int wall_bottom = wall_top + wall_strip;
-        if (wall_top < 0)
-            wall_top = 0;
-        if (wall_bottom > screen_height)
-            wall_bottom = screen_height;
-
-        t_point point1;
-        t_point point2;
-        point1.x = i;
-        point1.y = wall_top;
-        point2.x = i;
-        point2.y = wall_bottom;
-        draw_line(data, point1, point2, color, 1);
-        // printf("start of line %d\n", wall_top);
-        // printf("end of line %d\n", wall_bottom);
-        ray_angle += angle_step;
+    while (i < NUM_RAYS)
+    {
+        check_horizontal_intersect(data, &ray);
+        check_vertical_intersect(data, &ray);
+        calc_distance(data, &ray, &color);
+        wall_projection(data, &ray, &color, i);
+        ray.ray_angle += ray.angle_step;
         i++;
     }
 }
-
 
 
 void    init_data(t_data *data)

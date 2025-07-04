@@ -62,20 +62,6 @@ typedef struct s_sprite
 	// int					dir;
 }						t_sprite;
 
-// typedef struct s_validation_infos
-// {
-// 	int					count_player;
-// 	int					count_coin;
-// 	int					count_exit;
-// 	int					count_enemy;
-// 	int					ex;
-// 	int					ey;
-// 	int					px;
-// 	int					py;
-// 	int					width;
-// 	int					height;
-// 	int					collide;
-// }						t_validation_infos;
 
 typedef struct s_player {
     double x;
@@ -90,6 +76,32 @@ typedef struct s_point
 	double y;
 } t_point;
 
+typedef struct s_ray
+{
+	double	ray_angle;
+	double	angle_step;
+	double	distance;
+	double	first_y;
+	double	first_x;
+	double	y_step;
+	double	x_step;
+	double	h_dist;
+	double	v_dist;
+	double	dist_projection_plane;
+	double	wall_strip;
+	double	ceil;
+	double	floor;
+	t_point	wall_start;
+	t_point	wall_end;
+	t_point	ceil_start;
+	t_point	ceil_end;
+	t_point	floor_start;
+	t_point	floor_end;
+	t_point h_intersect;
+	t_point	v_intersect;
+	t_point	player;
+	t_point ray_end;
+} t_ray;
 
 typedef struct s_map
 {

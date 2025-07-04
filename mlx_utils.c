@@ -14,18 +14,11 @@ int is_wall(t_data *data, double x, double y)
     int grid_x = (int)(x / TILE_SIZE);
     int grid_y = (int)(y / TILE_SIZE);
 
-    // Check for out-of-bounds access
-    //printf("dx:[%.2f]/////dy:[%.2f]\n", x, y);
-    //printf("x:[%d]/////y:[%d]\n", grid_x, grid_y);
     if (grid_x < 0 || grid_y < 0 || grid_y >= data->map.height || grid_x >= data->map.width)
         return 1;
-
     char c = data->map.map[grid_y][grid_x];
-    
-    // Treat walls and spaces as blocked
     if (c == '1' || c == ' ')
         return 1;
-
     return 0;
 }
 
@@ -37,8 +30,6 @@ int inside_bounds(t_data *data, double x, double y)
     return 1;
 }
 
-
-
 void	my_mlx_pixel_put(t_sprite *img, int x, int y, int color)
 {
 	char	*dst;
@@ -49,7 +40,6 @@ void	my_mlx_pixel_put(t_sprite *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-// Fill bg with black
 void clear_image(t_sprite *img, int color) {
 
     int y = 0;
