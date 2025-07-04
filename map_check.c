@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 16:06:27 by salahian          #+#    #+#             */
-/*   Updated: 2025/06/27 18:02:26 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/03 13:32:26 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,14 @@ int	handle_direction(t_data *data, char c)
 	if ((c != 'N' && c != 'E' && c != 'W' && c != 'S') || data->player.angle != -1)
 		return (0);
 	if (c == 'N')
-		data->player.angle = 90;
+		data->player.angle = PI / 2;
 	if (c == 'E')
 		data->player.angle = 0;
 	if (c == 'W')
-		data->player.angle = 180;
+		data->player.angle = PI;
 	if (c == 'S')
-		data->player.angle = 270;
+		data->player.angle = 1.5 * PI;
+	// data->player.angle = 90;
 	return (1);
 }
 
@@ -112,8 +113,8 @@ int	valid_map(t_data *data)
 					//printf("here////[%s]//here\n", data->map.map[i]);
 					return (0);
 				}
-				data->player.y = i + 1;
-				data->player.x = j + 1;
+				data->player.y = i;
+				data->player.x = j;
 			}
 			if (data->map.map[i][j] == '0')
 			{
