@@ -5,7 +5,9 @@ LFLAGS = -lmlx -lXext -lX11 -lm
 
 # main_src = main.c
 
-SRCS = main.c parsing.c	ray_casting.c map_check.c draw_func.c mlx_utils.c
+SRCS = angle.c  calculate_distance.c  directions.c  draw_func.c \
+h_intersection.c  init.c  main.c  map_check.c  mlx_utils.c  parsing.c \
+ray_casting.c  v_intersection.c  wall_projection.c
 
 OBJS = $(SRCS:.c=.o)
 

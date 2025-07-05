@@ -5,14 +5,14 @@
 #define screen_height 1600
 #define TILE_SIZE 100
 #define FOV 60.0
-#define NUM_RAYS 3000
+// #define NUM_RAYS 3000
 #define PI 3.1415926535
 #define MAP_WIDTH 16
 #define MAP_HEIGHT 12
 #define PLAYER_SPEED 5
-#define ROTATION_SPEED 0.1
+#define ROTATION_SPEED M_PI / 180
 #define MAX_RAY_DISTANCE 10000
-#define MAX_DIST_PIXEL NUM_RAYS * 2
+#define MAX_DIST_PIXEL screen_width * 2
 
 
 // Color definitions
@@ -127,6 +127,7 @@ typedef struct s_data
 	t_sprite 			bg;
 	t_sprite 			bg1;
 	t_map				map;
+	int					NUM_RAYS;
 }						t_data;
 void	print_map(char **map);
 int		main_function_parsing(t_data *data, char *file);
@@ -134,6 +135,18 @@ int		map_check(t_data *data, char *file, char *line, int fd);
 
 
 /* FUNCTIONS */
+void    wall_projection(t_data *data, t_ray *ray, int *color, int col);
+void check_vertical_intersect(t_data *data, t_ray *ray);
+void    calc_vertical_step(t_data *data, t_ray *ray, double tan_val);
+void    calc_first_v_intersect(t_data *data, t_ray *ray, double tan_val);
+void    init_ray(t_ray *ray, t_data *data);
+void check_horizontal_intersect(t_data *data, t_ray *ray);
+void    calc_horizontal_step(t_data *data, t_ray *ray, double tan_val);
+void    calc_first_h_intersect(t_data *data, t_ray *ray, double tan_val);
+void    calc_distance(t_data *data, t_ray *ray, int *color);
+void    normalize_angle(double *angle);
+int is_perpendicular_to_Xaxis(double ray_angle);
+int is_perpendicular_to_Yaxis(double ray_angle);
 int is_facing_right(double angle);
 int is_facing_left(double angle);
 int is_facing_down(double angle);

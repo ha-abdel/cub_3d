@@ -9,19 +9,39 @@ void    move_player(t_data *data, int key)
     }
     if (key == S_KEY)
     {
-        data->player.x -= cos(data->player.angle) * PLAYER_SPEED;
-        data->player.y -= sin(data->player.angle) * PLAYER_SPEED;
+        data->player.x += cos(data->player.angle + M_PI) * PLAYER_SPEED;
+        data->player.y += sin(data->player.angle + M_PI) * PLAYER_SPEED;
     }
     if (key == A_KEY)
     {
-        data->player.x += sin(data->player.angle) * PLAYER_SPEED;
-        data->player.y -= cos(data->player.angle) * PLAYER_SPEED;
+        data->player.x += cos(data->player.angle - M_PI_2) * PLAYER_SPEED;
+        data->player.y += sin(data->player.angle - M_PI_2) * PLAYER_SPEED;
     }
     if (key == D_KEY)
     {
-        data->player.x -= sin(data->player.angle) * PLAYER_SPEED;
-        data->player.y += cos(data->player.angle) * PLAYER_SPEED;
+        data->player.x += cos(data->player.angle + M_PI_2) * PLAYER_SPEED;
+        data->player.y += sin(data->player.angle + M_PI_2) * PLAYER_SPEED;
     }
+    // if (key == W_KEY)
+    // {
+    //     data->player.x += cos(data->player.angle) * PLAYER_SPEED;
+    //     data->player.y += sin(data->player.angle) * PLAYER_SPEED;
+    // }
+    // if (key == S_KEY)
+    // {
+    //     data->player.x -= cos(data->player.angle) * PLAYER_SPEED;
+    //     data->player.y -= sin(data->player.angle) * PLAYER_SPEED;
+    // }
+    // if (key == A_KEY)
+    // {
+    //     data->player.x += sin(data->player.angle) * PLAYER_SPEED;
+    //     data->player.y -= cos(data->player.angle) * PLAYER_SPEED;
+    // }
+    // if (key == D_KEY)
+    // {
+    //     data->player.x -= sin(data->player.angle) * PLAYER_SPEED;
+    //     data->player.y += cos(data->player.angle) * PLAYER_SPEED;
+    // }
     // if (is_wall(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle)))
     // {
     //     data->player.x = old_px;
