@@ -80,6 +80,7 @@ int is_wall(t_data *data, double x, double y)
 //	return (1);
 //}
 
+
 int inside_bounds(t_data *data, double x, double y) {
     (void)data;
     if (x < 0 || x >= data->map.width * TILE_SIZE || y < 0 || y >= data->map.height * TILE_SIZE)
@@ -243,7 +244,7 @@ void draw_map(t_data *data) {
     draw_walls(data);
     draw_grid_lines(data);
     draw_player(data);
-    draw_direction_lines(data);
+   // draw_direction_lines(data);
     draw_line(data, data->player.x, data->player.y, data->player.x + 50, data->player.y, WHITE, 2); // 0° reference (right)
     draw_line(data, data->player.x, data->player.y, data->player.x, data->player.y + 50, WHITE, 2); // 90° reference (down)
     // mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);

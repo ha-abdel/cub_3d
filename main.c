@@ -314,13 +314,82 @@
 //    data->player.x = -1;
 //}
 
+void	my_mlx_pixel(t_sprite *img, int x, int y, int color)
+{
+	char	*dst;
+
+	if (x < 0 || y < 0 || x >= img->width || y >= img->height)
+		return ;
+	dst = img->addr + (y * img->line_len) + x * (img->bpp / 8);
+	*(unsigned int *)dst = color;
+}
+
+//void    cast_a_ray(t_data *data, int ray_angle)
+//{
+//    double     max_x;
+//    double     max_y;
+//    double     i;
+
+//    max_x = data->player.x + cos(ray_angle) * 30;
+//    max_y = data->player.y + cos(ray_angle) * 30;
+//    i = data->player.x + 1;
+//    while (i < max_x)
+//    {
+//        my_mlx_pixel(&data->bg, data->player.x + (i - data->player.x), data->player.y + (i - data->player.x), RED);
+//        i++;
+//    }
+//}
+
+void cast_a_ray(t_data *data, double ray_angle)
+{
+    ray_angle =  fmod(ray_angle, 2 * PI);
+    //printf("ray_angle is %f\n",  ray_angle);
+    if (ray_angle < 0)
+        ray_angle += 2 * PI;
+    double x = data->player.x;
+    double y = data->player.y;
+    double step = 0.0;
+    
+
+    //double dx = x + 60 * cos(ray_angle);
+    //double dy = y + 60 *  sin(ray_angle);
+    double dx = cos(ray_angle);
+    double dy = sin(ray_angle);
+
+  while (step < 60)
+    {
+        my_mlx_pixel(&data->bg, x, y, BLUE);
+        x += dx;
+        y += dy;
+        step += 1.0;
+    }
+    //draw_line(data, x, y, dx, dy, BLUE, 2);
+}
+
+
+void    cast_my_rays(t_data *data)
+{
+    int colummnid;
+    double ray_angle;
+
+    colummnid = 0;
+    ray_angle = (data->player.angle) - ((FOV / 2) * (PI / 180));
+    while (colummnid < (data->map.width * TILE_SIZE))
+    {
+        cast_a_ray(data, ray_angle);
+        ray_angle += (FOV * PI / 180) / (data->map.width * TILE_SIZE);
+        colummnid++;
+    }
+    
+}
+
 int handle_key(int key, t_data *data) {
     if (key == ESC_KEY) {
         mlx_destroy_window(data->mlx, data->win_3d);
         mlx_destroy_window(data->mlx, data->win_2d);
         exit(0);
     }
-    // clear_image(&data->bg, BLACK);
+    //clear_image(&data->bg, BLACK);
     // clear_image(&data->bg1, BLACK);
 
     
@@ -367,13 +436,14 @@ int    render(t_data *data)
     static int frame_counter;
     if (frame_counter == 60)
     {
-        clear_image(&data->bg1, BLACK);
+        //clear_image(&data->bg1, BLACK);
         clear_image(&data->bg, BLACK);
 
         draw_map(data);
-        cast_rays(data);
+        //cast_rays(data);
+        cast_my_rays(data);
         mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
-        mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
+        //mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
         frame_counter = 0;
     }
     frame_counter++;
@@ -388,8 +458,9 @@ int main(int ac, char **av) {
     initial_data(&data);
     main_function_parsing(&data, av[1]);
     init_data(&data);
-    draw_map(&data);
-    cast_rays(&data);
+    //draw_map(&data);
+    //cast_my_rays(&data);
+    //cast_rays(&data);
     // mlx_put_image_to_window(data.mlx, data.win_2d, data.bg.img, 0, 0);
     // mlx_put_image_to_window(data.mlx, data.win_3d, data.bg1.img, 0, 0);
     mlx_hook(data.win_3d, 2, 1L<<0, handle_key, &data);

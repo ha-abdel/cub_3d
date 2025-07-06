@@ -112,6 +112,7 @@ typedef struct s_data
 	t_sprite 			bg1;
 	t_map				map;
 }						t_data;
+
 void	print_map(char **map);
 int		main_function_parsing(t_data *data, char *file);
 int		map_check(t_data *data, char *file, char *line, int fd);
