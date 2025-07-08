@@ -340,31 +340,66 @@ void	my_mlx_pixel(t_sprite *img, int x, int y, int color)
 //    }
 //}
 
-void cast_a_ray(t_data *data, double ray_angle)
+//void cast_a_ray(t_data *data, double ray_angle)
+//{
+//    ray_angle =  fmod(ray_angle, 2 * PI);
+//    //printf("ray_angle is %f\n",  ray_angle);
+//    if (ray_angle < 0)
+//        ray_angle += 2 * PI;
+//    double x = data->player.x;
+//    double y = data->player.y;
+//    double step = 0.0;
+//    double  flag;
+    
+
+//    //double dx = x + 60 * cos(ray_angle);
+//    //double dy = y + 60 *  sin(ray_angle);
+//    double dx = cos(ray_angle);
+//    double dy = sin(ray_angle);
+
+//    while (1)
+//    {
+//        flag = step / TILE_SIZE;
+//        if (data->map.map)
+//    }
+//  while (step < 90)
+//    {
+//        my_mlx_pixel(&data->bg, x, y, BLUE);
+//        x += dx;
+//        y += dy;
+//        step += 1.0;
+//    }
+//    //draw_line(data, x, y, dx, dy, BLUE, 2);
+//}
+double cast_a_ray(t_data *data, double ray_angle)
 {
-    ray_angle =  fmod(ray_angle, 2 * PI);
-    //printf("ray_angle is %f\n",  ray_angle);
+    // Normalize the angle between 0 and 2π
+    ray_angle = fmod(ray_angle, 2 * PI);
     if (ray_angle < 0)
         ray_angle += 2 * PI;
+
     double x = data->player.x;
     double y = data->player.y;
     double step = 0.0;
-    
 
-    //double dx = x + 60 * cos(ray_angle);
-    //double dy = y + 60 *  sin(ray_angle);
+    // Ray direction unit vector
     double dx = cos(ray_angle);
     double dy = sin(ray_angle);
 
-  while (step < 60)
+    while (step < 1000)
     {
+        if (is_wall(data, x, y))
+            break;
         my_mlx_pixel(&data->bg, x, y, BLUE);
+
         x += dx;
         y += dy;
         step += 1.0;
     }
-    //draw_line(data, x, y, dx, dy, BLUE, 2);
+
+    return step; // This is the length of the ray
 }
+
 
 
 void    cast_my_rays(t_data *data)
