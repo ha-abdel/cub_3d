@@ -1,4 +1,4 @@
-#include "cube.h"
+#include "../cube.h"
 
 void draw_square(t_data *data, int x, int y, int color, int win)
 {

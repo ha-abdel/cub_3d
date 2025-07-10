@@ -1,4 +1,4 @@
-#include "cube.h"
+#include "../cube.h"
 
 int is_perpendicular_to_Yaxis(double ray_angle)
 {

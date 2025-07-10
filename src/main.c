@@ -1,4 +1,4 @@
-#include "cube.h"
+#include "../cube.h"
 
 void    move_player(t_data *data, int key)
 {

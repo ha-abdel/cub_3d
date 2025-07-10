@@ -1,4 +1,4 @@
-#include "cube.h"
+#include "../cube.h"
 
 void    calc_distance(t_data *data, t_ray *ray, int *color)
 {

@@ -1,4 +1,4 @@
-#include "cube.h"
+#include "../cube.h"
 
 void    init_data(t_data *data)
 {

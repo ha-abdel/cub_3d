@@ -1,4 +1,4 @@
-#include "cube.h"
+#include "../cube.h"
 
 void    set_wall_type(t_ray *ray)
 {

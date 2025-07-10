@@ -1,4 +1,4 @@
-#include "cube.h"
+#include "../cube.h"
 
 void    calc_first_v_intersect(t_data *data, t_ray *ray, double tan_val)
 {
