@@ -3,7 +3,7 @@
 
 #define screen_width 3000
 #define screen_height 1600
-#define TILE_SIZE 100
+#define TILE_SIZE 64
 #define FOV 60.0
 // #define NUM_RAYS 3000
 #define PI 3.1415926535
@@ -47,6 +47,11 @@
 # include <unistd.h>
 # include "libft.h"
 
+typedef enum e_wall_texture
+{
+    N_WALL, S_WALL, E_WALL, W_WALL
+} t_wall_texture;
+
 typedef struct s_sprite
 {
 	void				*img;
@@ -78,6 +83,7 @@ typedef struct s_point
 
 typedef struct s_ray
 {
+	unsigned int color;
 	double	ray_angle;
 	double	angle_step;
 	double	distance;
@@ -101,6 +107,7 @@ typedef struct s_ray
 	t_point	v_intersect;
 	t_point	player;
 	t_point ray_end;
+	t_wall_texture	wall_type;
 } t_ray;
 
 typedef struct s_map
@@ -126,6 +133,10 @@ typedef struct s_data
     t_player 			player;
 	t_sprite 			bg;
 	t_sprite 			bg1;
+	t_sprite 			N_wall;
+	t_sprite 			S_wall;
+	t_sprite 			E_wall;
+	t_sprite 			W_wall;
 	t_map				map;
 	int					NUM_RAYS;
 }						t_data;

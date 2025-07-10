@@ -1,17 +1,17 @@
-N ./path_to_the_north_texture
-S ./path_to_the_south_texture
-W ./path_to_the_west_texture
-E ./path_to_the_east_texture
+N wolfenstein/blue_stone.xpm
+S wolfenstein/color_stone.xpm
+W wolfenstein/eagle.xpm
+E wolfenstein/grey_stone.xpm
 
 F 0,30,100
 C 26,30,0
 
 111111111
-10S000001
 100000001
+101000101
 100000001
-100000001
-100000001
-100000001
-100000001
+1000N1001
+101000001
+100000101
+101010011
 111111111

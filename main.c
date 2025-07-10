@@ -92,6 +92,7 @@ int    render(t_data *data)
         cast_rays(data);
         draw_direction_lines(data);
         mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
+        // mlx_put_image_to_window(data->mlx, data->win_2d, data->wall.img, 0, 0);
         mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
       
         frame_counter = 0;
@@ -120,7 +121,7 @@ int main(int ac, char **av) {
     mlx_hook(data.win_3d, 2, 1L<<0, handle_key, &data);
     mlx_hook(data.win_2d, 2, 1L<<0, handle_key, &data);
     
-   mlx_loop_hook(data.mlx, render, &data);
+    mlx_loop_hook(data.mlx, render, &data);
     mlx_loop(data.mlx);
     return 0;
 }

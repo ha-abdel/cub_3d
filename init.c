@@ -14,6 +14,26 @@ void    init_data(t_data *data)
     data->bg1.addr = mlx_get_data_addr(data->bg1.img, &data->bg1.bpp, &data->bg1.line_len, &data->bg1.endian);
     data->bg1.width = screen_width;
     data->bg1.height = screen_height;
+    data->N_wall.img = mlx_xpm_file_to_image(data->mlx, data->map.n_path, &data->N_wall.width, &data->N_wall.height);
+    data->N_wall.addr = mlx_get_data_addr(data->N_wall.img, &data->N_wall.bpp, &data->N_wall.line_len, &data->N_wall.endian);
+    data->N_wall.width =  TILE_SIZE;
+    data->N_wall.height = TILE_SIZE;
+
+    data->S_wall.img = mlx_xpm_file_to_image(data->mlx, data->map.s_path, &data->S_wall.width, &data->S_wall.height);
+    data->S_wall.addr = mlx_get_data_addr(data->S_wall.img, &data->S_wall.bpp, &data->S_wall.line_len, &data->S_wall.endian);
+    data->S_wall.width =  TILE_SIZE;
+    data->S_wall.height = TILE_SIZE;
+
+    data->E_wall.img = mlx_xpm_file_to_image(data->mlx, data->map.e_path, &data->E_wall.width, &data->E_wall.height);
+    data->E_wall.addr = mlx_get_data_addr(data->E_wall.img, &data->E_wall.bpp, &data->E_wall.line_len, &data->E_wall.endian);
+    data->E_wall.width =  TILE_SIZE;
+    data->E_wall.height = TILE_SIZE;
+
+    data->W_wall.img = mlx_xpm_file_to_image(data->mlx, data->map.w_path, &data->W_wall.width, &data->W_wall.height);
+    data->W_wall.addr = mlx_get_data_addr(data->W_wall.img, &data->W_wall.bpp, &data->W_wall.line_len, &data->W_wall.endian);
+    data->W_wall.width =  TILE_SIZE;
+    data->W_wall.height = TILE_SIZE;
+    printf("player x is : %0.2f and y is : %0.2f\n", data->player.x, data->player.y);
     data->player.x *= TILE_SIZE + TILE_SIZE/2;
     data->player.y *= TILE_SIZE + TILE_SIZE/2;
     // data->player.angle = 45;
