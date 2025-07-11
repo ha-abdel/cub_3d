@@ -17,7 +17,7 @@ int is_wall(t_data *data, double x, double y)
     if (grid_x < 0 || grid_y < 0 || grid_y >= data->map.height || grid_x >= data->map.width)
         return 1;
     char c = data->map.map[grid_y][grid_x];
-    if (c == '1' || c == ' ')
+    if (c == '1' || c == ' ' || c == 'P')
         return 1;
     return 0;
 }

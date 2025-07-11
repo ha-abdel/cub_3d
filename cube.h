@@ -2,7 +2,7 @@
 # define CUBE_H
 
 #define screen_width 3000
-#define screen_height 1600
+#define screen_height 2000
 #define TILE_SIZE 64
 #define FOV 60.0
 // #define NUM_RAYS 3000
@@ -10,7 +10,7 @@
 #define MAP_WIDTH 16
 #define MAP_HEIGHT 12
 #define PLAYER_SPEED 5
-#define ROTATION_SPEED M_PI / 180
+#define ROTATION_SPEED M_PI / 300
 #define MAX_RAY_DISTANCE 10000
 #define MAX_DIST_PIXEL screen_width * 2
 
@@ -49,7 +49,7 @@
 
 typedef enum e_wall_texture
 {
-    N_WALL, S_WALL, E_WALL, W_WALL
+    N_WALL, S_WALL, E_WALL, W_WALL, NONE
 } t_wall_texture;
 
 typedef struct s_sprite
@@ -63,8 +63,6 @@ typedef struct s_sprite
 	int					endian;
 	// int					frame_count;
 	// int					frame_index;
-	// char				action;
-	// int					dir;
 }						t_sprite;
 
 
@@ -113,15 +111,15 @@ typedef struct s_ray
 typedef struct s_map
 {
 	char	**map;
+	char	*n_path;
+	char	*s_path;
+	char	*e_path;
+	char	*w_path;
 	int		direction;
 	int		f_color;
 	int		c_color;
 	int		height;
 	int		width;
-	char	*n_path;
-	char	*s_path;
-	char	*e_path;
-	char	*w_path;
 }	t_map;
 
 typedef struct s_data

@@ -68,6 +68,9 @@ void    draw_walls(t_data *data)
         {
             draw_square(data, x * TILE_SIZE, y * TILE_SIZE, 
                        data->map.map[y][x] == '1' ? BLACK : DARK_GRAY, 2);
+            if (data->map.map[y][x] == 'P')
+                draw_square(data, x * TILE_SIZE, y * TILE_SIZE, GREEN , 2);
+
             x++;
         }  
         y++;
@@ -94,7 +97,7 @@ void    draw_grid_lines(t_data *data)
     {
         point1.x = 0;
         point1.y = y * TILE_SIZE;
-        point2.x = data->map.height * TILE_SIZE;
+        point2.x = data->map.width * TILE_SIZE;
         point2.y = y * TILE_SIZE;
         draw_line(data, point1, point2, GRAY, 2);
         y++;

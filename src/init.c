@@ -33,9 +33,9 @@ void    init_data(t_data *data)
     data->W_wall.addr = mlx_get_data_addr(data->W_wall.img, &data->W_wall.bpp, &data->W_wall.line_len, &data->W_wall.endian);
     data->W_wall.width =  TILE_SIZE;
     data->W_wall.height = TILE_SIZE;
-    printf("player x is : %0.2f and y is : %0.2f\n", data->player.x, data->player.y);
     data->player.x *= TILE_SIZE + TILE_SIZE/2;
     data->player.y *= TILE_SIZE + TILE_SIZE/2;
+
     // data->player.angle = 45;
 
 }

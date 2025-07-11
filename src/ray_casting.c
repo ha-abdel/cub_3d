@@ -11,6 +11,7 @@ void cast_rays(t_data *data)
 
     while (i < data->NUM_RAYS)
     {
+        ray.wall_type = NONE;
         check_horizontal_intersect(data, &ray);
         check_vertical_intersect(data, &ray);
         calc_distance(data, &ray, &color);

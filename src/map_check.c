@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 16:06:27 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/10 12:19:06 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:41:34 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ int	valid_map(t_data *data)
 					//printf("here////[%s]//here\n", data->map.map[i]);
 					return (0);
 				}
-				data->player.y = i - 1;
-				data->player.x = j - 1;
+				data->player.y = i;
+				data->player.x = j;
 			}
 			if (data->map.map[i][j] == '0')
 			{
