@@ -242,7 +242,7 @@ void    draw_direction_lines(t_data *data)
 
 void draw_map(t_data *data) {
     draw_walls(data);
-    draw_grid_lines(data);
+    //draw_grid_lines(data);
     draw_player(data);
    // draw_direction_lines(data);
     draw_line(data, data->player.x, data->player.y, data->player.x + 50, data->player.y, WHITE, 2); // 0° reference (right)

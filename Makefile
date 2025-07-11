@@ -5,7 +5,7 @@ LFLAGS = -lmlx -lXext -lX11 -lm
 
 # main_src = main.c
 
-SRCS = main.c parsing.c	ray_casting.c	map_check.c
+SRCS = main.c parsing.c	ray_casting.c	map_check.c create_minimap.c
 
 OBJS = $(SRCS:.c=.o)
 

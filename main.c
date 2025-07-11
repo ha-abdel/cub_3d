@@ -466,19 +466,60 @@ int handle_key(int key, t_data *data) {
     return 0;
 }
 
+
+//void    draw_player(t_sprite *img, int x, int y)
+//{
+//    int px = x;
+//    int py = y;
+//    int dy = -5;
+
+//    while (dy <= 5)
+//    {
+//        int dx = -5;
+//        while (dx <= 5)
+//        {
+//            if (dx*dx + dy*dy <= 25)
+//                my_mlx_pixel_put(img, px+dx, py+dy, RED);
+//            dx++;
+//        }
+//        dy++;
+//    }
+//}
+
+//void draw_circle(t_data *data, t_sprite *img, int cx, int cy, int radius, int color)
+//{
+//    int x, y;
+//    int r2 = radius * radius;
+//    int thickness = 150; // border thickness
+
+//    for (y = -radius; y <= radius; y++)
+//    {
+//        for (x = -radius; x <= radius; x++)
+//        {
+//            int dist2 = x * x + y * y;
+//            if (dist2 >= r2 - thickness && dist2 <= r2 + thickness)
+//                my_mlx_pixel(img, cx + x, cy + y, color);
+//            //else if (dist2 <= r2 - thickness)
+//                //mdraw_map(data, img, cx + x, cy + y);
+//        }
+//    }
+//}
+
+
 int    render(t_data *data)
 {
     static int frame_counter;
     if (frame_counter == 60)
     {
-        //clear_image(&data->bg1, BLACK);
+        clear_image(&data->bg1, BLACK);
         clear_image(&data->bg, BLACK);
 
         draw_map(data);
         //cast_rays(data);
         cast_my_rays(data);
         mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
-        //mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
+        create_minimap(data);
+        mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
         frame_counter = 0;
     }
     frame_counter++;
@@ -511,3 +552,9 @@ int main(int ac, char **av) {
     mlx_loop(data.mlx);
     return 0;
 }
+
+// i need to create mini map
+// first i need to make the mini map take only where the player
+    // so i need to create a function that trac player and update the position
+    // try to update in the circle only the place of player
+// so will see the next:)
