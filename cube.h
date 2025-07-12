@@ -86,6 +86,7 @@ typedef struct s_player {
     int is_facing_left;
 } t_player;
 
+#define SAHM "AnyConv.com__minimap_player.xpm"
 
 typedef struct s_map
 {
@@ -101,6 +102,17 @@ typedef struct s_map
 	char	*w_path;
 }	t_map;
 
+typedef struct image
+{
+	void		*full_imag;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int			x;
+	int			y;
+}				t_img;
+
 typedef struct s_data
 {
 	void				*mlx;
@@ -111,6 +123,7 @@ typedef struct s_data
 	t_sprite 			bg;
 	t_sprite 			bg1;
 	t_map				map;
+	t_img				minimap_img;
 }						t_data;
 
 void	print_map(char **map);

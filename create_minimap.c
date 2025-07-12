@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 14:23:16 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/09 15:13:57 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/11 16:29:13 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,42 +106,119 @@ void draw_circle(t_data *data, int cx, int cy, int radius)
     }
 }
 
-void drawline(t_data *data, int x0, int y0, int x1, int y1, int color, int win) {
-    double dx = x1 - x0;
-    double dy = y1 - y0;
-    double steps = fmax(fabs(dx),fabs(dy));
-    steps = fmin(steps, MAX_DIST_PIXEL);
-    double inc_x = dx / steps;
-    double inc_y = dy / steps;
-    double x = x0;
-    double y = y0;
-    int i = 0;
-    while (i < steps)
+//void drawline(t_data *data, int x0, int y0, int x1, int y1, int color, int win) {
+//    double dx = x1 - x0;
+//    double dy = y1 - y0;
+//    double steps = fmax(fabs(dx),fabs(dy));
+//    steps = fmin(steps, MAX_DIST_PIXEL);
+//    double inc_x = dx / steps;
+//    double inc_y = dy / steps;
+//    double x = x0;
+//    double y = y0;
+//    int i = 0;
+//    while (i < steps)
+//    {
+//        my_mlx_pixel(&data->bg1, (int)x, (int)y, color);
+//        i++;
+//        x+= inc_x;
+//        y+= inc_y;
+//    }
+//}
+
+
+void    img_minimap(t_data *data, int px, int py, int angle)
+{
+    int     i;
+    int     j;
+    unsigned int color;
+
+    i = 0;
+    color = 0;
+    while (i < 64)
     {
-        my_mlx_pixel(&data->bg1, (int)x, (int)y, color);
+        j = 0;
+        while (j < 64)
+        {
+            color = *(unsigned int *)(data->minimap_img.addr + (i
+						* data->minimap_img.line_length + j
+						* (data->minimap_img.bits_per_pixel / 8)));
+            if (color != 0xFF000000)
+			    my_mlx_pixel(&data->bg1, px + j, py + i, color);
+            else
+                my_mlx_pixel(&data->bg1, px + j, py + i, DARK_GRAY);
+			j++;
+        }
         i++;
-        x+= inc_x;
-        y+= inc_y;
     }
 }
 
-void    draw_directionlines(t_data *data)
+//void img_minimap(t_data *data, int cx, int cy, double angle)
+//{
+//    int i, j;
+//    int sx, sy;
+//    double dx, dy;
+//    double cos_a = cos(angle);
+//    double sin_a = sin(angle);
+//    int half = 64 / 2;
+//    unsigned int color;
+
+//    for (i = 0; i < 64; i++)
+//    {
+//        for (j = 0; j < 64; j++)
+//        {
+//            // center the image
+//            dx = j - half;
+//            dy = i - half;
+
+//            // apply rotation
+//            double rot_x = dx * cos_a - dy * sin_a;
+//            double rot_y = dx * sin_a + dy * cos_a;
+
+//            // rotated pixel position
+//            sx = cx + (int)rot_x;
+//            sy = cy + (int)rot_y;
+
+//            // get original color
+//            color = *(unsigned int *)(data->minimap_img.addr + 
+//                    (i * data->minimap_img.line_length + 
+//                    j * (data->minimap_img.bits_per_pixel / 8)));
+
+//            if (color != 0xFF0000)
+//                my_mlx_pixel(&data->bg1, sx, sy, color);
+//            else
+//                my_mlx_pixel(&data->bg1, sx, sy, GRAY);
+//        }
+//    }
+//}
+
+void draw_directionlines(t_data *data)
 {
     int px = NUM_RAYS - 150;
     int py = data->map.height * TILE_SIZE - 150;
 
-    int dx = px + cos(data->player.angle) * 30;
-    int dy = py + sin(data->player.angle) * 30;
-    
-    drawline(data, px, py, dx, dy, GREEN, 2);
+    img_minimap(data, px, py, data->player.angle);
 }
+
+
+
+//void    draw_directionlines(t_data *data)
+//{
+//    int px = NUM_RAYS - 150;
+//    int py = data->map.height * TILE_SIZE - 150;
+
+//    int dx = px + cos(data->player.angle) * 30;
+//    int dy = py + sin(data->player.angle) * 30;
+    
+//    img_minimap(data, px, py, dx, dy);
+//}
 
 void	create_minimap(t_data *data)
 {
 
 	draw_circle(data, NUM_RAYS - 150, data->map.height * TILE_SIZE - 150, 130);
 	mdraw_minimap_walls(data, &data->bg1, NUM_RAYS - 150, data->map.height * TILE_SIZE - 150, 130);
-    draw_circle(data, NUM_RAYS - 150, data->map.height * TILE_SIZE - 150, 3);
+    //img_minimap(data);
+    //draw_circle(data, NUM_RAYS - 150, data->map.height * TILE_SIZE - 150, 3);
 	draw_directionlines(data);
 	
 }

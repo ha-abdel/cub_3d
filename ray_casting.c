@@ -465,10 +465,19 @@ void cast_rays(t_data *data) {
 
 void    init_data(t_data *data)
 {
+    int     a;
+    int     b;
+
+    a = 0;
+    b = 0;
+    ft_bzero(&data->minimap_img, sizeof(t_img));
     data->mlx = mlx_init();
     data->win_3d = mlx_new_window(data->mlx, NUM_RAYS, data->map.height * TILE_SIZE, "3D View");
     data->win_2d = mlx_new_window(data->mlx, data->map.width * TILE_SIZE, data->map.height * TILE_SIZE, "2D Debug View");
-
+    data->minimap_img.full_imag = mlx_xpm_file_to_image(data->mlx, SAHM, &a, &b);
+    data->minimap_img.addr = mlx_get_data_addr(data->minimap_img.full_imag,
+			&data->minimap_img.bits_per_pixel, &data->minimap_img.line_length,
+			&data->minimap_img.endian);
     data->bg.img = mlx_new_image(data->mlx, data->map.width * TILE_SIZE, data->map.height * TILE_SIZE);
     data->bg.addr = mlx_get_data_addr(data->bg.img, &data->bg.bpp, &data->bg.line_len, &data->bg.endian);
     data->bg.width = data->map.width * TILE_SIZE;
