@@ -27,7 +27,9 @@ LIBFT = $(LIBFT_PATH)/libft.a
 all: $(LIBFT) $(NAME)
 
 bonus : $(LIBFT) $(OBJS) $(OBJS_BONUS)
-	@$(CC) $(CFLAGS) $(OBJS) $(OBJS_BONUS) $(LFLAGS) $(LIBFT) -o $(NAME)
+	@rm -f $(OBJS) $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(LFLAGS) $(LIBFT) -o $(NAME)
+	@echo "Bonus version compiled successfully!"
 
 $(LIBFT):
 	@make -C $(LIBFT_PATH)
@@ -43,6 +45,7 @@ $(NAME): $(OBJS)
 
 clean:
 	@rm -rf $(OBJS) $(OBJS_BONUS)
+	@echo "all cleaned successfully!"
 	@make -C $(LIBFT_PATH) clean
 
 fclean: clean
