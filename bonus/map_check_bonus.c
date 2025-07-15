@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 16:06:27 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/14 16:57:53 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:14:28 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*get_new_line(char *str, int size)
 
 int	handle_direction(t_data *data, char c)
 {
-	if ((c != 'N' && c != 'E' && c != 'W' && c != 'S') || data->player.angle != -1)
+	if ((c != 'N' && c != 'E' && c != 'W' && c != 'S' && c != 'D') || data->player.angle != -1)
 		return (0);
 	if (c == 'N')
 		data->player.angle = PI / 2;
@@ -109,10 +109,7 @@ int	valid_map(t_data *data)
 			if (!ft_isdigit(data->map.map[i][j]) && data->map.map[i][j] != ' ')
 			{
 				if (!handle_direction(data, data->map.map[i][j]))
-				{
-					//printf("here////[%s]//here\n", data->map.map[i]);
 					return (0);
-				}
 				data->player.y = i;
 				data->player.x = j;
 			}
@@ -242,15 +239,10 @@ int	map_check(t_data *data, char *file, char *line, int fd)
 	close(fd);
 	map = ft_malloc(sizeof(char *) * (count + 1), 1);
 	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (0);
 	n_line = get_next_line(fd);
 	while (ft_strncmp(n_line, line, ft_strlen(line)) != 0)
 		n_line = get_next_line(fd);
-	if (!fill_map(map, n_line, fd))
-		return (0);
-	//print_map(map);
-	if (!create_new_map(data, map, count))
+	if (!fill_map(map, n_line, fd) || !create_new_map(data, map, count))
 		return (0);
 	return (1);
 }
