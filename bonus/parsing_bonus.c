@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 08:15:15 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/15 17:16:59 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:49:31 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,7 +310,6 @@ int		main_function_parsing(t_data *data, char *file)
 		return (0);
 	}
 	// print_data(data);
-	printf("\nSUCCESS\n");
+	printf("SUCCESS\n");
 	return (1);
-
 }
