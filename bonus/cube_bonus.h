@@ -1,6 +1,15 @@
 #ifndef CUBE_H
 # define CUBE_H
 
+# include "mlx.h"
+# include <fcntl.h>
+# include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include "libft.h"
+
 #define screen_width 1500
 #define screen_height 1000
 #define TILE_SIZE 64
@@ -39,15 +48,6 @@
 #define ESC_KEY 65307
 
 #define SAHM "wolfenstein/AnyConv.com__minimap_player-resized.xpm"
-
-# include "mlx.h"
-# include <fcntl.h>
-# include <math.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
-# include "libft.h"
 
 typedef enum e_wall_texture
 {

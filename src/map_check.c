@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 16:06:27 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/14 15:33:53 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:15:07 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*get_new_line(char *str, int size)
 
 int	handle_direction(t_data *data, char c)
 {
-	if ((c != 'N' && c != 'E' && c != 'W' && c != 'S' && c != 'D') || data->player.angle != -1)
+	if ((c != 'N' && c != 'E' && c != 'W' && c != 'S') || data->player.angle != -1)
 		return (0);
 	if (c == 'N')
 		data->player.angle = PI / 2;
