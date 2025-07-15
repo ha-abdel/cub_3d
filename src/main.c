@@ -112,6 +112,7 @@ int    render(t_data *data)
         draw_map(data);
         cast_rays(data);
         draw_direction_lines(data);
+        create_minimap(data);
         mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
         // mlx_put_image_to_window(data->mlx, data->win_2d, data->wall.img, 0, 0);
         mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);

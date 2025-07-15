@@ -1,8 +1,8 @@
 #ifndef CUBE_H
 # define CUBE_H
 
-#define screen_width 3000
-#define screen_height 2000
+#define screen_width 1000
+#define screen_height 700
 #define TILE_SIZE 64
 #define FOV 60.0
 // #define NUM_RAYS 3000
@@ -24,6 +24,8 @@
 #define YELLOW 0xFFFF00
 #define GRAY 0x808080
 #define DARK_GRAY 0x404040
+
+#define SAHM "wolfenstein/AnyConv.com__minimap_player-resized.xpm"
 
 #define PLAYER_NORTH 0
 #define PLAYER_SOUTH 1
@@ -122,6 +124,13 @@ typedef struct s_map
 	int		width;
 }	t_map;
 
+typedef struct minimap
+{
+	unsigned	int		color;
+	t_point				centre;
+	double				r2;
+}	t_minimap;
+
 typedef struct s_data
 {
 	void				*mlx;
@@ -135,6 +144,8 @@ typedef struct s_data
 	t_sprite 			S_wall;
 	t_sprite 			E_wall;
 	t_sprite 			W_wall;
+	t_sprite 			minimap;
+	t_minimap			mini_map;
 	t_map				map;
 	int					NUM_RAYS;
 }						t_data;
@@ -176,5 +187,6 @@ void    initial_data(t_data *data);
 void cast_rays(t_data *data);
 void draw_map(t_data *data) ;
 void clear_image(t_sprite *img, int color);
+void	create_minimap(t_data *data);
 
 #endif

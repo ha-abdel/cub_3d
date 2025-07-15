@@ -1,6 +1,6 @@
 #include "../cube.h"
 
-// void    part_one(t_ray **ray, t_sprite *img)
+// void    part_one(t_ray **ray)
 // {
 //     // if ((*ray)->wall_type != NONE)
 //     //     return ;
@@ -61,7 +61,7 @@
 
 void    set_wall_type(t_ray *ray)
 {
-    if (ray->h_dist < ray->v_dist)
+    if (ray->h_dist <= ray->v_dist)
     {
         if (is_facing_down(ray->ray_angle))
             ray->wall_type = N_WALL;
@@ -74,7 +74,10 @@ void    set_wall_type(t_ray *ray)
             ray->wall_type = E_WALL;
         else
             ray->wall_type = W_WALL;
-        }
+    }
+    // part_one(&ray);
+    // if (ray->wall_type == NONE)
+    //     part_two(&ray);
    
 }
 void    get_texture_img(t_data *data, t_ray *ray, int texture_offset_x, int texture_offset_y)

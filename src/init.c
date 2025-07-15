@@ -2,6 +2,11 @@
 
 void    init_data(t_data *data)
 {
+    int     a;
+    int     b;
+
+    a = 0;
+    b = 0;
     data->mlx = mlx_init();
     data->win_3d = mlx_new_window(data->mlx, screen_width, screen_height, "3D View");
     data->win_2d = mlx_new_window(data->mlx, data->map.width * TILE_SIZE, data->map.height * TILE_SIZE, "2D Debug View");
@@ -36,8 +41,12 @@ void    init_data(t_data *data)
     data->player.x *= TILE_SIZE + TILE_SIZE/2;
     data->player.y *= TILE_SIZE + TILE_SIZE/2;
 
+    data->minimap.img = mlx_xpm_file_to_image(data->mlx, SAHM, &a, &b);
+    data->minimap.addr = mlx_get_data_addr(data->minimap.img, &data->minimap.bpp, &data->minimap.line_len, &data->minimap.endian);
+    data->minimap.width = a;
+    data->minimap.height = b;
+    ft_bzero(&data->mini_map, sizeof(t_minimap));
     // data->player.angle = 45;
-
 }
 
 void    initial_data(t_data *data)

@@ -7,7 +7,7 @@ LFLAGS = -lmlx -lXext -lX11 -lm
 
 files = angle.c  calculate_distance.c  directions.c  draw_func.c \
 h_intersection.c  init.c  main.c  map_check.c  mlx_utils.c  parsing.c \
-ray_casting.c  v_intersection.c  wall_projection.c
+ray_casting.c  v_intersection.c  wall_projection.c minimap.c
 
 SRCS = $(addprefix src/, $(files))
 
