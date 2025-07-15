@@ -1,4 +1,4 @@
-#include "../cube.h"
+#include "cube_bonus.h"
 
 void    init_data(t_data *data)
 {
@@ -38,9 +38,16 @@ void    init_data(t_data *data)
     data->W_wall.addr = mlx_get_data_addr(data->W_wall.img, &data->W_wall.bpp, &data->W_wall.line_len, &data->W_wall.endian);
     // data->W_wall.width =  TILE_SIZE;
     // data->W_wall.height = TILE_SIZE;
+    data->minimap.img = mlx_xpm_file_to_image(data->mlx, SAHM, &a, &b);
+    data->minimap.addr = mlx_get_data_addr(data->minimap.img, &data->minimap.bpp, &data->minimap.line_len, &data->minimap.endian);
+    data->minimap.width = a;
+    data->minimap.height = b;
+    ft_bzero(&data->mini_map, sizeof(t_minimap));
     data->player.x *= TILE_SIZE + TILE_SIZE/2;
     data->player.y *= TILE_SIZE + TILE_SIZE/2;
+
     // data->player.angle = 45;
+
 }
 
 void    initial_data(t_data *data)

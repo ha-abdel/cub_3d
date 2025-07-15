@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cube.h                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/15 14:43:41 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/15 14:56:18 by salahian         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUBE_H
 # define CUBE_H
 
@@ -22,7 +10,7 @@
 #define MAP_WIDTH 16
 #define MAP_HEIGHT 12
 #define PLAYER_SPEED 5
-#define ROTATION_SPEED M_PI / 180
+#define ROTATION_SPEED M_PI / 300
 #define MAX_RAY_DISTANCE 10000
 #define MAX_DIST_PIXEL screen_width * 2
 
@@ -49,6 +37,8 @@
 #define A_KEY 97
 #define D_KEY 100
 #define ESC_KEY 65307
+
+#define SAHM "wolfenstein/AnyConv.com__minimap_player-resized.xpm"
 
 # include "mlx.h"
 # include <fcntl.h>
@@ -134,6 +124,13 @@ typedef struct s_map
 	int		width;
 }	t_map;
 
+typedef struct minimap
+{
+	unsigned	int		color;
+	t_point				centre;
+	double				r2;
+}	t_minimap;
+
 typedef struct s_data
 {
 	void				*mlx;
@@ -147,6 +144,8 @@ typedef struct s_data
 	t_sprite 			S_wall;
 	t_sprite 			E_wall;
 	t_sprite 			W_wall;
+	t_sprite 			minimap;
+	t_minimap			mini_map;
 	t_map				map;
 	int					NUM_RAYS;
 }						t_data;
@@ -188,5 +187,5 @@ void    initial_data(t_data *data);
 void cast_rays(t_data *data);
 void draw_map(t_data *data) ;
 void clear_image(t_sprite *img, int color);
-
+void	create_minimap(t_data *data);
 #endif

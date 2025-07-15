@@ -1,4 +1,4 @@
-#include "../cube.h"
+#include "cube_bonus.h"
 
 void    move_player(t_data *data, int key)
 {
@@ -49,26 +49,26 @@ void    move_player(t_data *data, int key)
     // }
 }
 
-// int handle_mouse(int x, int y, t_data *data)
-// {
-//     (void)y;
-//     static int oldx;
-//     // double offset;
+int handle_mouse(int x, int y, t_data *data)
+{
+    (void)y;
+    static int oldx;
+    // double offset;
 
-//     // offset = x - oldx;
-//     if (x < oldx)
-//         data->player.angle -= ROTATION_SPEED;
-//     else if (x > oldx)
-//         data->player.angle += ROTATION_SPEED;
+    // offset = x - oldx;
+    if (x < oldx)
+        data->player.angle -= ROTATION_SPEED;
+    else if (x > oldx)
+        data->player.angle += ROTATION_SPEED;
 
-//     // printf("mouse is moved %d\n", x);
-//     if (data->player.angle > 2 * PI)
-// 	    data->player.angle -= 2 * PI;
-//     if (data->player.angle < 0)
-// 		data->player.angle += 2 * PI;
-//     oldx = x;
-//     return 0;
-// }
+    // printf("mouse is moved %d\n", x);
+    if (data->player.angle > 2 * PI)
+	    data->player.angle -= 2 * PI;
+    if (data->player.angle < 0)
+		data->player.angle += 2 * PI;
+    oldx = x;
+    return 0;
+}
 
 int handle_key(int key, t_data *data)
 {
@@ -86,18 +86,18 @@ int handle_key(int key, t_data *data)
         data->player.x = old_px;
         data->player.y = old_py;
     }
-    if (key == LEFT_ARROW)
-	{
-	 	data->player.angle -= ROTATION_SPEED;
-		if (data->player.angle < 0)
-			data->player.angle += 2 * PI;
-	}	
-    if (key == RIGHT_ARROW)
-    {
-		data->player.angle += ROTATION_SPEED;
-		if (data->player.angle > 2 * PI)
-			data->player.angle -= 2 * PI;
-	}  
+    // if (key == LEFT_ARROW)
+	// {
+	//  	data->player.angle -= ROTATION_SPEED;
+	// 	if (data->player.angle < 0)
+	// 		data->player.angle += 2 * PI;
+	// }	
+    // if (key == RIGHT_ARROW)
+    // {
+	// 	data->player.angle += ROTATION_SPEED;
+	// 	if (data->player.angle > 2 * PI)
+	// 		data->player.angle -= 2 * PI;
+	// }  
     return 0;
 }
 
@@ -112,6 +112,7 @@ int    render(t_data *data)
         draw_map(data);
         cast_rays(data);
         draw_direction_lines(data);
+        create_minimap(data);
         mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
         // mlx_put_image_to_window(data->mlx, data->win_2d, data->wall.img, 0, 0);
         mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
@@ -143,8 +144,8 @@ int main(int ac, char **av) {
 
     mlx_hook(data.win_3d, 2, 1L<<0, handle_key, &data);
     mlx_hook(data.win_2d, 2, 1L<<0, handle_key, &data);
-    // mlx_hook(data.win_2d, 6, 1L<<6, handle_mouse, &data);
-    // mlx_hook(data.win_3d, 6, 1L<<6, handle_mouse, &data);
+    mlx_hook(data.win_2d, 6, 1L<<6, handle_mouse, &data);
+    mlx_hook(data.win_3d, 6, 1L<<6, handle_mouse, &data);
     
     mlx_loop_hook(data.mlx, render, &data);
     mlx_loop(data.mlx);
