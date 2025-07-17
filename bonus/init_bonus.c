@@ -36,6 +36,9 @@ void    init_data(t_data *data)
 
     data->W_wall.img = mlx_xpm_file_to_image(data->mlx, data->map.w_path, &data->W_wall.width, &data->W_wall.height);
     data->W_wall.addr = mlx_get_data_addr(data->W_wall.img, &data->W_wall.bpp, &data->W_wall.line_len, &data->W_wall.endian);
+
+    data->door.img = mlx_xpm_file_to_image(data->mlx, "wolfenstein/blue_stone.xpm", &data->door.width, &data->door.height);
+    data->door.addr = mlx_get_data_addr(data->door.img, &data->door.bpp, &data->door.line_len, &data->door.endian);
     // data->W_wall.width =  TILE_SIZE;
     // data->W_wall.height = TILE_SIZE;
     data->minimap.img = mlx_xpm_file_to_image(data->mlx, SAHM, &a, &b);
@@ -65,14 +68,26 @@ void    initial_data(t_data *data)
     data->map.e_path = NULL;
     data->player.y = -1;
     data->player.x = -1;
-    data->NUM_RAYS = screen_width;
+    data->NUM_RAYS = 1;
 }
 
-void    init_ray(t_ray *ray, t_data *data)
+void    init_ray(t_ray *ray, t_data *data, t_door *door)
 {
     ray->ray_angle = data->player.angle - (FOV / 2 * PI / 180.0);
+    ray->h_intersect.x = 0;
+    ray->h_intersect.y = 0;
+    ray->v_intersect.x = 0;
+    ray->v_intersect.y = 0;
     ray->angle_step = (FOV * PI / 180.0) / data->NUM_RAYS;
     ray->distance = 0;
     ray->player.x = data->player.x;
     ray->player.y = data->player.y;
+    door->found_door = 0;
+    door->found_door_pixel = 0;
+    door->ray.ray_angle = data->player.angle - (FOV / 2 * PI / 180.0);
+    door->ray.angle_step = (FOV * PI / 180.0) / data->NUM_RAYS;
+    door->ray.distance = 0;
+    door->ray.player.x = data->player.x;
+    door->ray.player.y = data->player.y;
+    door->wall_behind_distance = 0;
 }

@@ -26,7 +26,7 @@ LIBFT = $(LIBFT_PATH)/libft.a
 
 all: $(LIBFT) $(NAME)
 
-bonus : $(LIBFT) $(OBJS) $(OBJS_BONUS)
+bonus : $(LIBFT) $(OBJS) $(OBJS_BONUS) bonus/cube_bonus.h
 	@rm -f $(OBJS) $(NAME)
 	@$(CC) $(CFLAGS) $(OBJS_BONUS) $(LFLAGS) $(LIBFT) -o $(NAME)
 	@echo "Bonus version compiled successfully!"
@@ -36,7 +36,7 @@ $(LIBFT):
 	@make bonus -C $(LIBFT_PATH)
 
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) src/cube.h
 	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBFT) -o $(NAME)
 
 
@@ -55,3 +55,5 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
+
+.SECONDARY : $(OBJS) $(OBJS_BONUS)

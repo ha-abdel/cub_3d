@@ -20,16 +20,16 @@ void    calc_horizontal_step(t_data *data, t_ray *ray, double tan_val)
         ray->x_step = -(ray->x_step);
 }
 
-void check_horizontal_intersect(t_data *data, t_ray *ray)
+void check_horizontal_intersect(t_data *data, t_ray *ray, t_door *door)
 {
     double tan_val;
     normalize_angle(&ray->ray_angle);
     if (is_perpendicular_to_Yaxis(ray->ray_angle))
     {
         if (is_facing_right(ray->ray_angle))
-            (ray->h_intersect).x = data->player.x + 3000;
+            (ray->h_intersect).x = data->player.x + MAX_RAY_DISTANCE;
         else
-            (ray->h_intersect).x = data->player.x - 3000;
+            (ray->h_intersect).x = data->player.x - MAX_RAY_DISTANCE;
         (ray->h_intersect).y = data->player.y;
         return;
     }
@@ -46,7 +46,17 @@ void check_horizontal_intersect(t_data *data, t_ray *ray)
     (ray->h_intersect).x = ray->first_x;
     (ray->h_intersect).y = ray->first_y;
     while (!is_wall(data, (ray->h_intersect).x, (ray->h_intersect).y - is_facing_up(ray->ray_angle)) && inside_bounds(data, (ray->h_intersect).x, (ray->h_intersect).y)) {
+        if (is_door(data, (ray->h_intersect).x, (ray->h_intersect).y - is_facing_up(ray->ray_angle)))
+        {
+            // printf("new new new\n");
+            // printf("%d\n", door->is_door);
+            door->found_door = 1;
+            door->ray.h_intersect.x = ray->h_intersect.x;
+            door->ray.h_intersect.y = ray->h_intersect.y;
+            // printf("intersect x is %0.2f and y is %0.2f\n", (door->ray.h_intersect).x, (door->ray.h_intersect).y);
+        }
         (ray->h_intersect).x += ray->x_step;
         (ray->h_intersect).y += ray->y_step;
     }
+    return;
 }

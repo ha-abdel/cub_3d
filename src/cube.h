@@ -1,16 +1,16 @@
 #ifndef CUBE_H
 # define CUBE_H
 
-#define screen_width 900
-#define screen_height 600
-#define TILE_SIZE 35
+#define screen_width 1500
+#define screen_height 1000
+#define TILE_SIZE 64
 #define FOV 60.0
 // #define NUM_RAYS 3000
 #define PI 3.1415926535
 #define MAP_WIDTH 16
 #define MAP_HEIGHT 12
 #define PLAYER_SPEED 5
-#define ROTATION_SPEED M_PI / 90
+#define ROTATION_SPEED M_PI / 300
 #define MAX_RAY_DISTANCE 10000
 #define MAX_DIST_PIXEL screen_width * 2
 
@@ -37,8 +37,6 @@
 #define A_KEY 97
 #define D_KEY 100
 #define ESC_KEY 65307
-
-#define SAHM "wolfenstein/AnyConv.com__minimap_player-resized.xpm"
 
 # include "mlx.h"
 # include <fcntl.h>
@@ -81,21 +79,6 @@ typedef struct s_point
 	double y;
 } t_point;
 
-
-
-
-typedef struct s_texture
-{
-	unsigned int color;
-	int tex_x;
-    int tex_y;
-    double tex_step;
-    double tex_pos;
-    double wall_x;
-	char		*pixel;
-	
-} t_texture;
-
 typedef struct s_ray
 {
 	unsigned int color;
@@ -125,15 +108,6 @@ typedef struct s_ray
 	t_wall_texture	wall_type;
 } t_ray;
 
-typedef struct s_door
-{
-	int	found_door;
-	int found_door_pixel;
-	int wall_behind_distance;
-	t_ray ray;
-
-} t_door;
-
 typedef struct s_map
 {
 	char	**map;
@@ -148,13 +122,6 @@ typedef struct s_map
 	int		width;
 }	t_map;
 
-typedef struct minimap
-{
-	unsigned	int		color;
-	t_point				centre;
-	double				r2;
-}	t_minimap;
-
 typedef struct s_data
 {
 	void				*mlx;
@@ -168,10 +135,7 @@ typedef struct s_data
 	t_sprite 			S_wall;
 	t_sprite 			E_wall;
 	t_sprite 			W_wall;
-	t_sprite 			minimap;
-	t_minimap			mini_map;
 	t_map				map;
-	t_sprite				door;
 	int					NUM_RAYS;
 }						t_data;
 void	print_map(char **map);
@@ -180,19 +144,15 @@ int		map_check(t_data *data, char *file, char *line, int fd);
 
 
 /* FUNCTIONS */
-int	get_t(int trgb);
-void    calc_wall_ditance(t_data *data, t_ray **ray, t_door **door);
-void    calc_door_ditance(t_data *data, t_ray **ray, t_door **door);
-int is_door(t_data *data, double x, double y);
-void    wall_projection(t_data *data, t_ray *ray, int col, t_door *door);
-void check_vertical_intersect(t_data *data, t_ray *ray, t_door *door);
+void    wall_projection(t_data *data, t_ray *ray, int col);
+void check_vertical_intersect(t_data *data, t_ray *ray);
 void    calc_vertical_step(t_data *data, t_ray *ray, double tan_val);
 void    calc_first_v_intersect(t_data *data, t_ray *ray, double tan_val);
-void    init_ray(t_ray *ray, t_data *data, t_door *door);
-void check_horizontal_intersect(t_data *data, t_ray *ray, t_door *door);
+void    init_ray(t_ray *ray, t_data *data);
+void check_horizontal_intersect(t_data *data, t_ray *ray);
 void    calc_horizontal_step(t_data *data, t_ray *ray, double tan_val);
 void    calc_first_h_intersect(t_data *data, t_ray *ray, double tan_val);
-void    calc_distance(t_data *data, t_ray *ray, t_door *door);
+void    calc_distance(t_data *data, t_ray *ray);
 void    normalize_angle(double *angle);
 int is_perpendicular_to_Xaxis(double ray_angle);
 int is_perpendicular_to_Yaxis(double ray_angle);
@@ -216,5 +176,5 @@ void    initial_data(t_data *data);
 void cast_rays(t_data *data);
 void draw_map(t_data *data) ;
 void clear_image(t_sprite *img, int color);
-void	create_minimap(t_data *data);
+
 #endif
