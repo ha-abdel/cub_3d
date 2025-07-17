@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 08:15:15 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/14 15:53:58 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:17:14 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -296,23 +296,23 @@ int		main_function_parsing(t_data *data, char *file)
 {
 	if (!check_name(file))
 	{
-		printf("\nError\n NAME\n");
+		printf("Error\nNAME\n");
 		return (0);
 	}
 	if (!read_file(data, file) || !check_data(data))
 	{
-		printf("\nError\n FILE\n");
+		printf("Error\nFILE\n");
 		return (0);
 	}
 	if (!data->map.map)
 	{
-		printf("\nError\n MAP\n");
+		printf("Error\nMAP\n");
 		return (0);
 	}
 	// print_data(data);
 	printf("\nSUCCESS\n");
 	return (1);
-	//return (info);
+
 }
 
 // n = 90

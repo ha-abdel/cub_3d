@@ -40,15 +40,6 @@
 
 #define SAHM "wolfenstein/AnyConv.com__minimap_player-resized.xpm"
 
-# include "mlx.h"
-# include <fcntl.h>
-# include <math.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
-# include <unistd.h>
-# include "libft.h"
-
 typedef enum e_wall_texture
 {
     N_WALL, S_WALL, E_WALL, W_WALL, NONE

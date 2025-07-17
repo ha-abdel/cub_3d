@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 08:15:15 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/14 16:57:53 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:49:31 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ void	fill_tmp(char **tmp)
 	tmp[1] = ft_strdup("SO");
 	tmp[2] = ft_strdup("WE");
 	tmp[3] = ft_strdup("EA");
-	//tmp[4] = ft_strdup("N");
-	//tmp[5] = ft_strdup("S");
-	//tmp[6] = ft_strdup("W");
-	//tmp[7] = ft_strdup("E");
 	tmp[4] = ft_strdup("F");
 	tmp[5] = ft_strdup("C");
 	tmp[6] = NULL;
@@ -81,54 +77,68 @@ int		fill_color(t_data *data, char *s, char *tmp, int count)
 		set_color(&data->map.c_color, nbr, count);
 	return (1);
 }
+void		take_path(t_data *data, char *line, char *s, int index)
+{
+	if (s[0] == 'N')
+		data->map.n_path = ft_strdup(&line[index]);
+	else if (s[0] == 'E')
+		data->map.e_path = ft_strdup(&line[index]);
+	else if (s[0] == 'W')
+		data->map.w_path = ft_strdup(&line[index]);
+	else if (s[0] == 'S')
+		data->map.s_path = ft_strdup(&line[index]);
+	data->map.direction++;
+}
 
-int		fill_data(t_data *data, char *line, char *s, int index)
+int		help_fill_data(t_data *data, char *tmp, char *s, int *count)
+{
+	if (tmp)
+	{
+		(*count)++;
+		if (!fill_color(data, s, tmp, *count))
+			return (0);
+	}
+	if (*count != 3)
+		return (0);
+	return (1);
+}
+int		take_color(t_data *data, char *line, char *s, int index)
 {
 	char	*tmp;
 	int		count;
 	
 	tmp = NULL;
+	count = 0;
+	while (line[index])
+	{
+		if (!ft_isdigit(line[index]) && line[index] != ',')
+			return (0);
+		if (line[index] == ',')
+		{
+			index++;
+			count++;
+			if (!ft_isdigit(line[index]) || !fill_color(data, s, tmp, count))
+				return (0);
+			tmp = NULL;
+		}
+		tmp = ft_strjoin(tmp, append_char(line[index]));
+		index++;
+	}
+	if (!help_fill_data(data, tmp, s, &count))
+		return (0);
+	return (1);
+}
+
+int		fill_data(t_data *data, char *line, char *s, int index)
+{
 	if (ft_isdigit(line[index]))
 	{
-		count = 0;
-		while (line[index])
-		{
-			if (!ft_isdigit(line[index]) && line[index] != ',')
-				return (0);
-			if (line[index] == ',')
-			{
-				index++;
-				count++;
-				if (!ft_isdigit(line[index]))
-					return (0);
-				if (!fill_color(data, s, tmp, count))
-					return (0);
-				tmp = NULL;
-			}
-			tmp = ft_strjoin(tmp, append_char(line[index]));
-			index++;
-		}
-		if (tmp)
-		{
-			count++;
-			if (!fill_color(data, s, tmp, count))
-				return (0);
-		}
-		if (count != 3)
+		if (!take_color(data, line, s, index))
 			return (0);
+		return (1);
 	}
 	else
-	{
-		if (s[0] == 'N')
-		data->map.n_path = ft_strdup(&line[index]);
-		else if (s[0] == 'E')
-			data->map.e_path = ft_strdup(&line[index]);
-		else if (s[0] == 'W')
-			data->map.w_path = ft_strdup(&line[index]);
-		else if (s[0] == 'S')
-			data->map.s_path = ft_strdup(&line[index]);
-		data->map.direction++;
-	}
+		take_path(data, line, s, index);
 	return (1);
 }
 
@@ -210,14 +220,10 @@ int		read_file(t_data *data, char *file)
 		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';	
 		if (line[0] && !check_line(data, tmp, line))
-		{
-			close(fd);
-			return (0);
-		}
+			return (close(fd), 0);
 		line = get_next_line(fd);
 	}
-	close(fd);
-	return (1);
+	return (close(fd), 1);
 }
 
 int		get_last_slash(char *file)
@@ -290,26 +296,20 @@ int		main_function_parsing(t_data *data, char *file)
 {
 	if (!check_name(file))
 	{
-		printf("\nError\n NAME\n");
+		printf("Error\nNAME\n");
 		return (0);
 	}
 	if (!read_file(data, file) || !check_data(data))
 	{
-		printf("\nError\n FILE\n");
+		printf("Error\nFILE\n");
 		return (0);
 	}
 	if (!data->map.map)
 	{
-		printf("\nError\n MAP\n");
+		printf("Error\nMAP\n");
 		return (0);
 	}
 	// print_data(data);
-	printf("\nSUCCESS\n");
+	printf("SUCCESS\n");
 	return (1);
-	//return (info);
 }
-
-// n = 90
-// e = 0
-// w = 180
-// s = 270
