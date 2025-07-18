@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 08:15:15 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/17 16:46:39 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/18 16:10:03 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,10 +213,7 @@ int		check_is_map(char *line)
 int		check_data(t_data *data)
 {
 	if (data->map.c_color == -1 || data->map.f_color == -1 || data->map.direction != 4)
-	{
-		printf("c=[%d]////f=[%d]//////dire=[%d]\n", data->map.c_color, data->map.f_color, data->map.direction);
 		return (0);
-	}
 	return (1);
 }
 
@@ -237,10 +234,7 @@ int		read_file(t_data *data, char *file)
 		if (check_is_map(line))
 		{
 			if (!check_data(data))
-			{
-				//printf("here\n");
 				return (0);
-			}
 			return (map_check(data, file, line, fd));
 		}
 		if (line[ft_strlen(line) - 1] == '\n')
@@ -335,7 +329,7 @@ int		main_function_parsing(t_data *data, char *file)
 		printf("Error\nMAP\n");
 		return (0);
 	}
-	print_data(data);
+	//print_data(data);
 	printf("\nSUCCESS\n");
 	return (1);
 
