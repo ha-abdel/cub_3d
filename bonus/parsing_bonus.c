@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 08:15:15 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/15 17:16:59 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/17 16:46:39 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,13 @@ int		help_fill_data(t_data *data, char *tmp, char *s, int *count)
 		return (0);
 	return (1);
 }
+
+void	scape_space(char *s, int *i)
+{
+	while (s && s[*i] == ' ')
+		(*i)++;
+}
+
 int		take_color(t_data *data, char *line, char *s, int index)
 {
 	char	*tmp;
@@ -112,12 +119,24 @@ int		take_color(t_data *data, char *line, char *s, int index)
 	while (line[index])
 	{
 		if (!ft_isdigit(line[index]) && line[index] != ',')
-			return (0);
+		{
+			if (line[index] == ' ')
+				scape_space(line, &index);
+			else
+				return (0);
+		}
 		if (line[index] == ',')
 		{
 			index++;
 			count++;
-			if (!ft_isdigit(line[index]) || !fill_color(data, s, tmp, count))
+			if (!ft_isdigit(line[index]))
+			{
+				if (line[index] == ' ')
+					scape_space(line, &index);
+				else
+					return (0);
+			}
+			if (!fill_color(data, s, tmp, count))
 				return (0);
 			tmp = NULL;
 		}
@@ -166,6 +185,7 @@ int		check_parameters(t_data *data, char **tmp, char *line)
 		return (0);
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
+	//printf("line=[%s]\n", &line[i]);
 	if (!line[i] || !fill_data(data, line, s, i))
 		return (0);
 	return (1);
@@ -193,7 +213,10 @@ int		check_is_map(char *line)
 int		check_data(t_data *data)
 {
 	if (data->map.c_color == -1 || data->map.f_color == -1 || data->map.direction != 4)
+	{
+		printf("c=[%d]////f=[%d]//////dire=[%d]\n", data->map.c_color, data->map.f_color, data->map.direction);
 		return (0);
+	}
 	return (1);
 }
 
@@ -214,7 +237,10 @@ int		read_file(t_data *data, char *file)
 		if (check_is_map(line))
 		{
 			if (!check_data(data))
+			{
+				//printf("here\n");
 				return (0);
+			}
 			return (map_check(data, file, line, fd));
 		}
 		if (line[ft_strlen(line) - 1] == '\n')
@@ -309,7 +335,7 @@ int		main_function_parsing(t_data *data, char *file)
 		printf("Error\nMAP\n");
 		return (0);
 	}
-	// print_data(data);
+	print_data(data);
 	printf("\nSUCCESS\n");
 	return (1);
 

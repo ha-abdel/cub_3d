@@ -137,7 +137,8 @@ int main(int ac, char **av) {
     if (ac != 2)
         return 1;
     initial_data(&data);
-    main_function_parsing(&data, av[1]);
+    if (!main_function_parsing(&data, av[1]))
+        return (1);
     init_data(&data);
 
     // ft_player_debug(&data);
