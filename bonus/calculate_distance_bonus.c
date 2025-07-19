@@ -1,96 +1,107 @@
 #include "cube_bonus.h"
 
-void    calc_wall_distance(t_data *data, t_ray **ray, t_door **door)
+void calc_wall_distance(t_data *data, t_ray **ray, t_door **door)
 {
     (void)door;
-    (*ray)->h_dist = ((*ray)->h_intersect.x - data->player.x) * ((*ray)->h_intersect.x - data->player.x) + ((*ray)->h_intersect.y - data->player.y) * ((*ray)->h_intersect.y - data->player.y);
-    (*ray)->v_dist = ((*ray)->v_intersect.x - data->player.x) * ((*ray)->v_intersect.x - data->player.x) + ((*ray)->v_intersect.y - data->player.y) * ((*ray)->v_intersect.y - data->player.y);
+    double h_dx = (*ray)->h_intersect.x - data->player.x;
+    double h_dy = (*ray)->h_intersect.y - data->player.y;
+    double v_dx = (*ray)->v_intersect.x - data->player.x;
+    double v_dy = (*ray)->v_intersect.y - data->player.y;
+    
+    (*ray)->h_dist = h_dx * h_dx + h_dy * h_dy;
+    (*ray)->v_dist = v_dx * v_dx + v_dy * v_dy;
 
     if ((*ray)->h_dist < (*ray)->v_dist)
     {
         (*ray)->distance = sqrt((*ray)->h_dist);
         (*ray)->ray_end.x = (*ray)->h_intersect.x;
         (*ray)->ray_end.y = (*ray)->h_intersect.y;
-    } else 
+    }
+    else 
     {
         (*ray)->distance = sqrt((*ray)->v_dist);
         (*ray)->ray_end.x = (*ray)->v_intersect.x;
         (*ray)->ray_end.y = (*ray)->v_intersect.y;
     }
-    (*ray)->distance *= cos((*ray)->ray_angle - data->player.angle);
+    
+    // Fix fisheye effect
+    double angle_diff = (*ray)->ray_angle - data->player.angle;
+    normalize_angle(&angle_diff);
+    (*ray)->distance *= cos(angle_diff);
 }
-void    calc_door_distance(t_data *data, t_ray **ray, t_door **door)
+
+void calc_door_distance(t_data *data, t_ray **ray, t_door **door)
 {
     (void)ray;
-    (*door)->ray.h_dist = ((*door)->ray.h_intersect.x - data->player.x) * ((*door)->ray.h_intersect.x - data->player.x) + ((*door)->ray.h_intersect.y - data->player.y) * ((*door)->ray.h_intersect.y - data->player.y);
-    (*door)->ray.v_dist = ((*door)->ray.v_intersect.x - data->player.x) * ((*door)->ray.v_intersect.x - data->player.x) + ((*door)->ray.v_intersect.y - data->player.y) * ((*door)->ray.v_intersect.y - data->player.y);
+    if (!(*door)->found_door)
+        return;
+        
+    double h_dx = 0, h_dy = 0, v_dx = 0, v_dy = 0;
+    
+    // Only calculate distance if we have valid coordinates
+    if ((*door)->ray.h_intersect.x != 0 || (*door)->ray.h_intersect.y != 0)
+    {
+        h_dx = (*door)->ray.h_intersect.x - data->player.x;
+        h_dy = (*door)->ray.h_intersect.y - data->player.y;
+        (*door)->ray.h_dist = h_dx * h_dx + h_dy * h_dy;
+    }
+    else
+    {
+        (*door)->ray.h_dist = INFINITY;
+    }
+    
+    if ((*door)->ray.v_intersect.x != 0 || (*door)->ray.v_intersect.y != 0)
+    {
+        v_dx = (*door)->ray.v_intersect.x - data->player.x;
+        v_dy = (*door)->ray.v_intersect.y - data->player.y;
+        (*door)->ray.v_dist = v_dx * v_dx + v_dy * v_dy;
+    }
+    else
+    {
+        (*door)->ray.v_dist = INFINITY;
+    }
 
     if ((*door)->ray.h_dist < (*door)->ray.v_dist)
     {
         (*door)->ray.distance = sqrt((*door)->ray.h_dist);
         (*door)->ray.ray_end.x = (*door)->ray.h_intersect.x;
         (*door)->ray.ray_end.y = (*door)->ray.h_intersect.y;
-    } else 
+    }
+    else
     {
         (*door)->ray.distance = sqrt((*door)->ray.v_dist);
         (*door)->ray.ray_end.x = (*door)->ray.v_intersect.x;
         (*door)->ray.ray_end.y = (*door)->ray.v_intersect.y;
     }
-    (*door)->ray.distance *= cos((*door)->ray.ray_angle - data->player.angle);
+    
+    // Fix fisheye effect
+    double angle_diff = (*door)->ray.ray_angle - data->player.angle;
+    normalize_angle(&angle_diff);
+    (*door)->ray.distance *= cos(angle_diff);
 }
 
-void    calc_distance(t_data *data, t_ray *ray, t_door *door)
+void calc_distance(t_data *data, t_ray *ray, t_door *door)
 {
-    calc_wall_distance(data, &ray, &door);
-    if (door->found_door)
-        calc_door_distance(data, &ray, &door);
-    // else
-    //     door->ray = *ray;
-    // ray->h_dist = (ray->h_intersect.x - data->player.x) * (ray->h_intersect.x - data->player.x) + (ray->h_intersect.y - data->player.y) * (ray->h_intersect.y - data->player.y);
-    // ray->v_dist = (ray->v_intersect.x - data->player.x) * (ray->v_intersect.x - data->player.x) + (ray->v_intersect.y - data->player.y) * (ray->v_intersect.y - data->player.y);
+    // Reset door ray data if no door found
+    if (!door->found_door)
+    {
+        door->ray.h_intersect.x = 0;
+        door->ray.h_intersect.y = 0;
+        door->ray.v_intersect.x = 0;
+        door->ray.v_intersect.y = 0;
+    }
+    else
+    {
+        door->ray.ray_angle = ray->ray_angle;
+    }
 
-    // if (ray->h_dist < ray->v_dist)
-    // {
-    //     ray->distance = sqrt(ray->h_dist);
-    //     ray->ray_end.x = ray->h_intersect.x;
-    //     ray->ray_end.y = ray->h_intersect.y;
-    // } else 
-    // {
-    //     ray->distance = sqrt(ray->v_dist);
-    //     ray->ray_end.x = ray->v_intersect.x;
-    //     ray->ray_end.y = ray->v_intersect.y;
-    // }
-    // ray->distance *= cos(ray->ray_angle - data->player.angle);
+    calc_wall_distance(data, &ray, &door);
+    calc_door_distance(data, &ray, &door);
+    
+    // Draw debug rays
     draw_line(data, ray->player, ray->ray_end, BLUE, 2);
     if (door->found_door)
     {
-        printf("wall distance is %0.2f ", ray->distance);
-        printf("door distance is %0.2f \n", door->ray.distance);
         draw_line(data, door->ray.player, door->ray.ray_end, YELLOW, 2);
     }
 }
-
-// void calc_distance(t_data *data, t_ray *ray, t_door *door) {
-//     // Calculate wall distances
-//     ray->h_dist = (ray->h_intersect.x == 0 && ray->h_intersect.y == 0) ? INT_MAX :
-//                  sqrt(pow(ray->h_intersect.x - data->player.x, 2) + 
-//                       pow(ray->h_intersect.y - data->player.y, 2));
-    
-//     ray->v_dist = (ray->v_intersect.x == 0 && ray->v_intersect.y == 0) ? INT_MAX :
-//                  sqrt(pow(ray->v_intersect.x - data->player.x, 2) + 
-//                       pow(ray->v_intersect.y - data->player.y, 2));
-
-//     ray->distance = fmin(ray->h_dist, ray->v_dist);
-
-//     // Calculate door distances if door exists
-//     if (door->is_door) {
-//         door->ray.h_dist = sqrt(pow(door->ray.h_intersect.x - data->player.x, 2) + 
-//                           pow(door->ray.h_intersect.y - data->player.y, 2));
-//         door->ray.v_dist = sqrt(pow(door->ray.v_intersect.x - data->player.x, 2) + 
-//                           pow(door->ray.v_intersect.y - data->player.y, 2));
-//         door->ray.distance = fmin(door->ray.h_dist, door->ray.v_dist);
-        
-//         // The wall behind the door should use the original ray's distance
-//         door->wall_behind_distance = ray->distance;
-//     }
-// }

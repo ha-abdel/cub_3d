@@ -1,18 +1,27 @@
 #ifndef CUBE_H
 # define CUBE_H
 
-#define screen_width 900
-#define screen_height 600
-#define TILE_SIZE 35
+# include "mlx.h"
+# include <fcntl.h>
+# include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include "libft.h"
+
+#define screen_width 1500
+#define screen_height 1000
+#define TILE_SIZE 64
 #define FOV 60.0
 // #define NUM_RAYS 3000
 #define PI 3.1415926535
-#define MAP_WIDTH 16
-#define MAP_HEIGHT 12
+#define MAP_WIDTH 26
+#define MAP_HEIGHT 22
 #define PLAYER_SPEED 5
 #define ROTATION_SPEED M_PI / 90
 #define MAX_RAY_DISTANCE 10000
-#define MAX_DIST_PIXEL screen_width * 2
+#define MAX_DIST_PIXEL screen_width * 3
 
 
 // Color definitions

@@ -8,6 +8,7 @@ void	calc_first_v_intersect(t_data *data, t_ray *ray, double tan_val)
 		ray->first_x = floor(data->player.x / TILE_SIZE) * TILE_SIZE;
 	ray->first_y = data->player.y + (ray->first_x - data->player.x) * tan_val;
 }
+
 void	calc_vertical_step(t_data *data, t_ray *ray, double tan_val)
 {
 	(void)data;
@@ -23,6 +24,7 @@ void	calc_vertical_step(t_data *data, t_ray *ray, double tan_val)
 void	check_vertical_intersect(t_data *data, t_ray *ray, t_door *door)
 {
 	double tan_val;
+	
 	normalize_angle(&ray->ray_angle);
 	if (is_perpendicular_to_Xaxis(ray->ray_angle))
 	{
@@ -45,25 +47,11 @@ void	check_vertical_intersect(t_data *data, t_ray *ray, t_door *door)
 		if (is_door(data, ray->v_intersect.x - is_facing_left(ray->ray_angle),
 				ray->v_intersect.y))
 		{
-			// if (door->is_door && door->ray.h_intersect.x != 0)
-			// {
-				door->found_door = 1;
-				door->ray.v_intersect.x = ray->v_intersect.x;
-				door->ray.v_intersect.y = ray->v_intersect.y;
-			// }
-            
-			// printf("V_intersect x is %0.2f and y is %0.2f\n", (door->ray.v_intersect).x, (door->ray.v_intersect).y);
+			door->found_door = 1;
+			door->ray.v_intersect.x = ray->v_intersect.x;
+			door->ray.v_intersect.y = ray->v_intersect.y;
 		}
 		ray->v_intersect.x += ray->x_step;
 		ray->v_intersect.y += ray->y_step;
 	}
-	return;
-	// if (is_door(data, ray->v_intersect.x - is_facing_left(ray->ray_angle),
-	// 			ray->v_intersect.y) && !door->is_door)
-	// 	{
-    //         door->is_door = 1;
-	// 		door->ray.v_intersect.x = ray->v_intersect.x;
-	// 		door->ray.v_intersect.y = ray->v_intersect.y;
-	// 		// printf("V_intersect x is %0.2f and y is %0.2f\n", (door->ray.v_intersect).x, (door->ray.v_intersect).y);
-	// 	}
 }

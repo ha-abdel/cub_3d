@@ -19,7 +19,7 @@ int is_door(t_data *data, double x, double y)
     int grid_y = (int)(y / TILE_SIZE);
 
     if (grid_x < 0 || grid_y < 0 || grid_y >= data->map.height || grid_x >= data->map.width)
-        return 1;
+        return 0;
     char c = data->map.map[grid_y][grid_x];
     if (c == 'D')
         return 1;
