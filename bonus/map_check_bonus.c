@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 16:06:27 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/18 16:08:54 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/19 15:23:09 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,14 @@ int	handle_direction(t_data *data, char c, int i, int j)
 		data->player.angle = PI;
 	if (c == 'S')
 		data->player.angle = 1.5 * PI;
+	if (c == 'D')
+	{
+		if (data->map.map[i + 1][j] == '0' || data->map.map[i - 1][j] == '0')
+		{
+			if (data->map.map[i][j + 1] == '0' || data->map.map[i][j - 1] == '0')
+				return (0);
+		}
+	}
 	if (c != 'D')
 	{
 		data->player.y = i;
@@ -245,6 +253,9 @@ int	map_check(t_data *data, char *file, char *line, int fd)
 	while (ft_strncmp(n_line, line, ft_strlen(line)) != 0)
 		n_line = get_next_line(fd);
 	if (!fill_map(map, n_line, fd) || !create_new_map(data, map, count))
+	{
+		printf("here\n");
 		return (0);
+	}
 	return (1);
 }

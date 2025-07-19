@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 08:15:15 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/18 16:10:03 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/19 15:20:03 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,9 +143,7 @@ int		take_color(t_data *data, char *line, char *s, int index)
 		tmp = ft_strjoin(tmp, append_char(line[index]));
 		index++;
 	}
-	if (!help_fill_data(data, tmp, s, &count))
-		return (0);
-	return (1);
+	return (help_fill_data(data, tmp, s, &count));
 }
 
 int		fill_data(t_data *data, char *line, char *s, int index)
