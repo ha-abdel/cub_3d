@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 19:01:27 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/20 20:13:18 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,18 @@ typedef struct s_sprite
 	// int					frame_index;
 }					t_sprite;
 
+typedef struct s_texture
+{
+	unsigned int	color;
+	int				tex_x;
+	int				tex_y;
+	double			tex_step;
+	double			tex_pos;
+	double			wall_x;
+	char			*pixel;
+
+}					t_texture;
+
 typedef struct s_player
 {
 	double			x;
@@ -88,18 +100,6 @@ typedef struct s_point
 	double			x;
 	double			y;
 }					t_point;
-
-typedef struct s_texture
-{
-	unsigned int	color;
-	int				tex_x;
-	int				tex_y;
-	double			tex_step;
-	double			tex_pos;
-	double			wall_x;
-	char			*pixel;
-
-}					t_texture;
 
 typedef struct s_ray
 {
@@ -187,13 +187,13 @@ int					main_function_parsing(t_data *data, char *file);
 int					map_check(t_data *data, char *file, char *line, int fd);
 
 /* FUNCTIONS */
-void	get_texture_img(t_data *data, t_ray *ray, t_sprite *img);
-void	copy_img(t_sprite *src, t_sprite **dst);
-void	set_wall_type(t_ray *ray);
-int	destroy_window(t_data *data);
-int	clean_all(t_data **data);
-void	clean_mlx_mandatory_resources(t_data **data);
-int	render(t_data *data);
+void				get_texture_img(t_data *data, t_ray *ray, t_sprite *img);
+void				copy_img(t_sprite *src, t_sprite **dst);
+void				set_wall_type(t_ray *ray);
+int					destroy_window(t_data *data);
+int					clean_all(t_data **data);
+void				clean_mlx_mandatory_resources(t_data **data);
+int					render(t_data *data);
 int					get_t(int trgb);
 void				calc_wall_ditance(t_data *data, t_ray **ray, t_door **door);
 void				calc_door_ditance(t_data *data, t_ray **ray, t_door **door);

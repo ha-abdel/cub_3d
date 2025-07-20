@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   h_intersection_bonus.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/20 20:14:10 by abdel-ha          #+#    #+#             */
+/*   Updated: 2025/07/20 20:14:11 by abdel-ha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube_bonus.h"
 
 void	calc_first_h_intersect(t_data *data, t_ray *ray, double tan_val)
@@ -67,7 +79,7 @@ void	check_horizontal_intersect(t_data *data, t_ray *ray, t_door *door)
 		(ray->h_intersect).y = data->player.y;
 		return ;
 	}
-    tan_val = handle_division_by_zero(ray->ray_angle);
+	tan_val = handle_division_by_zero(ray->ray_angle);
 	calc_first_h_intersect(data, ray, tan_val);
 	calc_horizontal_step(data, ray, tan_val);
 	(ray->h_intersect).x = ray->first_x;

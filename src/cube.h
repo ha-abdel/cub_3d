@@ -155,6 +155,7 @@ int					main_function_parsing(t_data *data, char *file);
 int					map_check(t_data *data, char *file, char *line, int fd);
 
 /* FUNCTIONS */
+int	is_door(t_data *data, double x, double y);
 int destroy_window(t_data *data);
 unsigned int		get_color(t_sprite *img, int x, int y);
 int					destroy_window(t_data *data);
