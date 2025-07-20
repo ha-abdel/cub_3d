@@ -74,10 +74,11 @@ int	render(t_data *data)
     static int frame_counter;
     
     // Use a smaller frame counter to improve performance
-    if (frame_counter >= 60)  // Reduced from 600 for better performance
+    if (frame_counter >= 600)  // Reduced from 600 for better performance
     {
         clear_image(&data->bg1, BLACK);
         animate_door(data);
+		printf("frame index is %d\n", data->frame_door.frame_count);
         draw_map(data);
         cast_rays(data);
         draw_direction_lines(data);

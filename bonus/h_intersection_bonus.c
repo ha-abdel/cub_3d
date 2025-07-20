@@ -38,6 +38,20 @@ void	find_h_wall(t_data *data, t_ray **ray, t_door **door)
 		((*ray)->h_intersect).y += (*ray)->y_step;
 	}
 }
+double	handle_division_by_zero(double angle)
+{
+	double	tan_val;
+
+	tan_val = tan(angle);
+	if (fabs(tan_val) <= 0.000001)
+	{
+		if (tan_val >= 0)
+			tan_val = 0.000001;
+		else
+			tan_val = -0.000001;
+	}
+	return (tan_val);
+}
 
 void	check_horizontal_intersect(t_data *data, t_ray *ray, t_door *door)
 {
@@ -53,14 +67,7 @@ void	check_horizontal_intersect(t_data *data, t_ray *ray, t_door *door)
 		(ray->h_intersect).y = data->player.y;
 		return ;
 	}
-    if (fabs(tan_val) <= 0.000001)
-	{
-		if (tan_val >= 0)
-			tan_val = 0.000001;
-		else
-			tan_val = -0.000001;
-	}
-	tan_val = tan(ray->ray_angle);
+    tan_val = handle_division_by_zero(ray->ray_angle);
 	calc_first_h_intersect(data, ray, tan_val);
 	calc_horizontal_step(data, ray, tan_val);
 	(ray->h_intersect).x = ray->first_x;

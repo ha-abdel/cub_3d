@@ -105,16 +105,17 @@ void	animate_door(t_data *data)
 	int		y;
 	unsigned int	color;
 
-	clear_image(&data->frame_door, BLACK);
+	//clear_image(&data->frame_door, BLACK);
 	y = 0;
+	//data->frame_door.frame_count = 500;
 	while (y < 250)
 	{
 		x = data->frame_door.frame_count;
-		while (x < data->frame_door.frame_count + 250)
+		while (x < (data->frame_door.frame_count + 250))
 		{
 			color = get_color(&data->door, x, y);
 			if (color != 0x00000000)
-				my_mlx_pixel_put(&data->frame_door, x, y, color);
+				my_mlx_pixel_put(&data->frame_door, x - data->frame_door.frame_count, y, color);
 			x++;
 		}
 		y++;
@@ -124,6 +125,7 @@ void	animate_door(t_data *data)
 	else
 		data->frame_door.frame_count = 0;
 }
+
 
 void draw_door_texture(t_data *data, t_door *door, t_ray *ray) {
 	(void)ray;
@@ -137,14 +139,14 @@ void draw_door_texture(t_data *data, t_door *door, t_ray *ray) {
         texture.wall_x = fmod(door->ray.v_intersect.y, TILE_SIZE) / TILE_SIZE;
     }
 
-    texture.tex_x = (int)(texture.wall_x * (data->door.width - 1));
-    texture.tex_step = data->door.height / door->ray.wall_strip;
+    texture.tex_x = (int)(texture.wall_x * (data->frame_door.width - 1));
+    texture.tex_step = data->frame_door.height / door->ray.wall_strip;
     texture.tex_pos = (door->ray.wall_start.y - screen_height/2 + door->ray.wall_strip/2) * texture.tex_step;
 
     while (y < door->ray.wall_end.y) {
-        texture.tex_y = (int)texture.tex_pos % data->door.height;
-        char *pixel = data->door.addr + (texture.tex_y * data->door.line_len) + 
-                     (texture.tex_x * (data->door.bpp / 8));
+        texture.tex_y = (int)texture.tex_pos % data->frame_door.height;
+        char *pixel = data->frame_door.addr + (texture.tex_y * data->frame_door.line_len) + 
+                     (texture.tex_x * (data->frame_door.bpp / 8));
         unsigned int color = *(unsigned int *)pixel;
 
         // Only draw non-transparent pixels
