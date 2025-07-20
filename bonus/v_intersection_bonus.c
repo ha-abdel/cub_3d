@@ -21,10 +21,29 @@ void	calc_vertical_step(t_data *data, t_ray *ray, double tan_val)
 		ray->y_step = -ray->y_step;
 }
 
+void	find_v_wall(t_data *data, t_ray **ray, t_door **door)
+{
+	while (!is_wall(data, (*ray)->v_intersect.x
+			- is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y)
+		&& inside_bounds(data, (*ray)->v_intersect.x, (*ray)->v_intersect.y))
+	{
+		if (is_door(data, (*ray)->v_intersect.x
+				- is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y)
+			&& !(*door)->found_door)
+		{
+			(*door)->found_door = 1;
+			(*door)->ray.v_intersect.x = (*ray)->v_intersect.x;
+			(*door)->ray.v_intersect.y = (*ray)->v_intersect.y;
+		}
+		(*ray)->v_intersect.x += (*ray)->x_step;
+		(*ray)->v_intersect.y += (*ray)->y_step;
+	}
+}
+
 void	check_vertical_intersect(t_data *data, t_ray *ray, t_door *door)
 {
-	double tan_val;
-	
+	double	tan_val;
+
 	normalize_angle(&ray->ray_angle);
 	if (is_perpendicular_to_Xaxis(ray->ray_angle))
 	{
@@ -40,18 +59,5 @@ void	check_vertical_intersect(t_data *data, t_ray *ray, t_door *door)
 	calc_vertical_step(data, ray, tan_val);
 	ray->v_intersect.x = ray->first_x;
 	ray->v_intersect.y = ray->first_y;
-	while (!is_wall(data, ray->v_intersect.x - is_facing_left(ray->ray_angle),
-			ray->v_intersect.y) && inside_bounds(data, ray->v_intersect.x,
-			ray->v_intersect.y))
-	{
-		if (is_door(data, ray->v_intersect.x - is_facing_left(ray->ray_angle),
-				ray->v_intersect.y))
-		{
-			door->found_door = 1;
-			door->ray.v_intersect.x = ray->v_intersect.x;
-			door->ray.v_intersect.y = ray->v_intersect.y;
-		}
-		ray->v_intersect.x += ray->x_step;
-		ray->v_intersect.y += ray->y_step;
-	}
+	find_v_wall(data, &ray, &door);
 }
