@@ -114,15 +114,54 @@ void	animate_door(t_data *data)
 		{
 			color = get_color(&data->door, x, y);
 			if (color != 0x00000000)
+				my_mlx_pixel_put(&data->frame_door, x - data->frame_door.frame_count, y, color);
+			x++;
+		}
+		y++;
+	}
+	if (data->frame > 350)
+	{
+		if (data->frame_door.frame_count < 1000)
+			data->frame_door.frame_count += 250;
+		else
+			data->frame_door.frame_count = 0;
+		data->frame = 0;
+	}
+}
+
+void	animate_reverse_door(t_data *data)
+{
+	int		x;
+	int		y;
+	unsigned int	color;
+
+	clear_image(&data->frame_door, BLACK);
+	y = 0;
+	while (y < 250)
+	{
+		x = 0;
+		while (x < 250)
+		{
+			if (data->frame_door.reverse_frame - x < 0)
+			{
+				printf("def=[%d]\n", data->frame_door.reverse_frame - x);
+				break;
+			}
+			color = get_color(&data->door, data->frame_door.reverse_frame - x, y);
+			if (color != 0x00000000)
 				my_mlx_pixel_put(&data->frame_door, x, y, color);
 			x++;
 		}
 		y++;
 	}
-	if (data->frame_door.frame_count < 1000)
-		data->frame_door.frame_count += 250;
-	else
-		data->frame_door.frame_count = 0;
+	if (data->frame > 350)
+	{
+		if (data->frame_door.reverse_frame > 0)
+			data->frame_door.reverse_frame -= 250;
+		else
+			data->frame_door.reverse_frame = 1000;
+		data->frame = 0;
+	}
 }
 
 void draw_door_texture(t_data *data, t_door *door, t_ray *ray) {
@@ -137,14 +176,14 @@ void draw_door_texture(t_data *data, t_door *door, t_ray *ray) {
         texture.wall_x = fmod(door->ray.v_intersect.y, TILE_SIZE) / TILE_SIZE;
     }
 
-    texture.tex_x = (int)(texture.wall_x * (data->door.width - 1));
-    texture.tex_step = data->door.height / door->ray.wall_strip;
+    texture.tex_x = (int)(texture.wall_x * (data->frame_door.width - 1));
+    texture.tex_step = data->frame_door.height / door->ray.wall_strip;
     texture.tex_pos = (door->ray.wall_start.y - screen_height/2 + door->ray.wall_strip/2) * texture.tex_step;
 
     while (y < door->ray.wall_end.y) {
-        texture.tex_y = (int)texture.tex_pos % data->door.height;
-        char *pixel = data->door.addr + (texture.tex_y * data->door.line_len) + 
-                     (texture.tex_x * (data->door.bpp / 8));
+        texture.tex_y = (int)texture.tex_pos % data->frame_door.height;
+        char *pixel = data->frame_door.addr + (texture.tex_y * data->frame_door.line_len) + 
+                     (texture.tex_x * (data->frame_door.bpp / 8));
         unsigned int color = *(unsigned int *)pixel;
 
         // Only draw non-transparent pixels

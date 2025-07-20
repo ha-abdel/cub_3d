@@ -86,7 +86,8 @@ int render(t_data *data)
     if (frame_counter >= 60)  // Reduced from 600 for better performance
     {
         clear_image(&data->bg1, BLACK);
-        animate_door(data);
+        //animate_door(data);
+        animate_reverse_door(data);
         draw_map(data);
         cast_rays(data);
         draw_direction_lines(data);
@@ -97,6 +98,7 @@ int render(t_data *data)
         
         frame_counter = 0;
     }
+	data->frame++;
     frame_counter++;
     return 0;
 }

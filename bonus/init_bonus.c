@@ -53,9 +53,13 @@ void    init_data(t_data *data)
     data->minimap.addr = mlx_get_data_addr(data->minimap.img, &data->minimap.bpp, &data->minimap.line_len, &data->minimap.endian);
     data->frame_door.img = mlx_new_image(data->mlx, 250, 250);
     data->frame_door.addr = mlx_get_data_addr(data->frame_door.img, &data->frame_door.bpp, &data->frame_door.line_len, &data->frame_door.endian);
+    data->frame_door.height = 250;
+    data->frame_door.width = 250;
     data->frame_door.frame_count = 0;
+	data->frame_door.reverse_frame = 1000;
     data->minimap.width = a;
     data->minimap.height = b;
+	data->frame = 0;
     ft_bzero(&data->mini_map, sizeof(t_minimap));
     data->player.x *= TILE_SIZE + TILE_SIZE/2;
     data->player.y *= TILE_SIZE + TILE_SIZE/2;

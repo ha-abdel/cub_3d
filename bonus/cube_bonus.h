@@ -64,6 +64,7 @@ typedef struct s_sprite
 	int					line_len;
 	int					endian;
 	int					frame_count;
+	int					reverse_frame;
 	// int					frame_index;
 }						t_sprite;
 
@@ -173,6 +174,7 @@ typedef struct s_data
 	t_map				map;
 	t_sprite				door;
 	t_sprite				frame_door;
+	int					frame;
 	int					NUM_RAYS;
 }						t_data;
 void	print_map(char **map);
@@ -220,4 +222,5 @@ void clear_image(t_sprite *img, int color);
 void	create_minimap(t_data *data);
 unsigned int	get_color(t_sprite *img, int x, int y);
 void	animate_door(t_data *data);
+void	animate_reverse_door(t_data *data);
 #endif
