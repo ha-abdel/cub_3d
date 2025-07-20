@@ -29,13 +29,10 @@ int	handle_mouse(int x, int y, t_data *data)
 	static int	oldx;
 
 	(void)y;
-	// double offset;
-	// offset = x - oldx;
 	if (x < oldx)
-		data->player.angle -= ROTATION_SPEED;
+		data->player.angle -= data->rotation_speed;
 	else if (x > oldx)
-		data->player.angle += ROTATION_SPEED;
-	// printf("mouse is moved %d\n", x);
+		data->player.angle += data->rotation_speed;
 	if (data->player.angle > 2 * PI)
 		data->player.angle -= 2 * PI;
 	if (data->player.angle < 0)
@@ -52,11 +49,7 @@ int	handle_key(int key, t_data *data)
 	old_px = data->player.x;
 	old_py = data->player.y;
 	if (key == ESC_KEY)
-	{
-		mlx_destroy_window(data->mlx, data->win_3d);
-		mlx_destroy_window(data->mlx, data->win_2d);
-		exit(0);
-	}
+		destroy_window(data);
 	move_player(data, key);
 	if (is_wall(data, data->player.x - is_facing_left(data->player.angle),
 			data->player.y - is_facing_up(data->player.angle)) || is_door(data,
@@ -69,36 +62,6 @@ int	handle_key(int key, t_data *data)
 	return (0);
 }
 
-int	render(t_data *data)
-{
-    static int frame_counter;
-    
-    // Use a smaller frame counter to improve performance
-    if (frame_counter >= 600)  // Reduced from 600 for better performance
-    {
-        clear_image(&data->bg1, BLACK);
-        animate_door(data);
-		printf("frame index is %d\n", data->frame_door.frame_count);
-        draw_map(data);
-        cast_rays(data);
-        draw_direction_lines(data);
-        create_minimap(data);
-        
-        mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
-        mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
-        
-        frame_counter = 0;
-    }
-    frame_counter++;
-    return 0;
-}
-void	ft_player_debug(t_data *data)
-{
-	printf("\t angle : %0.2f\n", data->player.angle * 180 / PI);
-	printf("\t x     : %0.2f\n", data->player.x / TILE_SIZE);
-	printf("\t y     : %0.2f\n", data->player.y / TILE_SIZE);
-	printf("-----------------------------------------\n");
-}
 int	main(int ac, char **av)
 {
 	t_data data;
@@ -114,6 +77,8 @@ int	main(int ac, char **av)
 
 	mlx_hook(data.win_3d, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win_2d, 2, 1L << 0, handle_key, &data);
+	mlx_hook(data.win_3d, 17, 1L << 0, destroy_window, &data);
+	mlx_hook(data.win_2d, 17, 1L << 0, destroy_window, &data);
 	mlx_hook(data.win_2d, 6, 1L << 6, handle_mouse, &data);
 	mlx_hook(data.win_3d, 6, 1L << 6, handle_mouse, &data);
 	mlx_mouse_hide(data.mlx, data.win_3d);

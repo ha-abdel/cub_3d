@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   h_intersection.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/20 14:30:56 by abdel-ha          #+#    #+#             */
+/*   Updated: 2025/07/20 17:21:22 by abdel-ha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cube.h"
 
 void	calc_first_h_intersect(t_data *data, t_ray *ray, double tan_val)
@@ -8,6 +20,7 @@ void	calc_first_h_intersect(t_data *data, t_ray *ray, double tan_val)
 		ray->first_y = (floor(data->player.y / TILE_SIZE) + 1) * TILE_SIZE;
 	ray->first_x = data->player.x + (ray->first_y - data->player.y) / tan_val;
 }
+
 void	calc_horizontal_step(t_data *data, t_ray *ray, double tan_val)
 {
 	(void)data;
@@ -40,7 +53,7 @@ void	check_horizontal_intersect(t_data *data, t_ray *ray)
 	double	tan_val;
 
 	normalize_angle(&ray->ray_angle);
-	if (is_perpendicular_to_Yaxis(ray->ray_angle))
+	if (is_perpendicular_to_yaxis(ray->ray_angle))
 	{
 		if (is_facing_right(ray->ray_angle))
 			(ray->h_intersect).x = data->player.x + 3000;

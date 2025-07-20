@@ -42,7 +42,7 @@ int	is_wall(t_data *data, double x, double y)
 int	inside_bounds(t_data *data, double x, double y)
 {
 	(void)data;
-	if (x < 0 || x >= screen_width || y < 0 || y >= screen_height)
+	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
 		return (0);
 	return (1);
 }

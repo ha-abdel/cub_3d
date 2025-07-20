@@ -58,7 +58,7 @@ void	check_horizontal_intersect(t_data *data, t_ray *ray, t_door *door)
 	double	tan_val;
 
 	normalize_angle(&ray->ray_angle);
-	if (is_perpendicular_to_Yaxis(ray->ray_angle))
+	if (is_perpendicular_to_yaxis(ray->ray_angle))
 	{
 		if (is_facing_right(ray->ray_angle))
 			(ray->h_intersect).x = data->player.x + MAX_RAY_DISTANCE;

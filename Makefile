@@ -1,17 +1,19 @@
 NAME = cube_3D
 CC = cc
-CFLAGS = -g3  -Ilibft -Wall -Wextra -Werror
+CFLAGS = -g3 -fsanitize=address -Ilibft -Wall -Wextra -Werror
 LFLAGS = -lmlx -lXext -lX11 -lm
 
 # main_src = main.c
 
 files = angle.c  calculate_distance.c  directions.c  draw_func.c \
 h_intersection.c  init.c  main.c  map_check.c  mlx_utils.c  parsing.c \
-ray_casting.c  v_intersection.c  wall_projection.c
+ray_casting.c  v_intersection.c  wall_projection.c textures.c render.c \
+cleaner.c 
 
 files_bonus = angle_bonus.c  calculate_distance_bonus.c  directions_bonus.c  draw_func_bonus.c \
 h_intersection_bonus.c  init_bonus.c  main_bonus.c  map_check_bonus.c  mlx_utils_bonus.c  parsing_bonus.c \
-ray_casting_bonus.c  v_intersection_bonus.c  wall_projection_bonus.c	 minimap_bonus.c
+ray_casting_bonus.c  v_intersection_bonus.c  wall_projection_bonus.c	 minimap_bonus.c textures_bonus.c render_bonus.c \
+cleaner_bonus.c 
 
 SRCS = $(addprefix src/, $(files))
 SRCS_BONUS = $(addprefix bonus/, $(files_bonus))

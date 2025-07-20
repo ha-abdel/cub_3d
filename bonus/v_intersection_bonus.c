@@ -45,7 +45,7 @@ void	check_vertical_intersect(t_data *data, t_ray *ray, t_door *door)
 	double	tan_val;
 
 	normalize_angle(&ray->ray_angle);
-	if (is_perpendicular_to_Xaxis(ray->ray_angle))
+	if (is_perpendicular_to_xaxis(ray->ray_angle))
 	{
 		ray->v_intersect.x = data->player.x;
 		if (is_facing_up(ray->ray_angle))

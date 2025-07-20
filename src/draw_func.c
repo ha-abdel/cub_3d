@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_func.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/20 14:30:49 by abdel-ha          #+#    #+#             */
+/*   Updated: 2025/07/20 15:25:44 by abdel-ha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cube.h"
 
 void	draw_square(t_data *data, int x, int y, int color, int win)
@@ -26,7 +38,7 @@ void	draw_line(t_data *data, t_point start_p, t_point end_p, int color,
 	dx = end_p.x - start_p.x;
 	dy = end_p.y - start_p.y;
 	steps = fmax(fabs(dx), fabs(dy));
-	steps = fmin(steps, MAX_DIST_PIXEL);
+	steps = fmin(steps, data->max_dist_pixel);
 	point.x = start_p.x;
 	point.y = start_p.y;
 	i = 0;

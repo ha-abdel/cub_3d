@@ -1,12 +1,12 @@
 #include "cube_bonus.h"
 
-int is_perpendicular_to_Yaxis(double ray_angle)
+int is_perpendicular_to_yaxis(double ray_angle)
 {
     if (ray_angle == 0 || ray_angle == PI)
         return 1;
     return 0;
 }
-int is_perpendicular_to_Xaxis(double ray_angle)
+int is_perpendicular_to_xaxis(double ray_angle)
 {
     if (ray_angle == 1.5 * PI || ray_angle == PI / 2)
         return 1;

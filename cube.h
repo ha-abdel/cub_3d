@@ -6,26 +6,22 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:43:41 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/20 11:53:15 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/20 17:26:04 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE_H
 # define CUBE_H
 
-# define screen_width 1500
-# define screen_height 1000
+# define SCREEN_WIDTH 1500
+# define SCREEN_HEIGHT 1000
 # define TILE_SIZE 64
 # define FOV 60.0
 # define PI 3.1415926535
 # define MAP_WIDTH 16
 # define MAP_HEIGHT 12
 # define PLAYER_SPEED 5
-# define ROTATION_SPEED M_PI / 180
 # define MAX_RAY_DISTANCE 10000
-# define MAX_DIST_PIXEL screen_width * 2
-
-// Color definitions
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
 # define RED 0xFF0000
@@ -34,12 +30,10 @@
 # define YELLOW 0xFFFF00
 # define GRAY 0x808080
 # define DARK_GRAY 0x404040
-
 # define PLAYER_NORTH 0
 # define PLAYER_SOUTH 1
 # define PLAYER_EAST 2
 # define PLAYER_WEST 3
-
 # define RIGHT_ARROW 65363
 # define LEFT_ARROW 65361
 # define W_KEY 119
@@ -87,6 +81,7 @@ typedef struct s_texture
 	double			tex_step;
 	double			tex_pos;
 	double			wall_x;
+	char			*pixel;
 }					t_texture;
 
 typedef struct s_player
@@ -149,26 +144,29 @@ typedef struct s_map
 typedef struct s_data
 {
 	void			*mlx;
-	// void				*win;
 	void			*win_3d;
 	void			*win_2d;
 	t_player		player;
 	t_sprite		bg;
 	t_sprite		bg1;
-	t_sprite		N_wall;
-	t_sprite		S_wall;
-	t_sprite		E_wall;
-	t_sprite		W_wall;
+	t_sprite		n_wall;
+	t_sprite		s_wall;
+	t_sprite		e_wall;
+	t_sprite		w_wall;
 	t_map			map;
-	int				NUM_RAYS;
+	int				num_rays;
+	float			rotation_speed;
+	int				max_dist_pixel;
 }					t_data;
 void				print_map(char **map);
 int					main_function_parsing(t_data *data, char *file);
 int					map_check(t_data *data, char *file, char *line, int fd);
 
-/* FUNCTIONS */
-int    clean_all(t_data **data);
-
+void				set_wall_type(t_ray *ray);
+unsigned int		get_color(t_sprite *img, int x, int y);
+void				get_texture_img(t_data *data, t_ray *ray, t_sprite *img);
+int					clean_all(t_data **data);
+int					destroy_window(t_data *data);
 void				wall_projection(t_data *data, t_ray *ray, int *color,
 						int col);
 void				check_vertical_intersect(t_data *data, t_ray *ray);
@@ -184,8 +182,8 @@ void				calc_first_h_intersect(t_data *data, t_ray *ray,
 						double tan_val);
 void				calc_distance(t_data *data, t_ray *ray, int *color);
 void				normalize_angle(double *angle);
-int					is_perpendicular_to_Xaxis(double ray_angle);
-int					is_perpendicular_to_Yaxis(double ray_angle);
+int					is_perpendicular_to_xaxis(double ray_angle);
+int					is_perpendicular_to_yaxis(double ray_angle);
 int					is_facing_right(double angle);
 int					is_facing_left(double angle);
 int					is_facing_down(double angle);

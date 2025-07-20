@@ -39,7 +39,7 @@ void draw_line(t_data *data, t_point start_p, t_point end_p, int color, int win)
     double dx = end_p.x - start_p.x;
     double dy = end_p.y - start_p.y;
     double steps = fmax(fabs(dx),fabs(dy));
-    steps = fmin(steps, MAX_DIST_PIXEL);
+    steps = fmin(steps, data->max_dist_pixel);
     point.x = start_p.x;
     point.y = start_p.y;
     int i = 0;

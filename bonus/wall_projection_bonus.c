@@ -1,44 +1,5 @@
 #include "cube_bonus.h"
 
-void	set_wall_type(t_ray *ray)
-{
-	if (ray->h_dist <= ray->v_dist)
-	{
-		if (is_facing_down(ray->ray_angle))
-			ray->wall_type = N_WALL;
-		else
-			ray->wall_type = S_WALL;
-	}
-	else if (ray->h_dist > ray->v_dist)
-	{
-		if (is_facing_right(ray->ray_angle))
-			ray->wall_type = E_WALL;
-		else
-			ray->wall_type = W_WALL;
-	}
-}
-
-void	copy_img(t_sprite *src, t_sprite **dst)
-{
-	(*dst)->addr = src->addr;
-	(*dst)->width = src->width;
-	(*dst)->height = src->height;
-	(*dst)->bpp = src->bpp;
-	(*dst)->line_len = src->line_len;
-	(*dst)->img = src->img;
-}
-void	get_texture_img(t_data *data, t_ray *ray, t_sprite *img)
-{
-	set_wall_type(ray);
-	if (ray->wall_type == N_WALL)
-		copy_img(&data->N_wall, &img);
-	else if (ray->wall_type == S_WALL)
-		copy_img(&data->S_wall, &img);
-	else if (ray->wall_type == E_WALL)
-		copy_img(&data->E_wall, &img);
-	else if (ray->wall_type == W_WALL)
-		copy_img(&data->W_wall, &img);
-}
 
 void	draw_wall_texture(t_data *data, t_ray *ray)
 {
@@ -54,7 +15,7 @@ void	draw_wall_texture(t_data *data, t_ray *ray)
 		texture.wall_x = fmod(ray->ray_end.y, TILE_SIZE) / TILE_SIZE;
 	texture.tex_x = (int)(texture.wall_x * (img.width - 1));
 	texture.tex_step = img.height / ray->wall_strip;
-	texture.tex_pos = (ray->wall_start.y - screen_height / 2 + ray->wall_strip
+	texture.tex_pos = (ray->wall_start.y - SCREEN_HEIGHT / 2 + ray->wall_strip
 			/ 2) * texture.tex_step;
 	while (y < ray->wall_end.y)
 	{
@@ -70,34 +31,6 @@ void	draw_wall_texture(t_data *data, t_ray *ray)
 }
 
 
-// void draw_door_texture(t_data *data, t_door *door) {
-//     t_texture texture;
-//     int y = door->ray.wall_start.y;
-
-//     if (door->ray.h_dist < door->ray.v_dist)
-//         texture.wall_x = fmod(door->ray.ray_end.x, TILE_SIZE) / TILE_SIZE;
-//     else
-//         texture.wall_x = fmod(door->ray.ray_end.y, TILE_SIZE) / TILE_SIZE;
-
-//     texture.tex_x = (int)(texture.wall_x * (data->door.width - 1));
-//     texture.tex_step = data->door.height / door->ray.wall_strip;
-//     texture.tex_pos = (door->ray.wall_start.y - screen_height/2 + door->ray.wall_strip/2) * texture.tex_step;
-
-//     while (y < door->ray.wall_end.y) {
-//         texture.tex_y = (int)texture.tex_pos % data->door.height;
-//         char *pixel = data->door.addr + (texture.tex_y * data->door.line_len) + 
-//                      (texture.tex_x * (data->door.bpp / 8));
-//         unsigned int color = *(unsigned int *)pixel;
-
-//         // Only draw if not fully transparent
-//         if (get_t(color) != 0xFF) {
-//             my_mlx_pixel_put(&data->bg1, door->ray.wall_start.x, y, color);
-//         }
-        
-//         texture.tex_pos += texture.tex_step;
-//         y++;
-//     }
-// }
 
 void	animate_door(t_data *data)
 {
@@ -141,14 +74,13 @@ void draw_door_texture(t_data *data, t_door *door, t_ray *ray) {
 
     texture.tex_x = (int)(texture.wall_x * (data->frame_door.width - 1));
     texture.tex_step = data->frame_door.height / door->ray.wall_strip;
-    texture.tex_pos = (door->ray.wall_start.y - screen_height/2 + door->ray.wall_strip/2) * texture.tex_step;
+    texture.tex_pos = (door->ray.wall_start.y - SCREEN_HEIGHT/2 + door->ray.wall_strip/2) * texture.tex_step;
 
     while (y < door->ray.wall_end.y) {
         texture.tex_y = (int)texture.tex_pos % data->frame_door.height;
         char *pixel = data->frame_door.addr + (texture.tex_y * data->frame_door.line_len) + 
                      (texture.tex_x * (data->frame_door.bpp / 8));
         unsigned int color = *(unsigned int *)pixel;
-
         // Only draw non-transparent pixels
         if (get_t(color) != 0xFF) {
             my_mlx_pixel_put(&data->bg1, door->ray.wall_start.x, y, color);
@@ -162,16 +94,16 @@ void draw_door_texture(t_data *data, t_door *door, t_ray *ray) {
 
 void	project_wall(t_ray **ray, int col)
 {
-	(*ray)->dist_projection_plane = (screen_width / 2.0) / tan((FOV / 2.0) * PI
+	(*ray)->dist_projection_plane = (SCREEN_WIDTH / 2.0) / tan((FOV / 2.0) * PI
 			/ 180);
 	(*ray)->wall_strip = (TILE_SIZE / (*ray)->distance)
 		* (*ray)->dist_projection_plane;
-	(*ray)->ceil = (screen_height) / 2 - (*ray)->wall_strip / 2;
+	(*ray)->ceil = (SCREEN_HEIGHT) / 2 - (*ray)->wall_strip / 2;
 	(*ray)->floor = (*ray)->ceil + (*ray)->wall_strip;
 	if ((*ray)->ceil < 0)
 		(*ray)->ceil = 0;
-	if ((*ray)->floor > screen_height)
-		(*ray)->floor = screen_height;
+	if ((*ray)->floor > SCREEN_HEIGHT)
+		(*ray)->floor = SCREEN_HEIGHT;
 	(*ray)->wall_start.x = col;
 	(*ray)->wall_start.y = (*ray)->ceil;
 	(*ray)->wall_end.x = col;
@@ -183,20 +115,20 @@ void	project_wall(t_ray **ray, int col)
 	(*ray)->floor_start.x = col;
 	(*ray)->floor_start.y = (*ray)->ceil + (*ray)->wall_strip;
 	(*ray)->floor_end.x = col;
-	(*ray)->floor_end.y = screen_height;
+	(*ray)->floor_end.y = SCREEN_HEIGHT;
 }
 void	project_door(t_door **door, int col)
 {
-	(*door)->ray.dist_projection_plane = (screen_width / 2.0) / tan((FOV / 2.0)
+	(*door)->ray.dist_projection_plane = (SCREEN_WIDTH / 2.0) / tan((FOV / 2.0)
 			* PI / 180);
 	(*door)->ray.wall_strip = (TILE_SIZE / (*door)->ray.distance)
 		* (*door)->ray.dist_projection_plane;
-	(*door)->ray.ceil = (screen_height) / 2 - (*door)->ray.wall_strip / 2;
+	(*door)->ray.ceil = (SCREEN_HEIGHT) / 2 - (*door)->ray.wall_strip / 2;
 	(*door)->ray.floor = (*door)->ray.ceil + (*door)->ray.wall_strip;
 	if ((*door)->ray.ceil < 0)
 		(*door)->ray.ceil = 0;
-	if ((*door)->ray.floor > screen_height)
-		(*door)->ray.floor = screen_height;
+	if ((*door)->ray.floor > SCREEN_HEIGHT)
+		(*door)->ray.floor = SCREEN_HEIGHT;
 	(*door)->ray.wall_start.x = col;
 	(*door)->ray.wall_start.y = (*door)->ray.ceil;
 	(*door)->ray.wall_end.x = col;
@@ -208,7 +140,7 @@ void	project_door(t_door **door, int col)
 	(*door)->ray.floor_start.x = col;
 	(*door)->ray.floor_start.y = (*door)->ray.ceil + (*door)->ray.wall_strip;
 	(*door)->ray.floor_end.x = col;
-	(*door)->ray.floor_end.y = screen_height;
+	(*door)->ray.floor_end.y = SCREEN_HEIGHT;
 }
 
 
@@ -232,10 +164,10 @@ void draw_wall_behind_door(t_data *data, t_ray *wall_ray, t_ray *door_ray)
     int wall_tex_x = (int)(wall_x * (wall_img.width - 1));
     // int door_tex_x = (int)(door_x * (data->door.width - 1));
     double wall_tex_step = wall_img.height / wall_ray->wall_strip;
-    double wall_tex_pos = (wall_ray->wall_start.y - screen_height / 2 + wall_ray->wall_strip / 2) * wall_tex_step;
+    double wall_tex_pos = (wall_ray->wall_start.y - SCREEN_HEIGHT / 2 + wall_ray->wall_strip / 2) * wall_tex_step;
 
     // double door_tex_step = data->door.height / door_ray->wall_strip;
-    // double door_tex_pos = (door_ray->wall_start.y - screen_height / 2 + door_ray->wall_strip / 2) * door_tex_step;
+    // double door_tex_pos = (door_ray->wall_start.y - SCREEN_HEIGHT / 2 + door_ray->wall_strip / 2) * door_tex_step;
 
     while (y < wall_ray->wall_end.y)
     {

@@ -9,7 +9,7 @@ void cast_rays(t_data *data)
     i = 0;
     ray.ray_angle = data->player.angle - (FOV / 2 * PI / 180.0);
     door.ray.ray_angle = data->player.angle - (FOV / 2 * PI / 180.0);
-    while (i < data->NUM_RAYS)
+    while (i < data->num_rays)
     {
         init_ray(&ray, data, &door);
         ray.wall_type = NONE;

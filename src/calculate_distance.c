@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calculate_distance.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/20 14:28:18 by abdel-ha          #+#    #+#             */
+/*   Updated: 2025/07/20 14:28:21 by abdel-ha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cube.h"
 
 void	calc_distance(t_data *data, t_ray *ray, int *color)
@@ -8,7 +20,6 @@ void	calc_distance(t_data *data, t_ray *ray, int *color)
 	ray->v_dist = (ray->v_intersect.x - data->player.x) * (ray->v_intersect.x
 			- data->player.x) + (ray->v_intersect.y - data->player.y)
 		* (ray->v_intersect.y - data->player.y);
-
 	if (ray->h_dist < ray->v_dist)
 	{
 		*color = 0xaa0000;
