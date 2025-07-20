@@ -71,21 +71,25 @@ int	handle_key(int key, t_data *data)
 
 int	render(t_data *data)
 {
-	static int	frame_counter;
-
-	if (frame_counter >= 30)
-	{
-		clear_image(&data->bg1, BLACK);
-		draw_map(data);
-		cast_rays(data);
-		draw_direction_lines(data);
-		create_minimap(data);
-		mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
-		mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
-		frame_counter = 0;
-	}
-	frame_counter++;
-	return (0);
+    static int frame_counter;
+    
+    // Use a smaller frame counter to improve performance
+    if (frame_counter >= 60)  // Reduced from 600 for better performance
+    {
+        clear_image(&data->bg1, BLACK);
+        animate_door(data);
+        draw_map(data);
+        cast_rays(data);
+        draw_direction_lines(data);
+        create_minimap(data);
+        
+        mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
+        mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
+        
+        frame_counter = 0;
+    }
+    frame_counter++;
+    return 0;
 }
 void	ft_player_debug(t_data *data)
 {

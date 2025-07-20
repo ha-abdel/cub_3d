@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 08:15:15 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/15 17:49:31 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/20 10:49:01 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,13 @@ int		help_fill_data(t_data *data, char *tmp, char *s, int *count)
 		return (0);
 	return (1);
 }
+
+void	scape_space(char *s, int *i)
+{
+	while (s && s[*i] == ' ')
+		(*i)++;
+}
+
 int		take_color(t_data *data, char *line, char *s, int index)
 {
 	char	*tmp;
@@ -112,21 +119,31 @@ int		take_color(t_data *data, char *line, char *s, int index)
 	while (line[index])
 	{
 		if (!ft_isdigit(line[index]) && line[index] != ',')
-			return (0);
+		{
+			if (line[index] == ' ')
+				scape_space(line, &index);
+			else
+				return (0);
+		}
 		if (line[index] == ',')
 		{
 			index++;
 			count++;
-			if (!ft_isdigit(line[index]) || !fill_color(data, s, tmp, count))
+			if (!ft_isdigit(line[index]))
+			{
+				if (line[index] == ' ')
+					scape_space(line, &index);
+				else
+					return (0);
+			}
+			if (!fill_color(data, s, tmp, count))
 				return (0);
 			tmp = NULL;
 		}
 		tmp = ft_strjoin(tmp, append_char(line[index]));
 		index++;
 	}
-	if (!help_fill_data(data, tmp, s, &count))
-		return (0);
-	return (1);
+	return (help_fill_data(data, tmp, s, &count));
 }
 
 int		fill_data(t_data *data, char *line, char *s, int index)
@@ -166,6 +183,7 @@ int		check_parameters(t_data *data, char **tmp, char *line)
 		return (0);
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
+	//printf("line=[%s]\n", &line[i]);
 	if (!line[i] || !fill_data(data, line, s, i))
 		return (0);
 	return (1);
@@ -309,7 +327,7 @@ int		main_function_parsing(t_data *data, char *file)
 		printf("Error\nMAP\n");
 		return (0);
 	}
-	// print_data(data);
-	printf("SUCCESS\n");
+	//print_data(data);
+	printf("\nSUCCESS\n");
 	return (1);
 }

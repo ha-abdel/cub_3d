@@ -1,7 +1,7 @@
 #ifndef CUBE_H
 # define CUBE_H
 
-# include "mlx.h"
+# include "/home/salahian/Downloads/minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -63,7 +63,7 @@ typedef struct s_sprite
 	int					bpp;
 	int					line_len;
 	int					endian;
-	// int					frame_count;
+	int					frame_count;
 	// int					frame_index;
 }						t_sprite;
 
@@ -172,6 +172,7 @@ typedef struct s_data
 	t_minimap			mini_map;
 	t_map				map;
 	t_sprite				door;
+	t_sprite				frame_door;
 	int					NUM_RAYS;
 }						t_data;
 void	print_map(char **map);
@@ -217,4 +218,6 @@ void cast_rays(t_data *data);
 void draw_map(t_data *data) ;
 void clear_image(t_sprite *img, int color);
 void	create_minimap(t_data *data);
+unsigned int	get_color(t_sprite *img, int x, int y);
+void	animate_door(t_data *data);
 #endif

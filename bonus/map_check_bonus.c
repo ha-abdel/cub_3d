@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 16:06:27 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/17 15:12:19 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/20 10:48:49 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ char	*get_new_line(char *str, int size)
 	return (tmp);
 }
 
-int	handle_direction(t_data *data, char c)
+int	handle_direction(t_data *data, char c, int i, int j)
 {
-	if ((c != 'N' && c != 'E' && c != 'W' && c != 'S' && c != 'D') || data->player.angle != -1)
+	if ((c != 'N' && c != 'E' && c != 'W' && c != 'S' && c != 'D') || (data->player.angle != -1 && c != 'D'))
 		return (0);
 	if (c == 'N')
 		data->player.angle = PI / 2;
@@ -66,7 +66,19 @@ int	handle_direction(t_data *data, char c)
 		data->player.angle = PI;
 	if (c == 'S')
 		data->player.angle = 1.5 * PI;
-	// data->player.angle = 90;
+	if (c == 'D')
+	{
+		if (data->map.map[i + 1][j] == '0' || data->map.map[i - 1][j] == '0')
+		{
+			if (data->map.map[i][j + 1] == '0' || data->map.map[i][j - 1] == '0')
+				return (0);
+		}
+	}
+	if (c != 'D')
+	{
+		data->player.y = i;
+		data->player.x = j;
+	}
 	return (1);
 }
 
@@ -108,10 +120,8 @@ int	valid_map(t_data *data)
 		{
 			if (!ft_isdigit(data->map.map[i][j]) && data->map.map[i][j] != ' ')
 			{
-				if (!handle_direction(data, data->map.map[i][j]))
+				if (!handle_direction(data, data->map.map[i][j], i, j))
 					return (0);
-				data->player.y = i;
-				data->player.x = j;
 			}
 			if (data->map.map[i][j] == '0')
 			{
@@ -165,7 +175,6 @@ int	create_new_map(t_data *data, char **map, int size)
 	data->map.map = ft_malloc(sizeof(char *) * (size + 1), 1);
 	long_line = get_long_line(map) - 1;
 	i = 0;
-	//printf("{%d}\n", long_line);
 	while (map[i])
 	{
 		if (long_line > ft_strlen(map[i]))
@@ -178,9 +187,7 @@ int	create_new_map(t_data *data, char **map, int size)
 	data->map.height = size;
 	data->map.width = long_line;
 	if (!check_walls(data, size) || !valid_map(data))
-	{
 		return (0);
-	}
 	return (1);
 }
 
@@ -209,8 +216,11 @@ int	fill_map(char **map, char *line, int fd)
 	{
 		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
-		if (line[0] == '\0')
-			return (0);
+		// if (line[0] == '\0')
+		// {
+		// 	printf("here\n");
+		// 	return (0);
+		// }
 		map[i] = ft_strdup(line);
 		i++;
 		line = get_next_line(fd);
@@ -243,6 +253,9 @@ int	map_check(t_data *data, char *file, char *line, int fd)
 	while (ft_strncmp(n_line, line, ft_strlen(line)) != 0)
 		n_line = get_next_line(fd);
 	if (!fill_map(map, n_line, fd) || !create_new_map(data, map, count))
+	{
+		printf("here\n");
 		return (0);
+	}
 	return (1);
 }

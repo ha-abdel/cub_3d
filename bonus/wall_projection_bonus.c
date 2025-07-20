@@ -69,36 +69,93 @@ void	draw_wall_texture(t_data *data, t_ray *ray)
 	}
 }
 
-void	draw_door_texture(t_data *data, t_door *door, t_ray *ray)
+
+// void draw_door_texture(t_data *data, t_door *door) {
+//     t_texture texture;
+//     int y = door->ray.wall_start.y;
+
+//     if (door->ray.h_dist < door->ray.v_dist)
+//         texture.wall_x = fmod(door->ray.ray_end.x, TILE_SIZE) / TILE_SIZE;
+//     else
+//         texture.wall_x = fmod(door->ray.ray_end.y, TILE_SIZE) / TILE_SIZE;
+
+//     texture.tex_x = (int)(texture.wall_x * (data->door.width - 1));
+//     texture.tex_step = data->door.height / door->ray.wall_strip;
+//     texture.tex_pos = (door->ray.wall_start.y - screen_height/2 + door->ray.wall_strip/2) * texture.tex_step;
+
+//     while (y < door->ray.wall_end.y) {
+//         texture.tex_y = (int)texture.tex_pos % data->door.height;
+//         char *pixel = data->door.addr + (texture.tex_y * data->door.line_len) + 
+//                      (texture.tex_x * (data->door.bpp / 8));
+//         unsigned int color = *(unsigned int *)pixel;
+
+//         // Only draw if not fully transparent
+//         if (get_t(color) != 0xFF) {
+//             my_mlx_pixel_put(&data->bg1, door->ray.wall_start.x, y, color);
+//         }
+        
+//         texture.tex_pos += texture.tex_step;
+//         y++;
+//     }
+// }
+
+void	animate_door(t_data *data)
 {
-	t_texture		texture;
-	int				y;
-	char			*pixel;
+	int		x;
+	int		y;
 	unsigned int	color;
 
-	y = door->ray.wall_start.y;
-	if (door->ray.h_dist < door->ray.v_dist)
-		texture.wall_x = fmod(door->ray.h_intersect.x, TILE_SIZE) / TILE_SIZE;
-	else
-		texture.wall_x = fmod(door->ray.v_intersect.y, TILE_SIZE) / TILE_SIZE;
-	texture.tex_x = (int)(texture.wall_x * (data->door.width - 1));
-	texture.tex_step = data->door.height / door->ray.wall_strip;
-	texture.tex_pos = (door->ray.wall_start.y - screen_height / 2
-			+ door->ray.wall_strip / 2) * texture.tex_step;
-	while (y < door->ray.wall_end.y)
+	clear_image(&data->frame_door, BLACK);
+	y = 0;
+	while (y < 250)
 	{
-		texture.tex_y = (int)texture.tex_pos % data->door.height;
-		pixel = data->door.addr + (texture.tex_y * data->door.line_len)
-			+ (texture.tex_x * (data->door.bpp / 8));
-		color = *(unsigned int *)pixel;
-		if (get_t(color) != 0xFF)
+		x = data->frame_door.frame_count;
+		while (x < data->frame_door.frame_count + 250)
 		{
-			my_mlx_pixel_put(&data->bg1, door->ray.wall_start.x, y, color);
-			door->found_door_pixel = 1;
+			color = get_color(&data->door, x, y);
+			if (color != 0x00000000)
+				my_mlx_pixel_put(&data->frame_door, x, y, color);
+			x++;
 		}
-		texture.tex_pos += texture.tex_step;
 		y++;
 	}
+	if (data->frame_door.frame_count < 1000)
+		data->frame_door.frame_count += 250;
+	else
+		data->frame_door.frame_count = 0;
+}
+
+void draw_door_texture(t_data *data, t_door *door, t_ray *ray) {
+	(void)ray;
+    t_texture texture;
+    int y = door->ray.wall_start.y;
+
+    // Determine texture coordinates based on intersection side
+    if (door->ray.h_dist < door->ray.v_dist) {
+        texture.wall_x = fmod(door->ray.h_intersect.x, TILE_SIZE) / TILE_SIZE;
+    } else {
+        texture.wall_x = fmod(door->ray.v_intersect.y, TILE_SIZE) / TILE_SIZE;
+    }
+
+    texture.tex_x = (int)(texture.wall_x * (data->door.width - 1));
+    texture.tex_step = data->door.height / door->ray.wall_strip;
+    texture.tex_pos = (door->ray.wall_start.y - screen_height/2 + door->ray.wall_strip/2) * texture.tex_step;
+
+    while (y < door->ray.wall_end.y) {
+        texture.tex_y = (int)texture.tex_pos % data->door.height;
+        char *pixel = data->door.addr + (texture.tex_y * data->door.line_len) + 
+                     (texture.tex_x * (data->door.bpp / 8));
+        unsigned int color = *(unsigned int *)pixel;
+
+        // Only draw non-transparent pixels
+        if (get_t(color) != 0xFF) {
+            my_mlx_pixel_put(&data->bg1, door->ray.wall_start.x, y, color);
+        }
+		// else
+        
+        texture.tex_pos += texture.tex_step;
+        y++;
+    }
 }
 
 void	project_wall(t_ray **ray, int col)
@@ -152,26 +209,148 @@ void	project_door(t_door **door, int col)
 	(*door)->ray.floor_end.y = screen_height;
 }
 
-void	wall_projection(t_data *data, t_ray *ray, int col, t_door *door)
+
+void draw_wall_behind_door(t_data *data, t_ray *wall_ray, t_ray *door_ray)
 {
-	project_wall(&ray, col);
-	if (door->found_door)
-	{
-		project_door(&door, col);
-		draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
-		draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
-		if (door->ray.distance >= ray->distance)
-			draw_wall_texture(data, ray);
-		else
-		{
-			draw_door_texture(data, door, ray);
-			if (!door->found_door_pixel)
-				draw_wall_texture(data, ray);
-		}
-	}
-	else
-	{
-		draw_wall_texture(data, ray);
+	(void)door_ray;
+    t_sprite wall_img;
+    // t_texture texture;
+    int y = wall_ray->wall_start.y;
+
+    get_texture_img(data, wall_ray, &wall_img);
+
+    double wall_x = (wall_ray->h_dist < wall_ray->v_dist)
+        ? fmod(wall_ray->ray_end.x, TILE_SIZE) / TILE_SIZE
+        : fmod(wall_ray->ray_end.y, TILE_SIZE) / TILE_SIZE;
+
+    // double door_x = (door_ray->h_dist < door_ray->v_dist)
+    //     ? fmod(door_ray->ray_end.x, TILE_SIZE) / TILE_SIZE
+    //     : fmod(door_ray->ray_end.y, TILE_SIZE) / TILE_SIZE;
+
+    int wall_tex_x = (int)(wall_x * (wall_img.width - 1));
+    // int door_tex_x = (int)(door_x * (data->door.width - 1));
+    double wall_tex_step = wall_img.height / wall_ray->wall_strip;
+    double wall_tex_pos = (wall_ray->wall_start.y - screen_height / 2 + wall_ray->wall_strip / 2) * wall_tex_step;
+
+    // double door_tex_step = data->door.height / door_ray->wall_strip;
+    // double door_tex_pos = (door_ray->wall_start.y - screen_height / 2 + door_ray->wall_strip / 2) * door_tex_step;
+
+    while (y < wall_ray->wall_end.y)
+    {
+        int wall_tex_y = ((int)wall_tex_pos) % wall_img.height;
+        char *wall_pixel = wall_img.addr + (wall_tex_y * wall_img.line_len) + wall_tex_x * (wall_img.bpp / 8);
+        unsigned int wall_color = *(unsigned int *)wall_pixel;
+
+        // int door_tex_y = ((int)door_tex_pos) % data->door.height;
+        // char *door_pixel = data->door.addr + (door_tex_y * data->door.line_len) + door_tex_x * (data->door.bpp / 8);
+        // unsigned int door_color = *(unsigned int *)door_pixel;
+
+        // draw wall only where door is transparent
+        // if (get_t(door_color) == 0xFF)
+        my_mlx_pixel_put(&data->bg1, wall_ray->wall_start.x, y, wall_color);
+
+        wall_tex_pos += wall_tex_step;
+        // door_tex_pos += door_tex_step;
+        y++;
+    }
+}
+
+
+
+
+// void wall_projection(t_data *data, t_ray *ray, int col, t_door *door) {
+//     project_wall(&ray, col);
+    
+//     if (door->is_door) {
+//         project_door(&door, col);
+        
+//         // Always draw the wall first (will be behind the door)
+//         draw_wall_texture(data, ray);
+        
+//         // Then draw the door (transparent parts will show the wall)
+//         draw_door_texture(data, door);
+//     } else {
+//         // No door, just draw the wall
+//         draw_wall_texture(data, ray);
+//     }
+    
+//     // Draw ceiling and floor
+//     draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
+//     draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
+// }
+
+// void wall_projection(t_data *data, t_ray *ray, int col, t_door *door) {
+//     // Always project and draw the wall first (including walls behind doors)
+//     project_wall(&ray, col);
+//     draw_wall_texture(data, ray);
+    
+//     // If there's a door, project and draw it on top
+//     if (door->is_door) {
+		
+//         // Save the original distance
+//         // double original_dist = ray->distance;
+        
+//         // Temporarily use door distance for projection
+//         // ray->distance = door->ray.distance;
+//         project_wall(&ray, col);
+//         draw_door_texture(data, door, ray);
+        
+//         // Restore original distance
+//         // ray->distance = original_dist;
+//     }
+    
+//     // Draw ceiling and floor
+//     draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
+//     draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
+// }
+
+// void wall_projection(t_data *data, t_ray *ray, int col, t_door *door)
+// {
+//     // 1) project & draw the wall
+//     project_wall(&ray, col);
+//     draw_wall_texture(data, ray);
+
+//     // 2) if there’s a door and it’s closer, project & draw the door
+//     if (door->found_door && door->ray.distance < ray->distance)
+//     {
+//         project_door(&door, col);
+//         draw_door_texture(data, door, &door->ray);
+//     }
+
+//     // 3) ceiling & floor
+//     draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
+//     draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
+// }
+
+void wall_projection(t_data *data, t_ray *ray, int col, t_door *door)
+{
+
+    project_wall(&ray, col);
+    if (door->found_door)
+    {
+        door->ray.ray_angle = ray->ray_angle;
+        project_door(&door, col);
+
+        if (door->ray.distance >= ray->distance)
+        {
+            // draw_wall_texture(data, ray);
+            draw_wall_texture(data, ray);
+			 draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
+    		draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
+			
+        }
+        else
+        {
+			 draw_line(data, door->ray.ceil_start, door->ray.ceil_end, data->map.c_color, 1);
+   			 draw_line(data, door->ray.floor_start, door->ray.floor_end, data->map.f_color, 1);
+			 draw_wall_texture(data, ray);
+			 draw_door_texture(data, door, ray);
+            
+        }
+    }
+    else
+    {
+        draw_wall_texture(data, ray);
 		draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
 		draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
 	}
