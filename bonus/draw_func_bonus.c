@@ -68,7 +68,7 @@ void    draw_walls(t_data *data)
         {
             draw_square(data, x * TILE_SIZE, y * TILE_SIZE, 
                        data->map.map[y][x] == '1' ? BLACK : DARK_GRAY, 2);
-            if (data->map.map[y][x] == 'P')
+            if (data->map.map[y][x] == 'D')
                 draw_square(data, x * TILE_SIZE, y * TILE_SIZE, GREEN , 2);
 
             x++;

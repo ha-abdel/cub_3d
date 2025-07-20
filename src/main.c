@@ -144,6 +144,7 @@ int main(int ac, char **av) {
 
     mlx_hook(data.win_3d, 2, 1L<<0, handle_key, &data);
     mlx_hook(data.win_2d, 2, 1L<<0, handle_key, &data);
+   
     // mlx_hook(data.win_2d, 6, 1L<<6, handle_mouse, &data);
     // mlx_hook(data.win_3d, 6, 1L<<6, handle_mouse, &data);
     

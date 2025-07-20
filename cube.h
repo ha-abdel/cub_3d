@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:43:41 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/15 14:56:18 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/20 11:35:13 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 #define D_KEY 100
 #define ESC_KEY 65307
 
-# include "mlx.h"
+# include "/home/salahian/Downloads/minilibx-linux/mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -77,6 +77,16 @@ typedef struct s_sprite
 	// int					frame_index;
 }						t_sprite;
 
+typedef struct s_texture
+{
+	unsigned int color;
+	int tex_x;
+    int tex_y;
+    double tex_step;
+    double tex_pos;
+    double wall_x;
+	
+} t_texture;
 
 typedef struct s_player {
     double x;
@@ -90,6 +100,8 @@ typedef struct s_point
 	double x;
 	double y;
 } t_point;
+
+
 
 typedef struct s_ray
 {
@@ -156,6 +168,7 @@ int		map_check(t_data *data, char *file, char *line, int fd);
 
 
 /* FUNCTIONS */
+
 void    wall_projection(t_data *data, t_ray *ray, int *color, int col);
 void check_vertical_intersect(t_data *data, t_ray *ray);
 void    calc_vertical_step(t_data *data, t_ray *ray, double tan_val);
