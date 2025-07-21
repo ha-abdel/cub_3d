@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:43:41 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/20 11:35:13 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/21 14:23:22 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 #define D_KEY 100
 #define ESC_KEY 65307
 
-# include "/home/salahian/Downloads/minilibx-linux/mlx.h"
+# include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>

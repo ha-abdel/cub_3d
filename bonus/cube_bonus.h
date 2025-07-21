@@ -1,7 +1,7 @@
 #ifndef CUBE_H
 # define CUBE_H
 
-# include "/home/salahian/Downloads/minilibx-linux/mlx.h"
+# include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>

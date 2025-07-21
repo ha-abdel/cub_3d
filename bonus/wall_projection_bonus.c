@@ -107,10 +107,10 @@ void	animate_door(t_data *data)
 
 	clear_image(&data->frame_door, BLACK);
 	y = 0;
-	while (y < 250)
+	while (y < 150)
 	{
 		x = data->frame_door.frame_count;
-		while (x < data->frame_door.frame_count + 190)
+		while (x < data->frame_door.frame_count + 170)
 		{
 			color = get_color(&data->door, x, y);
 			if (color != 0x00000000)
@@ -121,8 +121,8 @@ void	animate_door(t_data *data)
 	}
 	if (data->frame > 350)
 	{
-		if (data->frame_door.frame_count < 950)
-			data->frame_door.frame_count += 190;
+		if (data->frame_door.frame_count < 675)
+			data->frame_door.frame_count += 170;
 		else
 			data->frame_door.frame_count = 0;
 		data->frame = 0;
@@ -377,8 +377,10 @@ void wall_projection(t_data *data, t_ray *ray, int col, t_door *door)
         }
         else
         {
-			 draw_line(data, door->ray.ceil_start, door->ray.ceil_end, data->map.c_color, 1);
-   			 draw_line(data, door->ray.floor_start, door->ray.floor_end, data->map.f_color, 1);
+			//  draw_line(data, door->ray.ceil_start, door->ray.ceil_end, data->map.c_color, 1);
+   			//  draw_line(data, door->ray.floor_start, door->ray.floor_end, data->map.f_color, 1);
+			draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
+    		draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
 			 draw_wall_texture(data, ray);
 			 draw_door_texture(data, door, ray);
             
