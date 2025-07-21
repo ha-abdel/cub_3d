@@ -13,7 +13,7 @@ cleaner.c
 files_bonus = angle_bonus.c  calculate_distance_bonus.c  directions_bonus.c  draw_func_bonus.c \
 h_intersection_bonus.c  init_bonus.c  main_bonus.c  map_check_bonus.c  mlx_utils_bonus.c  parsing_bonus.c \
 ray_casting_bonus.c v_intersection_bonus.c  wall_projection_bonus.c minimap_bonus.c textures_bonus.c render_bonus.c \
-cleaner_bonus.c map_collision_bonus.c
+cleaner_bonus.c map_collision_bonus.c check_images_bonus.c
 
 SRCS = $(addprefix src/, $(files))
 SRCS_BONUS = $(addprefix bonus/, $(files_bonus))
@@ -38,7 +38,7 @@ $(LIBFT):
 	@make bonus -C $(LIBFT_PATH)
 
 
-$(NAME): $(OBJS) src/cube.h
+$(NAME): $(OBJS) cube.h
 	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBFT) -o $(NAME)
 
 

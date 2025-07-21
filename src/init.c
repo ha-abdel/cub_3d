@@ -6,11 +6,58 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:32:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 15:47:46 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:08:29 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
+
+void	get_imgs_addresses(t_data **data)
+{
+	(*data)->bg.addr = mlx_get_data_addr((*data)->bg.img, &(*data)->bg.bpp,
+			&(*data)->bg.line_len, &(*data)->bg.endian);
+	(*data)->bg1.addr = mlx_get_data_addr((*data)->bg1.img, &(*data)->bg1.bpp,
+			&(*data)->bg1.line_len, &(*data)->bg1.endian);
+	(*data)->n_wall.addr = mlx_get_data_addr((*data)->n_wall.img,
+			&(*data)->n_wall.bpp, &(*data)->n_wall.line_len,
+			&(*data)->n_wall.endian);
+	(*data)->s_wall.addr = mlx_get_data_addr((*data)->s_wall.img,
+			&(*data)->s_wall.bpp, &(*data)->s_wall.line_len,
+			&(*data)->s_wall.endian);
+	(*data)->e_wall.addr = mlx_get_data_addr((*data)->e_wall.img,
+			&(*data)->e_wall.bpp, &(*data)->e_wall.line_len,
+			&(*data)->e_wall.endian);
+	(*data)->w_wall.addr = mlx_get_data_addr((*data)->w_wall.img,
+			&(*data)->w_wall.bpp, &(*data)->w_wall.line_len,
+			&(*data)->w_wall.endian);
+}
+
+void	init_images(t_data **data)
+{
+	(*data)->bg.img = mlx_new_image((*data)->mlx, (*data)->map.width
+			* TILE_SIZE, (*data)->map.height * TILE_SIZE);
+	(*data)->bg.width = (*data)->map.width * TILE_SIZE;
+	(*data)->bg.height = (*data)->map.height * TILE_SIZE;
+	(*data)->bg1.img = mlx_new_image((*data)->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	(*data)->bg1.width = SCREEN_WIDTH;
+	(*data)->bg1.height = SCREEN_HEIGHT;
+	(*data)->n_wall.img = mlx_xpm_file_to_image((*data)->mlx,
+			(*data)->map.n_path, &(*data)->n_wall.width,
+			&(*data)->n_wall.height);
+	(*data)->s_wall.img = mlx_xpm_file_to_image((*data)->mlx,
+			(*data)->map.s_path, &(*data)->s_wall.width,
+			&(*data)->s_wall.height);
+	(*data)->e_wall.img = mlx_xpm_file_to_image((*data)->mlx,
+			(*data)->map.e_path, &(*data)->e_wall.width,
+			&(*data)->e_wall.height);
+	(*data)->w_wall.img = mlx_xpm_file_to_image((*data)->mlx,
+			(*data)->map.w_path, &(*data)->w_wall.width,
+			&(*data)->w_wall.height);
+	if (!(*data)->bg.img || !(*data)->bg1.img || !(*data)->n_wall.img
+		|| !(*data)->s_wall.img || !(*data)->e_wall.img || !(*data)->w_wall.img)
+		clean_all(data);
+	get_imgs_addresses(data);
+}
 
 void	init_data(t_data *data)
 {
@@ -19,33 +66,7 @@ void	init_data(t_data *data)
 			"3D View");
 	data->win_2d = mlx_new_window(data->mlx, data->map.width * TILE_SIZE,
 			data->map.height * TILE_SIZE, "2D Debug View");
-	data->bg.img = mlx_new_image(data->mlx, data->map.width * TILE_SIZE,
-			data->map.height * TILE_SIZE);
-	data->bg.addr = mlx_get_data_addr(data->bg.img, &data->bg.bpp,
-			&data->bg.line_len, &data->bg.endian);
-	data->bg.width = data->map.width * TILE_SIZE;
-	data->bg.height = data->map.height * TILE_SIZE;
-	data->bg1.img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	data->bg1.addr = mlx_get_data_addr(data->bg1.img, &data->bg1.bpp,
-			&data->bg1.line_len, &data->bg1.endian);
-	data->bg1.width = SCREEN_WIDTH;
-	data->bg1.height = SCREEN_HEIGHT;
-	data->n_wall.img = mlx_xpm_file_to_image(data->mlx, data->map.n_path,
-			&data->n_wall.width, &data->n_wall.height);
-	data->n_wall.addr = mlx_get_data_addr(data->n_wall.img, &data->n_wall.bpp,
-			&data->n_wall.line_len, &data->n_wall.endian);
-	data->s_wall.img = mlx_xpm_file_to_image(data->mlx, data->map.s_path,
-			&data->s_wall.width, &data->s_wall.height);
-	data->s_wall.addr = mlx_get_data_addr(data->s_wall.img, &data->s_wall.bpp,
-			&data->s_wall.line_len, &data->s_wall.endian);
-	data->e_wall.img = mlx_xpm_file_to_image(data->mlx, data->map.e_path,
-			&data->e_wall.width, &data->e_wall.height);
-	data->e_wall.addr = mlx_get_data_addr(data->e_wall.img, &data->e_wall.bpp,
-			&data->e_wall.line_len, &data->e_wall.endian);
-	data->w_wall.img = mlx_xpm_file_to_image(data->mlx, data->map.w_path,
-			&data->w_wall.width, &data->w_wall.height);
-	data->w_wall.addr = mlx_get_data_addr(data->w_wall.img, &data->w_wall.bpp,
-			&data->w_wall.line_len, &data->w_wall.endian);
+	init_images(&data);
 	data->player.x *= TILE_SIZE + TILE_SIZE / 2;
 	data->player.y *= TILE_SIZE + TILE_SIZE / 2;
 }

@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 13:28:34 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/20 15:14:17 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:30:55 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	put_the_pixel_in_img(t_data *data, t_point rot)
 {
 	t_point	pxy;
-	double		d;
+	double	d;
 
 	pxy.x = data->mini_map.centre.x + (int)rot.x;
 	pxy.y = data->mini_map.centre.y + (int)rot.y;

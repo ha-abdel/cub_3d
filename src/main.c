@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:38:56 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 15:24:00 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:19:38 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	handle_key(int key, t_data *data)
 
 int	main(int ac, char **av)
 {
-	t_data data;
+	t_data	data;
 
 	if (ac != 2)
 		return (1);

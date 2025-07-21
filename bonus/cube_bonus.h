@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 20:13:18 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:37:20 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ typedef struct s_sprite
 	int				line_len;
 	int				endian;
 	int				frame_count;
-	// int					frame_index;
 }					t_sprite;
 
 typedef struct s_texture
@@ -163,7 +162,6 @@ typedef struct minimap
 typedef struct s_data
 {
 	void			*mlx;
-	// void				*win;
 	void			*win_3d;
 	void			*win_2d;
 	t_player		player;
@@ -185,11 +183,11 @@ typedef struct s_data
 void				print_map(char **map);
 int					main_function_parsing(t_data *data, char *file);
 int					map_check(t_data *data, char *file, char *line, int fd);
-
-/* FUNCTIONS */
-void				get_texture_img(t_data *data, t_ray *ray, t_sprite *img);
+void				get_imgs_addresses(t_data **data);
+void				init_data(t_data *data);
+void				get_texture_img(t_data *data, t_ray **ray, t_sprite *img);
 void				copy_img(t_sprite *src, t_sprite **dst);
-void				set_wall_type(t_ray *ray);
+void				set_wall_type(t_ray **ray);
 int					destroy_window(t_data *data);
 int					clean_all(t_data **data);
 void				clean_mlx_mandatory_resources(t_data **data);

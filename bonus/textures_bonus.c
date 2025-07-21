@@ -6,27 +6,27 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:51:46 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 20:20:03 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:27:08 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "cube_bonus.h"
 
-void	set_wall_type(t_ray *ray)
+void	set_wall_type(t_ray **ray)
 {
-	if (ray->h_dist <= ray->v_dist)
+	if ((*ray)->h_dist <= (*ray)->v_dist)
 	{
-		if (is_facing_down(ray->ray_angle))
-			ray->wall_type = N_WALL;
+		if (is_facing_down((*ray)->ray_angle))
+			(*ray)->wall_type = N_WALL;
 		else
-			ray->wall_type = S_WALL;
+			(*ray)->wall_type = S_WALL;
 	}
-	else if (ray->h_dist > ray->v_dist)
+	else if ((*ray)->h_dist > (*ray)->v_dist)
 	{
-		if (is_facing_right(ray->ray_angle))
-			ray->wall_type = E_WALL;
+		if (is_facing_right((*ray)->ray_angle))
+			(*ray)->wall_type = E_WALL;
 		else
-			ray->wall_type = W_WALL;
+			(*ray)->wall_type = W_WALL;
 	}
 }
 
@@ -39,15 +39,16 @@ void	copy_img(t_sprite *src, t_sprite **dst)
 	(*dst)->line_len = src->line_len;
 	(*dst)->img = src->img;
 }
-void	get_texture_img(t_data *data, t_ray *ray, t_sprite *img)
+
+void	get_texture_img(t_data *data, t_ray **ray, t_sprite *img)
 {
 	set_wall_type(ray);
-	if (ray->wall_type == N_WALL)
+	if ((*ray)->wall_type == N_WALL)
 		copy_img(&data->n_wall, &img);
-	else if (ray->wall_type == S_WALL)
+	else if ((*ray)->wall_type == S_WALL)
 		copy_img(&data->s_wall, &img);
-	else if (ray->wall_type == E_WALL)
+	else if ((*ray)->wall_type == E_WALL)
 		copy_img(&data->e_wall, &img);
-	else if (ray->wall_type == W_WALL)
+	else if ((*ray)->wall_type == W_WALL)
 		copy_img(&data->w_wall, &img);
 }

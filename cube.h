@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:43:41 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/20 17:26:04 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/21 17:12:25 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,9 @@ typedef struct s_data
 	void			*mlx;
 	void			*win_3d;
 	void			*win_2d;
+	int				num_rays;
+	int				max_dist_pixel;
+	double			rotation_speed;
 	t_player		player;
 	t_sprite		bg;
 	t_sprite		bg1;
@@ -154,10 +157,8 @@ typedef struct s_data
 	t_sprite		e_wall;
 	t_sprite		w_wall;
 	t_map			map;
-	int				num_rays;
-	float			rotation_speed;
-	int				max_dist_pixel;
 }					t_data;
+
 void				print_map(char **map);
 int					main_function_parsing(t_data *data, char *file);
 int					map_check(t_data *data, char *file, char *line, int fd);

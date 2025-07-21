@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:51:46 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 15:38:56 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/21 18:08:11 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	copy_img(t_sprite *src, t_sprite **dst)
 	(*dst)->line_len = src->line_len;
 	(*dst)->img = src->img;
 }
+
 void	get_texture_img(t_data *data, t_ray *ray, t_sprite *img)
 {
 	set_wall_type(ray);
