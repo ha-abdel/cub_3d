@@ -45,7 +45,7 @@ void    init_data(t_data *data)
     data->W_wall.img = mlx_xpm_file_to_image(data->mlx, data->map.w_path, &data->W_wall.width, &data->W_wall.height);
     data->W_wall.addr = mlx_get_data_addr(data->W_wall.img, &data->W_wall.bpp, &data->W_wall.line_len, &data->W_wall.endian);
 
-    data->door.img = mlx_xpm_file_to_image(data->mlx, "wolfenstein/animated_door.xpm", &data->door.width, &data->door.height);
+    data->door.img = mlx_xpm_file_to_image(data->mlx, "wolfenstein/test_door.xpm", &data->door.width, &data->door.height);
     data->door.addr = mlx_get_data_addr(data->door.img, &data->door.bpp, &data->door.line_len, &data->door.endian);
     // data->W_wall.width =  TILE_SIZE;
     // data->W_wall.height = TILE_SIZE;
@@ -54,9 +54,9 @@ void    init_data(t_data *data)
     data->frame_door.img = mlx_new_image(data->mlx, 250, 250);
     data->frame_door.addr = mlx_get_data_addr(data->frame_door.img, &data->frame_door.bpp, &data->frame_door.line_len, &data->frame_door.endian);
     data->frame_door.height = 250;
-    data->frame_door.width = 250;
+    data->frame_door.width = 190;
     data->frame_door.frame_count = 0;
-	data->frame_door.reverse_frame = 1000;
+	data->frame_door.reverse_frame = 950;
     data->minimap.width = a;
     data->minimap.height = b;
 	data->frame = 0;

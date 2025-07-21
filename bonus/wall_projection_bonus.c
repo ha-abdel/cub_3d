@@ -110,7 +110,7 @@ void	animate_door(t_data *data)
 	while (y < 250)
 	{
 		x = data->frame_door.frame_count;
-		while (x < data->frame_door.frame_count + 250)
+		while (x < data->frame_door.frame_count + 190)
 		{
 			color = get_color(&data->door, x, y);
 			if (color != 0x00000000)
@@ -121,8 +121,8 @@ void	animate_door(t_data *data)
 	}
 	if (data->frame > 350)
 	{
-		if (data->frame_door.frame_count < 1000)
-			data->frame_door.frame_count += 250;
+		if (data->frame_door.frame_count < 950)
+			data->frame_door.frame_count += 190;
 		else
 			data->frame_door.frame_count = 0;
 		data->frame = 0;
