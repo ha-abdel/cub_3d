@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:02 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 15:17:32 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/22 08:46:52 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ void	clean_mlx_mandatory_resources(t_data **data)
 		mlx_destroy_image((*data)->mlx, (*data)->s_wall.img);
 	if ((*data)->w_wall.img)
 		mlx_destroy_image((*data)->mlx, (*data)->w_wall.img);
+	if ((*data)->door.img)
+		mlx_destroy_image((*data)->mlx, (*data)->door.img);
+	if ((*data)->minimap.img)
+		mlx_destroy_image((*data)->mlx, (*data)->minimap.img);
+	if ((*data)->frame_door.img)
+		mlx_destroy_image((*data)->mlx, (*data)->frame_door.img);
 	if ((*data)->bg.img)
 		mlx_destroy_image((*data)->mlx, (*data)->bg.img);
 	if ((*data)->bg1.img)

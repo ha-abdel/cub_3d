@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:30:18 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/22 08:56:23 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ int	main(int ac, char **av)
 	if (!main_function_parsing(&data, av[1]))
 		return (1);
 	init_data(&data);
+	// mlx_mouse_hide(data.mlx, data.win_3d);
 	mlx_hook(data.win_3d, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win_2d, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win_3d, 17, 1L << 0, destroy_window, &data);
 	mlx_hook(data.win_2d, 17, 1L << 0, destroy_window, &data);
 	mlx_hook(data.win_2d, 6, 1L << 6, handle_mouse, &data);
 	mlx_hook(data.win_3d, 6, 1L << 6, handle_mouse, &data);
-	mlx_mouse_hide(data.mlx, data.win_3d);
 	mlx_loop_hook(data.mlx, render, &data);
 	mlx_loop(data.mlx);
 	return (0);

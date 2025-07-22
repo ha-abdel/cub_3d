@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:37:20 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/22 08:40:57 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,8 @@ typedef struct s_data
 	float			rotation_speed;
 	int				max_dist_pixel;
 }					t_data;
+void				project_wall(t_ray **ray, int col);
+void				project_door(t_door **door, int col);
 void				print_map(char **map);
 int					main_function_parsing(t_data *data, char *file);
 int					map_check(t_data *data, char *file, char *line, int fd);
