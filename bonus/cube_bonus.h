@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 10:10:31 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 10:27:11 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,11 @@ typedef struct s_ray
 typedef struct s_door
 {
 	int	found_door;
+	int	x;
+	int	y;
 	int found_door_pixel;
 	int wall_behind_distance;
+	t_sprite	frame_door;
 	t_ray ray;
 
 }					t_door;
@@ -167,6 +170,9 @@ typedef struct s_data
 	t_map				map;
 	t_sprite				door;
 	t_sprite				frame_door;
+	t_door				**door;
+	int					rev_animation;
+	int					frame;
 	int					NUM_RAYS;
 }						t_data;
 void	print_map(char **map);
