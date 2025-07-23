@@ -6,15 +6,15 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:43:41 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/23 10:12:41 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 10:44:23 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE_H
 # define CUBE_H
 
-# define SCREEN_WIDTH 1500
-# define SCREEN_HEIGHT 1000
+# define screen_width 1500
+# define screen_height 1000
 # define TILE_SIZE 64
 # define FOV 60.0
 # define PI 3.1415926535

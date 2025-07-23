@@ -1,6 +1,7 @@
 {
     "functionHeaderExtension.headerFilePath": "/home/abdel-ha/Desktop/cub_3d/src/cube.h",
     "files.associations": {
-        "cube.h": "c"
+        "cube.h": "c",
+        "cube_bonus.h": "c"
     }
 }

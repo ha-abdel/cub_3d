@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:34 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 17:21:34 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 10:44:23 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	is_wall(t_data *data, double x, double y)
 int	inside_bounds(t_data *data, double x, double y)
 {
 	(void)data;
-	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
+	if (x < 0 || x >= screen_width || y < 0 || y >= screen_height)
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 10:12:23 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 11:04:19 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	draw_wall_texture(t_data *data, t_ray **ray)
 		texture.wall_x = fmod((*ray)->ray_end.y, TILE_SIZE) / TILE_SIZE;
 	texture.tex_x = (int)(texture.wall_x * (img.width - 1));
 	texture.tex_step = img.height / (*ray)->wall_strip;
-	texture.tex_pos = ((*ray)->wall_start.y - SCREEN_HEIGHT / 2
+	texture.tex_pos = ((*ray)->wall_start.y - screen_height / 2
 			+ (*ray)->wall_strip / 2) * texture.tex_step;
 	while (y < (*ray)->wall_end.y)
 	{
@@ -53,7 +53,7 @@ void	animate_door(t_data *data)
 		x = data->frame_door.frame_count;
 		while (x < data->frame_door.frame_count + 165)
 		{
-			color = get_color(&data->door, x, y);
+			color = get_color(&data->sprite_door, x, y);
 			if (color != 0x00000000)
 				my_mlx_pixel_put(&data->frame_door, x
 					- data->frame_door.frame_count, y, color);
@@ -63,29 +63,29 @@ void	animate_door(t_data *data)
 	}
 }
 
-void	animate_reverse_door(t_data *data)
-{
-	int		x;
-	int		y;
-	unsigned int	color;
+// void	animate_reverse_door(t_data *data)
+// {
+// 	int		x;
+// 	int		y;
+// 	unsigned int	color;
 
-	clear_image(&data->frame_door, BLACK);
-	y = 0;
-	while (y < 150)
-	{
-		x = 0;
-		while (x < 165)
-		{
-			if (data->frame_door.reverse_frame - x < 0)
-				break;
-			color = get_color(&data->door, data->frame_door.reverse_frame - x, y);
-			if (color != 0x00000000)
-				my_mlx_pixel_put(&data->frame_door, x, y, color);
-			x++;
-		}
-		y++;
-	}
-}
+// 	clear_image(&data->frame_door, BLACK);
+// 	y = 0;
+// 	while (y < 150)
+// 	{
+// 		x = 0;
+// 		while (x < 165)
+// 		{
+// 			if (data->frame_door.reverse_frame - x < 0)
+// 				break;
+// 			color = get_color(&data->door, data->frame_door.reverse_frame - x, y);
+// 			if (color != 0x00000000)
+// 				my_mlx_pixel_put(&data->frame_door, x, y, color);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
 
 void	draw_door_texture(t_data *data, t_door **door, t_ray **ray)
 {
@@ -103,7 +103,7 @@ void	draw_door_texture(t_data *data, t_door **door, t_ray **ray)
 			/ TILE_SIZE;
 	texture.tex_x = (int)(texture.wall_x * (data->frame_door.width - 1));
 	texture.tex_step = data->frame_door.height / (*door)->ray.wall_strip;
-	texture.tex_pos = ((*door)->ray.wall_start.y - SCREEN_HEIGHT / 2
+	texture.tex_pos = ((*door)->ray.wall_start.y - screen_height / 2
 			+ (*door)->ray.wall_strip / 2) * texture.tex_step;
 	while (y < (*door)->ray.wall_end.y)
 	{
@@ -114,58 +114,6 @@ void	draw_door_texture(t_data *data, t_door **door, t_ray **ray)
 		texture.tex_pos += texture.tex_step;
 		y++;
 	}
-}
-
-void	project_wall(t_ray **ray, int col)
-{
-	(*ray)->dist_projection_plane = (SCREEN_WIDTH / 2.0) / tan((FOV / 2.0) * PI
-			/ 180);
-	(*ray)->wall_strip = (TILE_SIZE / (*ray)->distance)
-		* (*ray)->dist_projection_plane;
-	(*ray)->ceil = (SCREEN_HEIGHT) / 2 - (*ray)->wall_strip / 2;
-	(*ray)->floor = (*ray)->ceil + (*ray)->wall_strip;
-	if ((*ray)->ceil < 0)
-		(*ray)->ceil = 0;
-	if ((*ray)->floor > SCREEN_HEIGHT)
-		(*ray)->floor = SCREEN_HEIGHT;
-	(*ray)->wall_start.x = col;
-	(*ray)->wall_start.y = (*ray)->ceil;
-	(*ray)->wall_end.x = col;
-	(*ray)->wall_end.y = (*ray)->floor;
-	(*ray)->ceil_start.x = col;
-	(*ray)->ceil_start.y = 0;
-	(*ray)->ceil_end.x = col;
-	(*ray)->ceil_end.y = (*ray)->ceil - 1;
-	(*ray)->floor_start.x = col;
-	(*ray)->floor_start.y = (*ray)->ceil + (*ray)->wall_strip;
-	(*ray)->floor_end.x = col;
-	(*ray)->floor_end.y = SCREEN_HEIGHT;
-}
-
-void	project_door(t_door **door, int col)
-{
-	(*door)->ray.dist_projection_plane = (SCREEN_WIDTH / 2.0) / tan((FOV / 2.0)
-			* PI / 180);
-	(*door)->ray.wall_strip = (TILE_SIZE / (*door)->ray.distance)
-		* (*door)->ray.dist_projection_plane;
-	(*door)->ray.ceil = (SCREEN_HEIGHT) / 2 - (*door)->ray.wall_strip / 2;
-	(*door)->ray.floor = (*door)->ray.ceil + (*door)->ray.wall_strip;
-	if ((*door)->ray.ceil < 0)
-		(*door)->ray.ceil = 0;
-	if ((*door)->ray.floor > SCREEN_HEIGHT)
-		(*door)->ray.floor = SCREEN_HEIGHT;
-	(*door)->ray.wall_start.x = col;
-	(*door)->ray.wall_start.y = (*door)->ray.ceil;
-	(*door)->ray.wall_end.x = col;
-	(*door)->ray.wall_end.y = (*door)->ray.floor;
-	(*door)->ray.ceil_start.x = col;
-	(*door)->ray.ceil_start.y = 0;
-	(*door)->ray.ceil_end.x = col;
-	(*door)->ray.ceil_end.y = (*door)->ray.ceil - 1;
-	(*door)->ray.floor_start.x = col;
-	(*door)->ray.floor_start.y = (*door)->ray.ceil + (*door)->ray.wall_strip;
-	(*door)->ray.floor_end.x = col;
-	(*door)->ray.floor_end.y = SCREEN_HEIGHT;
 }
 
 void	draw_wall_behind_door(t_data *data, int col, t_ray **ray, t_door **door)
@@ -203,7 +151,7 @@ void	wall_projection(t_data *data, t_ray *ray, int col, t_door *door)
         if (door->ray.distance >= ray->distance)
         {
             // draw_wall_texture(data, ray);
-            draw_wall_texture(data, ray);
+            draw_wall_texture(data, &ray);
 			 draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
     		draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
 			
@@ -214,14 +162,13 @@ void	wall_projection(t_data *data, t_ray *ray, int col, t_door *door)
    			//  draw_line(data, door->ray.floor_start, door->ray.floor_end, data->map.f_color, 1);
 			draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
     		draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
-			 draw_wall_texture(data, ray);
-			 draw_door_texture(data, door, ray);
-            
+			 draw_wall_texture(data, &ray);
+			 draw_door_texture(data, &door, &ray);
         }
     }
     else
     {
-        draw_wall_texture(data, ray);
+        draw_wall_texture(data, &ray);
 		draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
 		draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
 	}

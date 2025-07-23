@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:51:43 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 17:25:39 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 10:44:23 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	draw_wall_texture(t_data *data, t_ray *ray)
 		texture.wall_x = fmod(ray->ray_end.y, TILE_SIZE) / TILE_SIZE;
 	texture.tex_x = (int)(texture.wall_x * (img.width - 1));
 	texture.tex_step = img.height / ray->wall_strip;
-	texture.tex_pos = (ray->wall_start.y - SCREEN_HEIGHT / 2 + ray->wall_strip
+	texture.tex_pos = (ray->wall_start.y - screen_height / 2 + ray->wall_strip
 			/ 2) * texture.tex_step;
 	while (y < ray->wall_end.y)
 	{
@@ -44,15 +44,15 @@ void	draw_wall_texture(t_data *data, t_ray *ray)
 void	wall_projection(t_data *data, t_ray *ray, int *color, int col)
 {
 	(void)color;
-	ray->dist_projection_plane = (SCREEN_WIDTH / 2.0) / tan((FOV / 2.0) * PI
+	ray->dist_projection_plane = (screen_width / 2.0) / tan((FOV / 2.0) * PI
 			/ 180);
 	ray->wall_strip = (TILE_SIZE / ray->distance) * ray->dist_projection_plane;
-	ray->ceil = (SCREEN_HEIGHT) / 2 - ray->wall_strip / 2;
+	ray->ceil = (screen_height) / 2 - ray->wall_strip / 2;
 	ray->floor = ray->ceil + ray->wall_strip;
 	if (ray->ceil < 0)
 		ray->ceil = 0;
-	if (ray->floor > SCREEN_HEIGHT)
-		ray->floor = SCREEN_HEIGHT;
+	if (ray->floor > screen_height)
+		ray->floor = screen_height;
 	ray->wall_start.x = col;
 	ray->wall_start.y = ray->ceil;
 	ray->wall_end.x = col;
@@ -64,7 +64,7 @@ void	wall_projection(t_data *data, t_ray *ray, int *color, int col)
 	ray->floor_start.x = col;
 	ray->floor_start.y = ray->ceil + ray->wall_strip;
 	ray->floor_end.x = col;
-	ray->floor_end.y = SCREEN_HEIGHT;
+	ray->floor_end.y = screen_height;
 	draw_wall_texture(data, ray);
 	draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
 	draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);

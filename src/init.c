@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:32:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:08:29 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 10:44:23 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	init_images(t_data **data)
 			* TILE_SIZE, (*data)->map.height * TILE_SIZE);
 	(*data)->bg.width = (*data)->map.width * TILE_SIZE;
 	(*data)->bg.height = (*data)->map.height * TILE_SIZE;
-	(*data)->bg1.img = mlx_new_image((*data)->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	(*data)->bg1.width = SCREEN_WIDTH;
-	(*data)->bg1.height = SCREEN_HEIGHT;
+	(*data)->bg1.img = mlx_new_image((*data)->mlx, screen_width, screen_height);
+	(*data)->bg1.width = screen_width;
+	(*data)->bg1.height = screen_height;
 	(*data)->n_wall.img = mlx_xpm_file_to_image((*data)->mlx,
 			(*data)->map.n_path, &(*data)->n_wall.width,
 			&(*data)->n_wall.height);
@@ -62,7 +62,7 @@ void	init_images(t_data **data)
 void	init_data(t_data *data)
 {
 	data->mlx = mlx_init();
-	data->win_3d = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT,
+	data->win_3d = mlx_new_window(data->mlx, screen_width, screen_height,
 			"3D View");
 	data->win_2d = mlx_new_window(data->mlx, data->map.width * TILE_SIZE,
 			data->map.height * TILE_SIZE, "2D Debug View");
@@ -86,9 +86,9 @@ void	initial_data(t_data *data)
 	data->map.e_path = NULL;
 	data->player.y = -1;
 	data->player.x = -1;
-	data->num_rays = SCREEN_WIDTH;
+	data->num_rays = screen_width;
 	data->rotation_speed = M_PI / 180;
-	data->max_dist_pixel = SCREEN_WIDTH * 2;
+	data->max_dist_pixel = screen_width * 2;
 }
 
 void	init_ray(t_ray *ray, t_data *data)
