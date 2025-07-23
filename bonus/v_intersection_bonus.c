@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:20:12 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 20:20:13 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 08:40:51 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ void	find_v_wall(t_data *data, t_ray **ray, t_door **door)
 		&& inside_bounds(data, (*ray)->v_intersect.x, (*ray)->v_intersect.y))
 	{
 		if (is_door(data, (*ray)->v_intersect.x
-				- is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y)
-			&& !(*door)->found_door)
+				- is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y))
 		{
 			(*door)->found_door = 1;
 			(*door)->ray.v_intersect.x = (*ray)->v_intersect.x;

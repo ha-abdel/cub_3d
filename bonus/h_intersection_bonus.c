@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:29:30 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 08:40:31 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	find_h_wall(t_data *data, t_ray **ray, t_door **door)
 			((*ray)->h_intersect).x, ((*ray)->h_intersect).y))
 	{
 		if (is_door(data, ((*ray)->h_intersect).x, ((*ray)->h_intersect).y
-				- is_facing_up((*ray)->ray_angle)) && !(*door)->found_door)
+				- is_facing_up((*ray)->ray_angle)))
 		{
 			(*door)->found_door = 1;
 			(*door)->ray.h_intersect.x = (*ray)->h_intersect.x;
