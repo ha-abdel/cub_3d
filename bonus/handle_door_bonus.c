@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   handle_door_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 08:58:03 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/23 09:23:49 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/23 18:17:38 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
 
-void    init_door(t_data *data, int i)
+void    init_door_img(t_data *data, int i)
 {
     data->door[i]->frame_door.img = mlx_new_image(data->mlx, 165, 150);
-    data->door[i]->frame_door.addr = mlx_get_data_addr(data->door[i]->frame_door.img, &data->door[i]->frame_door.bpp, &data->door[i]->frame_door.line_len, &data->door[i]->frame_door.endian);
     data->door[i]->frame_door.height = 150;
     data->door[i]->frame_door.width = 165;
-    data->door[i]->frame_door.frame_count = 0;
-	data->door[i]->frame_door.reverse_frame = 660;
+    data->door[i]->frame_count = 0;
+	data->door[i]->reverse_frame = 660;
 }
 
 int calculate_doors(t_data *data)
@@ -75,7 +74,7 @@ void    fill_door(t_data *data, int count)
     while (i < count)
     {
         data->door[i] = ft_malloc(sizeof(t_door), 1);
-        init_door(data, i);
+        init_door_img(data, i);
         set_info(data, &data->door[i]);
         i++;
     }
@@ -87,6 +86,7 @@ void    main_func_doors(t_data *data)
     int     count;
 
     count = calculate_doors(data);
+    printf("[%d]\n", count);
     data->door = ft_malloc(sizeof(t_door *) * (count + 1), 1);
     fill_door(data, count);
 }

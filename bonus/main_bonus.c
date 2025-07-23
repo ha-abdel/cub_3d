@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 16:56:29 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/23 18:20:20 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ int handle_key(int key, t_data *data)
         data->open_door = check_distance(data);
     move_player(data, key);
     if (is_wall(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle))
-        || is_door(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle)) && 
-        data->open_door == 0)
+        || (is_door(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle)) && 
+        data->open_door == 0))
     {
         data->player.x = old_px;
         data->player.y = old_py;
@@ -183,6 +183,8 @@ int get_next_door(t_data *data, int index, int col)
     int     dx;
     int     dist;
 
+    if (index == -1)
+        return (-1);
     i = 0;
     while (data->door[i])
     {
@@ -194,7 +196,7 @@ int get_next_door(t_data *data, int index, int col)
         dx = abs(data->door[i]->x - (int)(data->door[index]->x / TILE_SIZE));
         dy = abs(data->door[i]->y - (int)(data->door[index]->y / TILE_SIZE));
         dist = dx + dy;
-        if (dist < dt && data->door[i] == col)
+        if (dist < dt && data->door[i]->col == col)
         {
             dt = dist;
             in = i;
@@ -204,30 +206,30 @@ int get_next_door(t_data *data, int index, int col)
     return (in);
 }
 
-int check_zone(t_data *data, t_door *door)
-{
-    double door_cx = door->x * TILE_SIZE + TILE_SIZE / 2;
-    double door_cy = door->y * TILE_SIZE + TILE_SIZE / 2;
+// int check_zone(t_data *data, t_door *door)
+// {
+//     double door_cx = door->x * TILE_SIZE + TILE_SIZE / 2;
+//     double door_cy = door->y * TILE_SIZE + TILE_SIZE / 2;
 
-    // Vector from player to door
-    double dx = door_cx - data->player.x;
-    double dy = door_cy - data->player.y;
+//     // Vector from player to door
+//     double dx = door_cx - data->player.x;
+//     double dy = door_cy - data->player.y;
 
-    // Angle from player to door
-    double angle_to_door = atan2(dy, dx);
+//     // Angle from player to door
+//     double angle_to_door = atan2(dy, dx);
 
-    // Difference between player's facing angle and door angle
-    double diff = angle_to_door - data->player.angle;
+//     // Difference between player's facing angle and door angle
+//     double diff = angle_to_door - data->player.angle;
 
-    // Normalize difference to range [-PI, PI]
-    if (diff > M_PI)
-        diff -= 2 * M_PI;
-    else if (diff < -M_PI)
-        diff += 2 * M_PI;
+//     // Normalize difference to range [-PI, PI]
+//     if (diff > M_PI)
+//         diff -= 2 * M_PI;
+//     else if (diff < -M_PI)
+//         diff += 2 * M_PI;
 
-    // Check if within FOV
-    return (fabs(diff) <= FOV / 2);
-}
+//     // Check if within FOV
+//     return (fabs(diff) <= FOV / 2);
+// }
 
 
 // t_door  *get_the_close_door(t_data *data, int flag)
@@ -267,7 +269,7 @@ int check_zone(t_data *data, t_door *door)
 //     return (data->door[index]);
 // }
 
-int get_door(t_data *data, double x, double y)
+int get_current_door(t_data *data, double x, double y)
 {
     int     i;
 
@@ -319,26 +321,26 @@ int get_the_closest_door(t_data *data)
 // 	return (0);
 // }
 
-int	handle_key(int key, t_data *data)
-{
-	double	old_px;
-	double	old_py;
+// int	handle_key(int key, t_data *data)
+// {
+// 	double	old_px;
+// 	double	old_py;
 
-	old_px = data->player.x;
-	old_py = data->player.y;
-	if (key == ESC_KEY)
-		destroy_window(data);
-	move_player(data, key);
-	if (is_wall(data, data->player.x - is_facing_left(data->player.angle),
-			data->player.y - is_facing_up(data->player.angle)) || is_door(data,
-			data->player.x - is_facing_left(data->player.angle), data->player.y
-			- is_facing_up(data->player.angle)))
-	{
-		data->player.x = old_px;
-		data->player.y = old_py;
-	}
-	return (0);
-}
+// 	old_px = data->player.x;
+// 	old_py = data->player.y;
+// 	if (key == ESC_KEY)
+// 		destroy_window(data);
+// 	move_player(data, key);
+// 	if (is_wall(data, data->player.x - is_facing_left(data->player.angle),
+// 			data->player.y - is_facing_up(data->player.angle)) || is_door(data,
+// 			data->player.x - is_facing_left(data->player.angle), data->player.y
+// 			- is_facing_up(data->player.angle)))
+// 	{
+// 		data->player.x = old_px;
+// 		data->player.y = old_py;
+// 	}
+// 	return (0);
+// }
 
 void    make_door_close(t_data *data, int index)
 {
@@ -358,8 +360,8 @@ void    make_door_close(t_data *data, int index)
 
 void    handle_animation_door(t_data *data, int index)
 {
-    static int door;
-    int     i;
+   // static int door;
+   // int     i;
     
     if (index == -1)
         return ;
@@ -373,16 +375,16 @@ void    handle_animation_door(t_data *data, int index)
     }
     if (data->door[index]->rev_animation && check_if_player_pass(data))
         make_door_close(data, index);
-    if (!door)
-    {  
-        i = 0;
-        while (data->door[i])
-        {
-            animate_door(data, &data->door[i]);
-            i++;
-        }
-        door = 1;
-    }
+    // if (!door)
+    // {  
+    //     i = 0;
+    //     while (data->door[i])
+    //     {
+    //         animate_door(data, &data->door[i]);
+    //         i++;
+    //     }
+    //     door = 1;
+    // }
 }
 
 int	render(t_data *data)
@@ -393,7 +395,7 @@ int	render(t_data *data)
     {
         clear_image(&data->bg1, BLACK);
         draw_map(data);
-        handle_animation_door(data, get_the_closest_door(data));
+       // handle_animation_door(data, get_the_closest_door(data));
         cast_rays(data);
         draw_direction_lines(data);
         create_minimap(data);
@@ -424,6 +426,7 @@ int main(int ac, char **av) {
     init_data(&data);
     // ft_player_debug(&data);
 
+    main_func_doors(&data);
 	mlx_hook(data.win_3d, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win_2d, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win_3d, 17, 1L << 0, destroy_window, &data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 13:28:34 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/23 16:27:50 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:18:50 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,10 +149,10 @@ void	img_minimap(t_data *data, int px, int py)
 
 void	create_minimap(t_data *data)
 {
-	draw_circle(data, SCREEN_WIDTH - 150, SCREEN_HEIGHT - 150, 130);
-	data->mini_map.centre.x = SCREEN_WIDTH - 150;
-	data->mini_map.centre.y = SCREEN_HEIGHT - 150;
+	draw_circle(data, screen_width - 150, screen_height - 150, 130);
+	data->mini_map.centre.x = screen_width - 150;
+	data->mini_map.centre.y = screen_height - 150;
 	data->mini_map.r2 = 130 * 130;
 	mdraw_minimap_walls_rotated(data);
-	img_minimap(data, SCREEN_WIDTH - 150, SCREEN_HEIGHT - 150);
+	img_minimap(data, screen_width - 150, screen_height - 150);
 }
