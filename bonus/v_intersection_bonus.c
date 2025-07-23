@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:20:12 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 20:20:13 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/22 14:58:50 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,30 @@ void	calc_vertical_step(t_data *data, t_ray *ray, double tan_val)
 		ray->y_step = -ray->y_step;
 }
 
-void	find_v_wall(t_data *data, t_ray **ray, t_door **door)
+void	find_v_wall(t_data *data, t_ray **ray, t_door **door, int col)
 {
+	(void)col;
+	t_door	*cur_door;
+
+	cur_door = (*door);
 	while (!is_wall(data, (*ray)->v_intersect.x
 			- is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y)
 		&& inside_bounds(data, (*ray)->v_intersect.x, (*ray)->v_intersect.y))
 	{
 		if (is_door(data, (*ray)->v_intersect.x
-				- is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y)
-			&& !(*door)->found_door)
+				- is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y))
 		{
-			(*door)->found_door = 1;
-			(*door)->ray.v_intersect.x = (*ray)->v_intersect.x;
-			(*door)->ray.v_intersect.y = (*ray)->v_intersect.y;
+			cur_door->found_door = 1;
+			cur_door->ray.v_intersect.x = (*ray)->v_intersect.x;
+			cur_door->ray.v_intersect.y = (*ray)->v_intersect.y;
+			cur_door = cur_door->next;
 		}
 		(*ray)->v_intersect.x += (*ray)->x_step;
 		(*ray)->v_intersect.y += (*ray)->y_step;
 	}
 }
 
-void	check_vertical_intersect(t_data *data, t_ray *ray, t_door *door)
+void	check_vertical_intersect(t_data *data, t_ray *ray, t_door **door, int col)
 {
 	double	tan_val;
 
@@ -71,5 +75,5 @@ void	check_vertical_intersect(t_data *data, t_ray *ray, t_door *door)
 	calc_vertical_step(data, ray, tan_val);
 	ray->v_intersect.x = ray->first_x;
 	ray->v_intersect.y = ray->first_y;
-	find_v_wall(data, &ray, &door);
+	find_v_wall(data, &ray, door, col);
 }

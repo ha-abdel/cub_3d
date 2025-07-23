@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:29:30 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/22 11:22:00 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,23 @@ void	calc_horizontal_step(t_data *data, t_ray *ray, double tan_val)
 		ray->x_step = -(ray->x_step);
 }
 
-void	find_h_wall(t_data *data, t_ray **ray, t_door **door)
+void	find_h_wall(t_data *data, t_ray **ray, t_door **door, int col)
 {
+	t_door *cur_door;
+
+	cur_door = (*door);
 	while (!is_wall(data, ((*ray)->h_intersect).x, ((*ray)->h_intersect).y
 			- is_facing_up((*ray)->ray_angle)) && inside_bounds(data,
 			((*ray)->h_intersect).x, ((*ray)->h_intersect).y))
 	{
 		if (is_door(data, ((*ray)->h_intersect).x, ((*ray)->h_intersect).y
-				- is_facing_up((*ray)->ray_angle)) && !(*door)->found_door)
+				- is_facing_up((*ray)->ray_angle)))
 		{
-			(*door)->found_door = 1;
-			(*door)->ray.h_intersect.x = (*ray)->h_intersect.x;
-			(*door)->ray.h_intersect.y = (*ray)->h_intersect.y;
+			cur_door->found_door = 1;
+			cur_door->ray.h_intersect.x = (*ray)->h_intersect.x;
+			cur_door->ray.h_intersect.y = (*ray)->h_intersect.y;
+			cur_door->id = col;
+			cur_door = cur_door->next;
 		}
 		((*ray)->h_intersect).x += (*ray)->x_step;
 		((*ray)->h_intersect).y += (*ray)->y_step;
@@ -66,7 +71,7 @@ double	handle_division_by_zero(double angle)
 	return (tan_val);
 }
 
-void	check_horizontal_intersect(t_data *data, t_ray *ray, t_door *door)
+void	check_horizontal_intersect(t_data *data, t_ray *ray, t_door **door, int col)
 {
 	double	tan_val;
 
@@ -85,5 +90,5 @@ void	check_horizontal_intersect(t_data *data, t_ray *ray, t_door *door)
 	calc_horizontal_step(data, ray, tan_val);
 	(ray->h_intersect).x = ray->first_x;
 	(ray->h_intersect).y = ray->first_y;
-	find_h_wall(data, &ray, &door);
+	find_h_wall(data, &ray, door, col);
 }

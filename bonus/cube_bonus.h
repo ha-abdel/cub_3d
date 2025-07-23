@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:37:20 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 08:32:05 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,13 @@ typedef struct s_ray
 
 typedef struct s_door
 {
+	int				id;
 	int				found_door;
 	int				found_door_pixel;
 	int				wall_behind_distance;
 	t_ray			ray;
+	struct s_door	*next;
+	struct s_door	*prev;
 
 }					t_door;
 
@@ -193,25 +196,25 @@ int					clean_all(t_data **data);
 void				clean_mlx_mandatory_resources(t_data **data);
 int					render(t_data *data);
 int					get_t(int trgb);
-void				calc_wall_ditance(t_data *data, t_ray **ray, t_door **door);
-void				calc_door_ditance(t_data *data, t_ray **ray, t_door **door);
+void				calc_wall_ditance(t_data *data, t_ray **ray);
+void				calc_door_ditance(t_data *data, t_door **door);
 int					is_door(t_data *data, double x, double y);
 void				wall_projection(t_data *data, t_ray *ray, int col,
-						t_door *door);
+						t_door **door);
 void				check_vertical_intersect(t_data *data, t_ray *ray,
-						t_door *door);
+						t_door **door, int col);
 void				calc_vertical_step(t_data *data, t_ray *ray,
 						double tan_val);
 void				calc_first_v_intersect(t_data *data, t_ray *ray,
 						double tan_val);
 void				init_ray(t_ray *ray, t_data *data, t_door *door);
 void				check_horizontal_intersect(t_data *data, t_ray *ray,
-						t_door *door);
+						t_door **door, int col);
 void				calc_horizontal_step(t_data *data, t_ray *ray,
 						double tan_val);
 void				calc_first_h_intersect(t_data *data, t_ray *ray,
 						double tan_val);
-void				calc_distance(t_data *data, t_ray *ray, t_door *door);
+void				calc_distance(t_data *data, t_ray *ray, t_door **door, int col);
 void				normalize_angle(double *angle);
 int					is_perpendicular_to_xaxis(double ray_angle);
 int					is_perpendicular_to_yaxis(double ray_angle);

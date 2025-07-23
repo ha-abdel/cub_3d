@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:33:59 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/22 16:00:23 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,14 @@ void	initial_data(t_data *data)
 	data->map.e_path = NULL;
 	data->player.y = -1;
 	data->player.x = -1;
-	data->num_rays = SCREEN_WIDTH;
+	data->num_rays = 1;
 	data->rotation_speed = M_PI / 180;
 	data->max_dist_pixel = SCREEN_WIDTH * 2;
 }
 
 void	init_ray(t_ray *ray, t_data *data, t_door *door)
 {
+	(void)door;
 	ray->h_intersect.x = 0;
 	ray->h_intersect.y = 0;
 	ray->v_intersect.x = 0;
@@ -89,15 +90,15 @@ void	init_ray(t_ray *ray, t_data *data, t_door *door)
 	ray->distance = 0;
 	ray->player.x = data->player.x;
 	ray->player.y = data->player.y;
-	door->found_door = 0;
-	door->found_door_pixel = 0;
-	door->ray.angle_step = ray->angle_step;
-	door->ray.distance = 0;
-	door->ray.player.x = data->player.x;
-	door->ray.player.y = data->player.y;
-	door->ray.h_intersect.x = 0;
-	door->ray.h_intersect.y = 0;
-	door->ray.v_intersect.x = 0;
-	door->ray.v_intersect.y = 0;
-	door->wall_behind_distance = 0;
+	// door->found_door = 0;
+	// door->found_door_pixel = 0;
+	// door->ray.angle_step = ray->angle_step;
+	// door->ray.distance = 0;
+	// door->ray.player.x = data->player.x;
+	// door->ray.player.y = data->player.y;
+	// door->ray.h_intersect.x = 0;
+	// door->ray.h_intersect.y = 0;
+	// door->ray.v_intersect.x = 0;
+	// door->ray.v_intersect.y = 0;
+	// door->wall_behind_distance = 0;
 }

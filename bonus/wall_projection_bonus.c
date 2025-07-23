@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:27:27 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/22 15:40:29 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,12 @@ void	animate_door(t_data *data)
 		data->frame_door.frame_count = 0;
 }
 
-void	draw_door_texture(t_data *data, t_door **door, t_ray **ray)
+void	draw_door_texture(t_data *data, t_door **door)
 {
 	t_texture		texture;
 	int				y;
 	unsigned int	color;
 
-	(void)ray;
 	y = (*door)->ray.wall_start.y;
 	if ((*door)->ray.h_dist < (*door)->ray.v_dist)
 		texture.wall_x = fmod((*door)->ray.h_intersect.x, TILE_SIZE)
@@ -91,6 +90,8 @@ void	draw_door_texture(t_data *data, t_door **door, t_ray **ray)
 		color = get_color(&data->frame_door, texture.tex_x, texture.tex_y);
 		if (get_t(color) != 0xFF)
 			my_mlx_pixel_put(&data->bg1, (*door)->ray.wall_start.x, y, color);
+		else
+			(*door)->found_door_pixel = -1;
 		texture.tex_pos += texture.tex_step;
 		y++;
 	}
@@ -148,11 +149,28 @@ void	project_door(t_door **door, int col)
 	(*door)->ray.floor_end.y = SCREEN_HEIGHT;
 }
 
+t_door	*get_next_door(t_door *door, int col)
+{
+	if (!door->next)
+		return NULL;
+	door = door->next;
+	while (door)
+	{
+		if (door->id == col)
+			return door;
+		door = door->next;
+	}
+	return NULL;
+}
+
 void	draw_wall_behind_door(t_data *data, int col, t_ray **ray, t_door **door)
 {
-	(*door)->ray.ray_angle = (*ray)->ray_angle;
-	project_door(door, col);
-	if ((*door)->ray.distance >= (*ray)->distance)
+	t_door *cur_door;
+
+	cur_door = (*door);
+	cur_door->ray.ray_angle = (*ray)->ray_angle;
+	project_door(&cur_door, col);
+	if (cur_door->ray.distance >= (*ray)->distance)
 	{
 		draw_wall_texture(data, ray);
 		draw_line(data, (*ray)->ceil_start, (*ray)->ceil_end, data->map.c_color,
@@ -162,21 +180,29 @@ void	draw_wall_behind_door(t_data *data, int col, t_ray **ray, t_door **door)
 	}
 	else
 	{
-		draw_line(data, (*door)->ray.ceil_start, (*door)->ray.ceil_end,
+		draw_line(data, cur_door->ray.ceil_start, cur_door->ray.ceil_end,
 			data->map.c_color, 1);
-		draw_line(data, (*door)->ray.floor_start, (*door)->ray.floor_end,
+		draw_line(data, cur_door->ray.floor_start, cur_door->ray.floor_end,
 			data->map.f_color, 1);
 		draw_wall_texture(data, ray);
-		draw_door_texture(data, door, ray);
+		while (cur_door)
+		{
+			draw_door_texture(data, &cur_door);
+			if (cur_door->found_door_pixel == 0)
+				break;
+			cur_door = get_next_door(cur_door, col);
+			if (cur_door)
+				project_door(&cur_door, col);
+		}
 	}
 }
 
-void	wall_projection(t_data *data, t_ray *ray, int col, t_door *door)
+void	wall_projection(t_data *data, t_ray *ray, int col, t_door **door)
 {
 	project_wall(&ray, col);
-	if (door->found_door)
+	if ((*door)->found_door)
 	{
-		draw_wall_behind_door(data, col, &ray, &door);
+		draw_wall_behind_door(data, col, &ray, door);
 	}
 	else
 	{
