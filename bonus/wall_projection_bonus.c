@@ -107,11 +107,10 @@ void	animate_door(t_data *data)
 
 	//clear_image(&data->frame_door, BLACK);
 	y = 0;
-	//data->frame_door.frame_count = 500;
-	while (y < 250)
+	while (y < 150)
 	{
 		x = data->frame_door.frame_count;
-		while (x < (data->frame_door.frame_count + 250))
+		while (x < data->frame_door.frame_count + 165)
 		{
 			color = get_color(&data->door, x, y);
 			if (color != 0x00000000)
@@ -120,10 +119,30 @@ void	animate_door(t_data *data)
 		}
 		y++;
 	}
-	if (data->frame_door.frame_count < 1000)
-		data->frame_door.frame_count += 250;
-	else
-		data->frame_door.frame_count = 0;
+}
+
+void	animate_reverse_door(t_data *data)
+{
+	int		x;
+	int		y;
+	unsigned int	color;
+
+	clear_image(&data->frame_door, BLACK);
+	y = 0;
+	while (y < 150)
+	{
+		x = 0;
+		while (x < 165)
+		{
+			if (data->frame_door.reverse_frame - x < 0)
+				break;
+			color = get_color(&data->door, data->frame_door.reverse_frame - x, y);
+			if (color != 0x00000000)
+				my_mlx_pixel_put(&data->frame_door, x, y, color);
+			x++;
+		}
+		y++;
+	}
 }
 
 
@@ -343,8 +362,10 @@ void wall_projection(t_data *data, t_ray *ray, int col, t_door *door)
         }
         else
         {
-			 draw_line(data, door->ray.ceil_start, door->ray.ceil_end, data->map.c_color, 1);
-   			 draw_line(data, door->ray.floor_start, door->ray.floor_end, data->map.f_color, 1);
+			//  draw_line(data, door->ray.ceil_start, door->ray.ceil_end, data->map.c_color, 1);
+   			//  draw_line(data, door->ray.floor_start, door->ray.floor_end, data->map.f_color, 1);
+			draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
+    		draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
 			 draw_wall_texture(data, ray);
 			 draw_door_texture(data, door, ray);
             
