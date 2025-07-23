@@ -1,6 +1,6 @@
 NAME = cube_3D
 CC = cc
-CFLAGS = -g3 -fsanitize=address -Ilibft -Iminilibx-linux
+CFLAGS = -g3 -Ofast -fsanitize=address -Ilibft -Iminilibx-linux
 LFLAGS = -Lminilibx-linux -lmlx -lXext -lX11 -lm
 
 # main_src = main.c

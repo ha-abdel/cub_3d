@@ -129,8 +129,11 @@ typedef struct s_ray
 typedef struct s_door
 {
 	int	found_door;
+	int	x;
+	int	y;
 	int found_door_pixel;
 	int wall_behind_distance;
+	t_sprite	frame_door;
 	t_ray ray;
 
 } t_door;
@@ -174,8 +177,11 @@ typedef struct s_data
 	t_map				map;
 	t_sprite				door;
 	t_sprite				frame_door;
+	t_door				**door;
 	int					frame;
 	int					NUM_RAYS;
+	int					open_door;
+	int					rev_animation;
 }						t_data;
 void	print_map(char **map);
 int		main_function_parsing(t_data *data, char *file);

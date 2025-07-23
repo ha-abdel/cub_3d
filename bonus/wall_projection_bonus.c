@@ -110,7 +110,7 @@ void	animate_door(t_data *data)
 	while (y < 150)
 	{
 		x = data->frame_door.frame_count;
-		while (x < data->frame_door.frame_count + 170)
+		while (x < data->frame_door.frame_count + 165)
 		{
 			color = get_color(&data->door, x, y);
 			if (color != 0x00000000)
@@ -118,14 +118,6 @@ void	animate_door(t_data *data)
 			x++;
 		}
 		y++;
-	}
-	if (data->frame > 350)
-	{
-		if (data->frame_door.frame_count < 675)
-			data->frame_door.frame_count += 170;
-		else
-			data->frame_door.frame_count = 0;
-		data->frame = 0;
 	}
 }
 
@@ -137,30 +129,19 @@ void	animate_reverse_door(t_data *data)
 
 	clear_image(&data->frame_door, BLACK);
 	y = 0;
-	while (y < 250)
+	while (y < 150)
 	{
 		x = 0;
-		while (x < 250)
+		while (x < 165)
 		{
 			if (data->frame_door.reverse_frame - x < 0)
-			{
-				printf("def=[%d]\n", data->frame_door.reverse_frame - x);
 				break;
-			}
 			color = get_color(&data->door, data->frame_door.reverse_frame - x, y);
 			if (color != 0x00000000)
 				my_mlx_pixel_put(&data->frame_door, x, y, color);
 			x++;
 		}
 		y++;
-	}
-	if (data->frame > 350)
-	{
-		if (data->frame_door.reverse_frame > 0)
-			data->frame_door.reverse_frame -= 250;
-		else
-			data->frame_door.reverse_frame = 1000;
-		data->frame = 0;
 	}
 }
 
