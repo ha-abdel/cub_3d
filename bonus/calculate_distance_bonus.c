@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:13:04 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:28:29 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 10:08:57 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	calc_door_distance(t_data *data, t_door **door)
 	}
 	else
 	{
+		
 		(*door)->ray.distance = sqrt((*door)->ray.v_dist);
 		(*door)->ray.ray_end.x = (*door)->ray.v_intersect.x;
 		(*door)->ray.ray_end.y = (*door)->ray.v_intersect.y;
