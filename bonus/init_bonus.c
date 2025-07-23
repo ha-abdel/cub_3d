@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 10:55:32 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:50:02 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,10 @@ void	init_data(t_data *data)
 
     data->sprite_door.img = mlx_xpm_file_to_image(data->mlx, "wolfenstein/test7.xpm", &data->sprite_door.width, &data->sprite_door.height);
     data->sprite_door.addr = mlx_get_data_addr(data->sprite_door.img, &data->sprite_door.bpp, &data->sprite_door.line_len, &data->sprite_door.endian);
-    // data->w_wall.width =  TILE_SIZE;
-    // data->w_wall.height = TILE_SIZE;
+    // data->W_wall.width =  TILE_SIZE;
+    // data->W_wall.height = TILE_SIZE;
     data->minimap.img = mlx_xpm_file_to_image(data->mlx, SAHM, &a, &b);
     data->minimap.addr = mlx_get_data_addr(data->minimap.img, &data->minimap.bpp, &data->minimap.line_len, &data->minimap.endian);
-    data->frame_door.img = mlx_new_image(data->mlx, 165, 150);
-    data->frame_door.addr = mlx_get_data_addr(data->frame_door.img, &data->frame_door.bpp, &data->frame_door.line_len, &data->frame_door.endian);
-    data->frame_door.height = 150;
-    data->frame_door.width = 165;
-    data->frame_door.frame_count = 0;
-    data->rev_animation = 0;
-	// data->frame_door.reverse_frame = 660;
     data->minimap.width = a;
     data->minimap.height = b;
 	data->frame = 0;

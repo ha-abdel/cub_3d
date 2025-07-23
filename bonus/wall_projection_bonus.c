@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_projection_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 11:04:19 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 14:52:17 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	draw_wall_texture(t_data *data, t_ray **ray)
 	}
 }
 
-void	animate_door(t_data *data)
+void	animate_door(t_data *data, t_door **door)
 {
 	int				x;
 	int				y;
@@ -50,42 +50,42 @@ void	animate_door(t_data *data)
 	y = 0;
 	while (y < 150)
 	{
-		x = data->frame_door.frame_count;
-		while (x < data->frame_door.frame_count + 165)
+		x = (*door)->frame_count;
+		while (x < (*door)->frame_count + 165)
 		{
 			color = get_color(&data->sprite_door, x, y);
 			if (color != 0x00000000)
-				my_mlx_pixel_put(&data->frame_door, x
-					- data->frame_door.frame_count, y, color);
+				my_mlx_pixel_put(&(*door)->frame_door, x
+					- (*door)->frame_count, y, color);
 			x++;
 		}
 		y++;
 	}
 }
 
-// void	animate_reverse_door(t_data *data)
-// {
-// 	int		x;
-// 	int		y;
-// 	unsigned int	color;
+void	animate_reverse_door(t_data *data, t_door **door)
+{
+	int		x;
+	int		y;
+	unsigned int	color;
 
-// 	clear_image(&data->frame_door, BLACK);
-// 	y = 0;
-// 	while (y < 150)
-// 	{
-// 		x = 0;
-// 		while (x < 165)
-// 		{
-// 			if (data->frame_door.reverse_frame - x < 0)
-// 				break;
-// 			color = get_color(&data->door, data->frame_door.reverse_frame - x, y);
-// 			if (color != 0x00000000)
-// 				my_mlx_pixel_put(&data->frame_door, x, y, color);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
+	clear_image(&(*door)->frame_door, BLACK);
+	y = 0;
+	while (y < 150)
+	{
+		x = 0;
+		while (x < 165)
+		{
+			if ((*door)->reverse_frame - x < 0)
+				break;
+			color = get_color(&data->sprite_door, (*door)->reverse_frame - x, y);
+			if (color != 0x00000000)
+				my_mlx_pixel_put(&(*door)->frame_door, x, y, color);
+			x++;
+		}
+		y++;
+	}
+}
 
 void	draw_door_texture(t_data *data, t_door **door, t_ray **ray)
 {
