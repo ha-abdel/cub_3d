@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 14:53:03 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:56:29 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,36 @@ int check_if_player_pass(t_data *data)
 }
 
 // #define FOV (M_PI / 3) // 60 degrees field of view
+
+int get_next_door(t_data *data, int index, int col)
+{
+    int     i;
+    int     in = -1;
+    int     dt = INT_MAX;
+    int     dy;
+    int     dx;
+    int     dist;
+
+    i = 0;
+    while (data->door[i])
+    {
+        if (i == index)
+        {
+            i++;
+            continue ;
+        }
+        dx = abs(data->door[i]->x - (int)(data->door[index]->x / TILE_SIZE));
+        dy = abs(data->door[i]->y - (int)(data->door[index]->y / TILE_SIZE));
+        dist = dx + dy;
+        if (dist < dt && data->door[i] == col)
+        {
+            dt = dist;
+            in = i;
+        }
+        i++;
+    }
+    return (in);
+}
 
 int check_zone(t_data *data, t_door *door)
 {

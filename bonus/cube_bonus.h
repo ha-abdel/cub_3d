@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 14:51:31 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:49:59 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ typedef struct s_door
 	int wall_behind_distance;
 	t_sprite	frame_door;
 	t_ray ray;
+	int		col;
 	int		frame_count;
     int		rev_animation;
 	int		reverse_frame;

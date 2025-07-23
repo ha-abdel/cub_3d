@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 13:28:34 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/23 10:44:23 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:27:50 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,16 @@ void	draw_circle(t_data *data, int cx, int cy, int radius)
 	int	thickness;
 	int	dist2;
 
-	thickness = 150;
+	thickness = 14;
 	r2 = radius * radius;
-	y = -radius;
-	while (y <= radius)
+	y = -radius - thickness;
+	while (y <= radius + thickness)
 	{
-		x = -radius;
-		while (x <= radius)
+		x = -radius - thickness;
+		while (x <= radius + thickness)
 		{
 			dist2 = x * x + y * y;
-			if (dist2 >= r2 - thickness && dist2 <= r2 + thickness)
+			if (dist2 >= r2 && dist2 <= r2 + thickness * thickness)
 				my_mlx_pixel_put(&data->bg1, cx + x, cy + y, WHITE);
 			x++;
 		}
@@ -110,7 +110,9 @@ void	draw_circle(t_data *data, int cx, int cy, int radius)
 unsigned int	get_color(t_sprite *img, int x, int y)
 {
 	unsigned int	color;
-
+	
+	if (x >= img->width || y >= img->height || x < 0 || y < 0)
+		return (BLACK);
 	color = *(unsigned int *)(img->addr + (y * img->line_len + x * (img->bpp
 					/ 8)));
 	return (color);
@@ -147,10 +149,10 @@ void	img_minimap(t_data *data, int px, int py)
 
 void	create_minimap(t_data *data)
 {
-	draw_circle(data, screen_width - 150, screen_height - 150, 130);
-	data->mini_map.centre.x = screen_width - 150;
-	data->mini_map.centre.y = screen_height - 150;
-	data->mini_map.r2 = (130 * 130);
+	draw_circle(data, SCREEN_WIDTH - 150, SCREEN_HEIGHT - 150, 130);
+	data->mini_map.centre.x = SCREEN_WIDTH - 150;
+	data->mini_map.centre.y = SCREEN_HEIGHT - 150;
+	data->mini_map.r2 = 130 * 130;
 	mdraw_minimap_walls_rotated(data);
-	img_minimap(data, screen_width - 150, screen_height - 150);
+	img_minimap(data, SCREEN_WIDTH - 150, SCREEN_HEIGHT - 150);
 }
