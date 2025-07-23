@@ -6,11 +6,55 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 16:21:30 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 17:06:49 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
+
+
+int check_zone(t_data *data, t_door *door)
+{
+    double door_cx = door->x * TILE_SIZE + TILE_SIZE / 2;
+    double door_cy = door->y * TILE_SIZE + TILE_SIZE / 2;
+
+    double dx = door_cx - data->player.x;
+    double dy = door_cy - data->player.y;
+
+    double angle_to_door = atan2(dy, dx);
+
+    double diff = angle_to_door - data->player.angle;
+
+    if (diff > M_PI)
+        diff -= 2 * M_PI;
+    else if (diff < -M_PI)
+        diff += 2 * M_PI;
+
+    return (fabs(diff) <= FOV / 2);
+}
+
+int get_the_closest_door(t_data *data)
+{
+    int     i;
+    int     index = -1;
+    int     dt = INT_MAX;
+
+    i = 0;
+    while (data->door[i])
+    {
+        int dx = abs(data->door[i]->x - (int)(data->player.x / TILE_SIZE));
+        int dy = abs(data->door[i]->y - (int)(data->player.y / TILE_SIZE));
+        int dist = dx + dy;
+
+        if (dist < dt && check_zone(data, data->door[i]))
+        {
+            dt = dist;
+            index = i;
+        }
+        i++;
+    }
+    return (index);
+}
 
 void	draw_wall_texture(t_data *data, t_ray **ray)
 {
@@ -147,8 +191,38 @@ void	project_door(t_door **door, int col)
 	(*door)->ray.floor_end.y = SCREEN_HEIGHT;
 }
 
-void	draw_wall_behind_door(t_data *data, int col, t_ray **ray, t_door **door)
+void	draw_wall_behind_door(t_data *data, int col, t_ray **ray)
 {
+	int i = get_the_closest_door(data);
+	int i1 = get_next_door(data, i, col);
+	while (1)
+	{
+		data->door[i]->ray.ray_angle = (*ray)->ray_angle;
+		if (data->door[i]->ray.distance >= (*ray)->distance)
+		{
+			draw_wall_texture(data, ray);
+			draw_line(data, (*ray)->ceil_start, (*ray)->ceil_end, data->map.c_color,
+			1);
+			draw_line(data, (*ray)->floor_start, (*ray)->floor_end,
+				data->map.f_color, 1);
+			break;
+		}
+		else
+		{
+			draw_line(data, data->door[i]->ray.ceil_start, data->door[i]->ray.ceil_end,
+				data->map.c_color, 1);
+			draw_line(data, data->door[i]->ray.floor_start, data->door[i]->ray.floor_end,
+				data->map.f_color, 1);
+			draw_line(data, data->door[i1]->ray.ceil_start, data->door[i1]->ray.ceil_end,
+				data->map.c_color, 1);
+			draw_line(data, data->door[i1]->ray.floor_start, data->door[i1]->ray.floor_end,
+				data->map.f_color, 1);
+		
+			draw_wall_texture(data, ray);
+			draw_door_texture(data, data->door[i1]);
+			draw_door_texture(data, data->door[i]);
+	}
+}
 	// (*door)->ray.ray_angle = (*ray)->ray_angle;
 	// // project_door(door, col);
 	// if ((*door)->ray.distance >= (*ray)->distance)
