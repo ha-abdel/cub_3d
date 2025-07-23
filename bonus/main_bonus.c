@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 18:35:49 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/23 18:51:45 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,8 +358,8 @@ void    make_door_close(t_data *data, int index)
 
 void    handle_animation_door(t_data *data, int index)
 {
-   // static int door;
-   // int     i;
+   static int door;
+   int     i;
     
     if (index == -1)
         return ;
@@ -373,16 +373,16 @@ void    handle_animation_door(t_data *data, int index)
     }
     if (data->door[index]->rev_animation && check_if_player_pass(data))
         make_door_close(data, index);
-    // if (!door)
-    // {  
-    //     i = 0;
-    //     while (data->door[i])
-    //     {
-    //         animate_door(data, &data->door[i]);
-    //         i++;
-    //     }
-    //     door = 1;
-    // }
+    if (!door)
+    {  
+        i = 0;
+        while (data->door[i])
+        {
+            animate_door(data, &data->door[i]);
+            i++;
+        }
+        door = 1;
+    }
 }
 
 int	render(t_data *data)
@@ -393,7 +393,7 @@ int	render(t_data *data)
     {
         clear_image(&data->bg1, BLACK);
         draw_map(data);
-       // handle_animation_door(data, get_the_closest_door(data));
+        handle_animation_door(data, get_the_closest_door(data));
         cast_rays(data);
         draw_direction_lines(data);
         create_minimap(data);

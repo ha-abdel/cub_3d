@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   h_intersection_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 13:41:16 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 18:49:34 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,13 @@ void	find_h_wall(t_data *data, t_ray **ray, int col)
 		{
 			index = get_current_door(data, ((*ray)->h_intersect).x, ((*ray)->h_intersect).y
 				- is_facing_up((*ray)->ray_angle));
-			data->door[index]->found_door = 1;
-			data->door[index]->ray.h_intersect.x = (*ray)->h_intersect.x;
-			data->door[index]->ray.h_intersect.y = (*ray)->h_intersect.y;
-			data->door[index]->col = col;
+			if (index != -1)
+			{
+				data->door[index]->found_door = 1;
+				data->door[index]->ray.h_intersect.x = (*ray)->h_intersect.x;
+				data->door[index]->ray.h_intersect.y = (*ray)->h_intersect.y;
+				data->door[index]->col = col;
+			}
 		}
 		((*ray)->h_intersect).x += (*ray)->x_step;
 		((*ray)->h_intersect).y += (*ray)->y_step;

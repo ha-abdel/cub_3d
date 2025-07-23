@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_door_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 08:58:03 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/23 18:17:38 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 18:45:31 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void    init_door_img(t_data *data, int i)
 {
     data->door[i]->frame_door.img = mlx_new_image(data->mlx, 165, 150);
+    data->door[i]->frame_door.addr = mlx_get_data_addr(data->door[i]->frame_door.img, &data->door[i]->frame_door.bpp,
+			&data->door[i]->frame_door.line_len, &data->door[i]->frame_door.endian);
     data->door[i]->frame_door.height = 150;
     data->door[i]->frame_door.width = 165;
     data->door[i]->frame_count = 0;
@@ -86,7 +88,6 @@ void    main_func_doors(t_data *data)
     int     count;
 
     count = calculate_doors(data);
-    printf("[%d]\n", count);
     data->door = ft_malloc(sizeof(t_door *) * (count + 1), 1);
     fill_door(data, count);
 }
