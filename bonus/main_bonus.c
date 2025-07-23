@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 18:20:20 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 18:35:49 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,8 +171,6 @@ int check_if_player_pass(t_data *data)
         return (1);
     return (0);
 }
-
-// #define FOV (M_PI / 3) // 60 degrees field of view
 
 int get_next_door(t_data *data, int index, int col)
 {
