@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_images.c                                     :+:      :+:    :+:   */
+/*   check_images_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:34:40 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:34:44 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 11:17:21 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	check_addresses(t_data **data)
 {
 	if (!(*data)->bg.img || !(*data)->bg1.img || !(*data)->n_wall.img
 		|| !(*data)->s_wall.img || !(*data)->e_wall.img || !(*data)->w_wall.img
-		|| !(*data)->door.img || !(*data)->minimap.img
+		|| !(*data)->sprite_door.img || !(*data)->minimap.img
 		|| !(*data)->frame_door.img)
 		clean_all(data);
 }
@@ -40,8 +40,8 @@ void	get_imgs_addresses(t_data **data)
 	(*data)->w_wall.addr = mlx_get_data_addr((*data)->w_wall.img,
 			&(*data)->w_wall.bpp, &(*data)->w_wall.line_len,
 			&(*data)->w_wall.endian);
-	(*data)->door.addr = mlx_get_data_addr((*data)->door.img,
-			&(*data)->door.bpp, &(*data)->door.line_len, &(*data)->door.endian);
+	(*data)->sprite_door.addr = mlx_get_data_addr((*data)->sprite_door.img,
+			&(*data)->sprite_door.bpp, &(*data)->sprite_door.line_len, &(*data)->sprite_door.endian);
 	(*data)->minimap.addr = mlx_get_data_addr((*data)->minimap.img,
 			&(*data)->minimap.bpp, &(*data)->minimap.line_len,
 			&(*data)->minimap.endian);

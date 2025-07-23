@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:33:59 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:57:03 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	init_images(t_data **data)
 	(*data)->w_wall.img = mlx_xpm_file_to_image((*data)->mlx,
 			(*data)->map.w_path, &(*data)->w_wall.width,
 			&(*data)->w_wall.height);
-	(*data)->door.img = mlx_xpm_file_to_image((*data)->mlx,
-			"wolfenstein/animated_door.xpm", &(*data)->door.width,
-			&(*data)->door.height);
+	(*data)->sprite_door.img = mlx_xpm_file_to_image((*data)->mlx,
+			"wolfenstein/animated_door.xpm", &(*data)->sprite_door.width,
+			&(*data)->sprite_door.height);
 	(*data)->minimap.img = mlx_xpm_file_to_image((*data)->mlx, SAHM,
 			&(*data)->minimap.width, &(*data)->minimap.height);
 	(*data)->frame_door.img = mlx_new_image((*data)->mlx, 250, 250);
@@ -79,8 +79,24 @@ void	initial_data(t_data *data)
 	data->max_dist_pixel = SCREEN_WIDTH * 2;
 }
 
-void	init_ray(t_ray *ray, t_data *data, t_door *door)
+void	init_door(t_data *data, t_door **door, t_ray *ray)
 {
+	(*door)->found_door = 0;
+	(*door)->found_door_pixel = 0;
+	(*door)->ray.angle_step = ray->angle_step;
+	(*door)->ray.distance = 0;
+	(*door)->ray.player.x = data->player.x;
+	(*door)->ray.player.y = data->player.y;
+	(*door)->ray.h_intersect.x = 0;
+	(*door)->ray.h_intersect.y = 0;
+	(*door)->ray.v_intersect.x = 0;
+	(*door)->ray.v_intersect.y = 0;
+	(*door)->wall_behind_distance = 0;
+}
+
+void	init_ray(t_ray *ray, t_data *data)
+{
+	int i = 0;
 	ray->h_intersect.x = 0;
 	ray->h_intersect.y = 0;
 	ray->v_intersect.x = 0;
@@ -89,15 +105,20 @@ void	init_ray(t_ray *ray, t_data *data, t_door *door)
 	ray->distance = 0;
 	ray->player.x = data->player.x;
 	ray->player.y = data->player.y;
-	door->found_door = 0;
-	door->found_door_pixel = 0;
-	door->ray.angle_step = ray->angle_step;
-	door->ray.distance = 0;
-	door->ray.player.x = data->player.x;
-	door->ray.player.y = data->player.y;
-	door->ray.h_intersect.x = 0;
-	door->ray.h_intersect.y = 0;
-	door->ray.v_intersect.x = 0;
-	door->ray.v_intersect.y = 0;
-	door->wall_behind_distance = 0;
+	while (data->door[i])
+	{
+		init_door(data, &data->door[i], ray);
+		i++;
+	}
+	// door->found_door = 0;
+	// door->found_door_pixel = 0;
+	// door->ray.angle_step = ray->angle_step;
+	// door->ray.distance = 0;
+	// door->ray.player.x = data->player.x;
+	// door->ray.player.y = data->player.y;
+	// door->ray.h_intersect.x = 0;
+	// door->ray.h_intersect.y = 0;
+	// door->ray.v_intersect.x = 0;
+	// door->ray.v_intersect.y = 0;
+	// door->wall_behind_distance = 0;
 }

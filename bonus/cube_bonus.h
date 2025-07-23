@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:37:20 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 15:52:46 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,12 +129,26 @@ typedef struct s_ray
 	t_wall_texture	wall_type;
 }					t_ray;
 
+// typedef struct s_door
+// {
+// 	int				found_door;
+// 	int				found_door_pixel;
+// 	int				wall_behind_distance;
+// 	t_ray			ray;
+
+// }					t_door;
+
+
 typedef struct s_door
 {
-	int				found_door;
-	int				found_door_pixel;
-	int				wall_behind_distance;
-	t_ray			ray;
+	int col;
+	int	found_door;
+	int	x;
+	int	y;
+	int found_door_pixel;
+	int wall_behind_distance;
+	t_sprite	frame_door;
+	t_ray ray;
 
 }					t_door;
 
@@ -174,12 +188,17 @@ typedef struct s_data
 	t_sprite		minimap;
 	t_minimap		mini_map;
 	t_map			map;
-	t_sprite		door;
+	t_sprite		sprite_door;
+	t_door				**door;
 	t_sprite		frame_door;
+	int					rev_animation;
+	int					frame;
 	int				num_rays;
 	float			rotation_speed;
 	int				max_dist_pixel;
+	int				open_door;
 }					t_data;
+void    main_func_doors(t_data *data);
 void				print_map(char **map);
 int					main_function_parsing(t_data *data, char *file);
 int					map_check(t_data *data, char *file, char *line, int fd);
@@ -204,7 +223,7 @@ void				calc_vertical_step(t_data *data, t_ray *ray,
 						double tan_val);
 void				calc_first_v_intersect(t_data *data, t_ray *ray,
 						double tan_val);
-void				init_ray(t_ray *ray, t_data *data, t_door *door);
+void				init_ray(t_ray *ray, t_data *data);
 void				check_horizontal_intersect(t_data *data, t_ray *ray,
 						t_door *door);
 void				calc_horizontal_step(t_data *data, t_ray *ray,
