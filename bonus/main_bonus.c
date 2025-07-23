@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 10:11:46 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/23 10:25:53 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,18 +204,18 @@ t_door  *check_zone(t_data *data)
     return (data->door[index]);
 }
 
-	(void)y;
-	if (x < oldx)
-		data->player.angle -= data->rotation_speed;
-	else if (x > oldx)
-		data->player.angle += data->rotation_speed;
-	if (data->player.angle > 2 * PI)
-		data->player.angle -= 2 * PI;
-	if (data->player.angle < 0)
-		data->player.angle += 2 * PI;
-	oldx = x;
-	return (0);
-}
+// 	(void)y;
+// 	if (x < oldx)
+// 		data->player.angle -= data->rotation_speed;
+// 	else if (x > oldx)
+// 		data->player.angle += data->rotation_speed;
+// 	if (data->player.angle > 2 * PI)
+// 		data->player.angle -= 2 * PI;
+// 	if (data->player.angle < 0)
+// 		data->player.angle += 2 * PI;
+// 	oldx = x;
+// 	return (0);
+// }
 
 int	handle_key(int key, t_data *data)
 {
