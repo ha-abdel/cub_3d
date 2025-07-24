@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 12:42:10 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:24:02 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,10 @@ void	init_data(t_data *data)
     data->minimap.height = b;
 	data->frame = 0;
 	data->rev_animation = 0;
+	data->rotation_speed = PI / 180;
     ft_bzero(&data->mini_map, sizeof(t_minimap));
-    data->player.x *= TILE_SIZE + TILE_SIZE/2;
-    data->player.y *= TILE_SIZE + TILE_SIZE/2;
+    data->player.x =  (data->player.x * TILE_SIZE) + TILE_SIZE / 2;
+    data->player.y = (data->player.y * TILE_SIZE) + TILE_SIZE / 2;
 
     // data->player.angle = 45;
 

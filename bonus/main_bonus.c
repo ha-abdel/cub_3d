@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 14:38:28 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:36:53 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,14 @@ int	handle_key(int key, t_data *data)
 
 	old_px = data->player.x;
 	old_py = data->player.y;
-	if (key == ESC_KEY)
-		destroy_window(data); 
-    move_player(data, key);
-    // if (key == 111)
-    //     data->open_door = check_distance(data);  
+	if (key == ESC_KEY) {
+        mlx_destroy_window(data->mlx, data->win_3d);
+        mlx_destroy_window(data->mlx, data->win_2d);
+        exit(0);
+    }
+    if (key == 111)
+        data->open_door = check_distance(data); 
+    move_player(data, key); 
 	if (is_wall(data, data->player.x - is_facing_left(data->player.angle),
 			data->player.y - is_facing_up(data->player.angle)) || is_door(data,
 			data->player.x - is_facing_left(data->player.angle), data->player.y
@@ -157,10 +160,8 @@ int get_next_door(t_data *data, int index, int col)
     int     dx;
     int     dist;
 
-    if (index == -1)
-        return (-1);
     i = 0;
-    while (data->door[i])
+    while (index != -1 && data->door[i])
     {
         if (i == index)
         {
@@ -177,6 +178,8 @@ int get_next_door(t_data *data, int index, int col)
         }
         i++;
     }
+    if (in != -1)
+        printf("next_door.x=[%d]//////////next_door.y=[%d]\n", data->door[in]->x, data->door[in]->y);
     return (in);
 }
 
@@ -305,7 +308,6 @@ int main(int ac, char **av)
         return (1);
     init_data(&data);
     // ft_player_debug(&data);
-
     main_func_doors(&data);
 	mlx_hook(data.win_3d, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win_2d, 2, 1L << 0, handle_key, &data);

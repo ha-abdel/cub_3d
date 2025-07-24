@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 13:30:26 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:40:26 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,9 +309,9 @@ void	wall_projection(t_data *data, t_ray *ray, int col)
 {
 	// int i = 0;
 	project_wall(&ray, col);
-		draw_wall_texture(data, &ray);
-		draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
-		draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
+	draw_wall_texture(data, &ray);
+	draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
+	draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
 	// project_doors(data, col);
 	// draw_wall_behind_door(data, col, &ray);
 	// else
