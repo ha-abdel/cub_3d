@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_door_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 08:58:03 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/24 08:17:43 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/24 12:28:01 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void    set_info(t_data *data, t_door **door)
 
     while (data->map.map[i])
     {
-        if (j + 1 == data->map.width)
+        if (j == data->map.width)
             j = 0;
         while (data->map.map[i][j])
         {
@@ -60,6 +60,7 @@ void    set_info(t_data *data, t_door **door)
             {
                 (*door)->x = j;
                 (*door)->y = i;
+                j++;
                 return ;
             }
             j++;

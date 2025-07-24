@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 08:20:07 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/24 13:33:52 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int handle_mouse(int x, int y, t_data *data)
     else if (x > oldx)
         data->player.angle += data->rotation_speed;
 
-    // printf("mouse is moved %d\n", x);
     if (data->player.angle > 2 * PI)
 	    data->player.angle -= 2 * PI;
     if (data->player.angle < 0)
@@ -204,68 +203,6 @@ int get_next_door(t_data *data, int index, int col)
     return (in);
 }
 
-// int check_zone(t_data *data, t_door *door)
-// {
-//     double door_cx = door->x * TILE_SIZE + TILE_SIZE / 2;
-//     double door_cy = door->y * TILE_SIZE + TILE_SIZE / 2;
-
-//     // Vector from player to door
-//     double dx = door_cx - data->player.x;
-//     double dy = door_cy - data->player.y;
-
-//     // Angle from player to door
-//     double angle_to_door = atan2(dy, dx);
-
-//     // Difference between player's facing angle and door angle
-//     double diff = angle_to_door - data->player.angle;
-
-//     // Normalize difference to range [-PI, PI]
-//     if (diff > M_PI)
-//         diff -= 2 * M_PI;
-//     else if (diff < -M_PI)
-//         diff += 2 * M_PI;
-
-//     // Check if within FOV
-//     return (fabs(diff) <= FOV / 2);
-// }
-
-
-// t_door  *get_the_close_door(t_data *data, int flag)
-// {
-//     int     i;
-//     int     index;
-//     int     dx;
-//     int     dy;
-//     int     dt;
-
-//     i = 0;
-//     if (flag == 0)
-//        i = 1; 
-//     dx = abs(data->door[i]->x - (int)(data->player.x / TILE_SIZE));
-//     dy = abs(data->door[i]->y - (int)(data->player.y / TILE_SIZE));
-//     dt = dx + dy;
-//     index = 0;
-//     i++;
-//     while (data->door[i])
-//     {
-//         if (flag == i)
-//             continue ;
-//         dx = abs(data->door[i]->x - (int)(data->player.x / TILE_SIZE));
-//         dy = abs(data->door[i]->y - (int)(data->player.y / TILE_SIZE));
-//         if (dt > (dx + dy))
-//         {
-//             dt = dx + dy;
-//             index = i;
-//         }
-//         else if (dt == (dx + dy))
-//         {
-//             if (index > i)
-//                 index = i;
-//         }
-//         i++;
-//     }
-//     return (data->door[index]);
-// }
 
 int get_current_door(t_data *data, double x, double y)
 {
@@ -305,40 +242,6 @@ int get_the_closest_door(t_data *data)
     return (index);
 }
 
-
-// 	(void)y;
-// 	if (x < oldx)
-// 		data->player.angle -= data->rotation_speed;
-// 	else if (x > oldx)
-// 		data->player.angle += data->rotation_speed;
-// 	if (data->player.angle > 2 * PI)
-// 		data->player.angle -= 2 * PI;
-// 	if (data->player.angle < 0)
-// 		data->player.angle += 2 * PI;
-// 	oldx = x;
-// 	return (0);
-// }
-
-// int	handle_key(int key, t_data *data)
-// {
-// 	double	old_px;
-// 	double	old_py;
-
-// 	old_px = data->player.x;
-// 	old_py = data->player.y;
-// 	if (key == ESC_KEY)
-// 		destroy_window(data);
-// 	move_player(data, key);
-// 	if (is_wall(data, data->player.x - is_facing_left(data->player.angle),
-// 			data->player.y - is_facing_up(data->player.angle)) || is_door(data,
-// 			data->player.x - is_facing_left(data->player.angle), data->player.y
-// 			- is_facing_up(data->player.angle)))
-// 	{
-// 		data->player.x = old_px;
-// 		data->player.y = old_py;
-// 	}
-// 	return (0);
-// }
 
 void    make_door_close(t_data *data, int index)
 {
@@ -411,6 +314,7 @@ void	ft_player_debug(t_data *data)
 	printf("\t x     : %0.2f\n", data->player.x / TILE_SIZE);
 	printf("\t y     : %0.2f\n", data->player.y / TILE_SIZE);
 	printf("-----------------------------------------\n");
+    getchar();
 }
 
 int main(int ac, char **av) {

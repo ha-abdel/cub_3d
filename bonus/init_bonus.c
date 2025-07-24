@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 08:16:38 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/24 12:42:10 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_images(t_data **data)
 			&(*data)->sprite_door.height);
 	(*data)->minimap.img = mlx_xpm_file_to_image((*data)->mlx, SAHM,
 			&(*data)->minimap.width, &(*data)->minimap.height);
-	(*data)->frame_door.img = mlx_new_image((*data)->mlx, 250, 250);
+	// (*data)->frame_door.img = mlx_new_image((*data)->mlx, 250, 250);
 	get_imgs_addresses(data);
 }
 
@@ -46,29 +46,23 @@ void	init_data(t_data *data)
     a = 0;
     b = 0;
     data->mlx = mlx_init();
-    data->num_rays = screen_width; // Set number of rays to match screen width
+    data->num_rays = screen_width;
     
-    // Create windows with correct dimensions
     data->win_3d = mlx_new_window(data->mlx, screen_width, screen_height, "3D View");
     data->win_2d = mlx_new_window(data->mlx, data->map.width * TILE_SIZE, data->map.height * TILE_SIZE, "2D Debug View");
-
-    // Create image for 3D view with correct dimensions
+	// init_images(&data);
     data->bg1.img = mlx_new_image(data->mlx, screen_width, screen_height);
     data->bg1.addr = mlx_get_data_addr(data->bg1.img, &data->bg1.bpp, &data->bg1.line_len, &data->bg1.endian);
     data->bg1.width = screen_width;
     data->bg1.height = screen_height;
     
-    // Create image for 2D view
     data->bg.img = mlx_new_image(data->mlx, data->map.width * TILE_SIZE, data->map.height * TILE_SIZE);
     data->bg.addr = mlx_get_data_addr(data->bg.img, &data->bg.bpp, &data->bg.line_len, &data->bg.endian);
     data->bg.width = data->map.width * TILE_SIZE;
     data->bg.height = data->map.height * TILE_SIZE;
     
-    // Load textures
     data->n_wall.img = mlx_xpm_file_to_image(data->mlx, data->map.n_path, &data->n_wall.width, &data->n_wall.height);
     data->n_wall.addr = mlx_get_data_addr(data->n_wall.img, &data->n_wall.bpp, &data->n_wall.line_len, &data->n_wall.endian);
-    // data->n_wall.width =  TILE_SIZE;
-    // data->n_wall.height = TILE_SIZE;
 
     data->s_wall.img = mlx_xpm_file_to_image(data->mlx, data->map.s_path, &data->s_wall.width, &data->s_wall.height);
     data->s_wall.addr = mlx_get_data_addr(data->s_wall.img, &data->s_wall.bpp, &data->s_wall.line_len, &data->s_wall.endian);
@@ -125,6 +119,7 @@ void	init_door(t_data *data, t_door **door, t_ray *ray)
 {
 	(*door)->found_door = 0;
 	(*door)->found_door_pixel = 0;
+	(*door)->ray.ray_angle = ray->ray_angle;
 	(*door)->ray.angle_step = ray->angle_step;
 	(*door)->ray.distance = 0;
 	(*door)->ray.player.x = data->player.x;
