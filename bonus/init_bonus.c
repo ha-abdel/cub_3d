@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 12:42:10 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:35:15 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	init_data(t_data *data)
     data->minimap.height = b;
 	data->frame = 0;
 	data->rev_animation = 0;
+	data->rotation_speed = PI / 180;
     ft_bzero(&data->mini_map, sizeof(t_minimap));
     data->player.x *= TILE_SIZE + TILE_SIZE/2;
     data->player.y *= TILE_SIZE + TILE_SIZE/2;

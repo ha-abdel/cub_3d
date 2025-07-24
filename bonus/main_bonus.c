@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 14:22:26 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:39:59 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,30 +110,10 @@ int handle_key(int key, t_data *data)
         || (is_door(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle)) && 
         data->open_door == 0))
     {
-        // printf("wall collide  here");
         data->player.x = old_px;
         data->player.y = old_py;
     }
-    if (key == LEFT_ARROW)
-	{
-		data->player.x += cos(data->player.angle) * PLAYER_SPEED;
-		data->player.y += sin(data->player.angle) * PLAYER_SPEED;
-	}
-	if (key == S_KEY)
-	{
-		data->player.x += cos(data->player.angle + M_PI) * PLAYER_SPEED;
-		data->player.y += sin(data->player.angle + M_PI) * PLAYER_SPEED;
-	}
-	if (key == A_KEY)
-	{
-		data->player.x += cos(data->player.angle - M_PI_2) * PLAYER_SPEED;
-		data->player.y += sin(data->player.angle - M_PI_2) * PLAYER_SPEED;
-	}
-	if (key == D_KEY)
-	{
-		data->player.x += cos(data->player.angle + M_PI_2) * PLAYER_SPEED;
-		data->player.y += sin(data->player.angle + M_PI_2) * PLAYER_SPEED;
-	}
+    
     return 0;
 }
 
@@ -334,8 +314,8 @@ int main(int ac, char **av) {
 	mlx_hook(data.win_2d, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win_3d, 17, 1L << 0, destroy_window, &data);
 	mlx_hook(data.win_2d, 17, 1L << 0, destroy_window, &data);
-	// mlx_hook(data.win_2d, 6, 1L << 6, handle_mouse, &data);
-	// mlx_hook(data.win_3d, 6, 1L << 6, handle_mouse, &data);
+	mlx_hook(data.win_2d, 6, 1L << 6, handle_mouse, &data);
+	mlx_hook(data.win_3d, 6, 1L << 6, handle_mouse, &data);
 	mlx_loop_hook(data.mlx, render, &data);
 	mlx_loop(data.mlx);
 	return (0);
