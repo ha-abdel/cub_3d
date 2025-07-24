@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 18:36:02 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/24 08:19:37 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,7 @@ typedef struct s_door
 	t_ray ray;
 	int		col;
 	int		frame_count;
-    int		rev_animation;
-	int		reverse_frame;
+    int		reverse_frame;
 
 }					t_door;
 
@@ -198,12 +197,12 @@ typedef struct s_data
 	t_sprite		sprite_door;
 	t_door				**door;
 	t_sprite		frame_door;
-	int					rev_animation;
 	int					frame;
 	int				num_rays;
 	float			rotation_speed;
 	int				max_dist_pixel;
 	int				open_door;
+	int		rev_animation;
 }					t_data;
 int get_next_door(t_data *data, int index, int col);
 int get_current_door(t_data *data, double x, double y);

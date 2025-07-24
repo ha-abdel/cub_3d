@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 18:51:35 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/23 19:14:39 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	draw_wall_texture(t_data *data, t_ray **ray)
 	texture.tex_step = img.height / (*ray)->wall_strip;
 	texture.tex_pos = ((*ray)->wall_start.y - screen_height / 2
 			+ (*ray)->wall_strip / 2) * texture.tex_step;
+	// printf("y=[%d]/////////////wall_end=[%.2f]\n", y, (*ray)->wall_end.y);
 	while (y < (*ray)->wall_end.y)
 	{
 		texture.tex_y = (int)texture.tex_pos % img.height;
@@ -80,6 +81,7 @@ void	draw_wall_texture(t_data *data, t_ray **ray)
 		texture.color = *(unsigned int *)texture.pixel;
 		texture.tex_x = texture.tex_x % img.width;
 		texture.tex_y = texture.tex_y % img.height;
+		printf("color=[%u]\n", texture.color);
 		my_mlx_pixel_put(&data->bg1, (*ray)->wall_start.x, y++, texture.color);
 		texture.tex_pos += texture.tex_step;
 	}
@@ -217,37 +219,37 @@ void	draw_wall_behind_door(t_data *data, int col, t_ray **ray)
 	int i1 = get_next_door(data, i, col);
 	while (1)
 	{
-		if (i == -1)
-			return;
-		data->door[i]->ray.ray_angle = (*ray)->ray_angle;
-		if (data->door[i]->ray.distance >= (*ray)->distance)
+		if (i != -1)
 		{
-			draw_wall_texture(data, ray);
-			draw_line(data, (*ray)->ceil_start, (*ray)->ceil_end, data->map.c_color,
-			1);
-			draw_line(data, (*ray)->floor_start, (*ray)->floor_end,
-				data->map.f_color, 1);
-			break;
-		}
-		else
-		{
-			if (i == -1 )
+			data->door[i]->ray.ray_angle = (*ray)->ray_angle;
+			if (data->door[i]->ray.distance >= (*ray)->distance)
+			{
+				draw_wall_texture(data, ray);
+				draw_line(data, (*ray)->ceil_start, (*ray)->ceil_end, data->map.c_color,
+				1);
+				draw_line(data, (*ray)->floor_start, (*ray)->floor_end,
+					data->map.f_color, 1);
 				break;
-			draw_line(data, data->door[i]->ray.ceil_start, data->door[i]->ray.ceil_end,
+			}
+			else
+			{
+				draw_line(data, data->door[i]->ray.ceil_start, data->door[i]->ray.ceil_end,
 				data->map.c_color, 1);
-			draw_line(data, data->door[i]->ray.floor_start, data->door[i]->ray.floor_end,
+				draw_line(data, data->door[i]->ray.floor_start, data->door[i]->ray.floor_end,
 				data->map.f_color, 1);
-			if (i1 == -1)
-				break;
-			draw_line(data, data->door[i1]->ray.ceil_start, data->door[i1]->ray.ceil_end,
-				data->map.c_color, 1);
-			draw_line(data, data->door[i1]->ray.floor_start, data->door[i1]->ray.floor_end,
-				data->map.f_color, 1);
-			
-		
+				if (i1 != -1)
+				{
+					draw_line(data, data->door[i1]->ray.ceil_start, data->door[i1]->ray.ceil_end,
+					data->map.c_color, 1);
+					draw_line(data, data->door[i1]->ray.floor_start, data->door[i1]->ray.floor_end,
+					data->map.f_color, 1);
+				}
+			}
 			draw_wall_texture(data, ray);
-			draw_door_texture(data, &data->door[i1]);
+			if (i1 != -1)
+				draw_door_texture(data, &data->door[i1]);
 			draw_door_texture(data, &data->door[i]);
+		}
 	}
 }
 	// (*door)->ray.ray_angle = (*ray)->ray_angle;
@@ -269,7 +271,6 @@ void	draw_wall_behind_door(t_data *data, int col, t_ray **ray)
 	// 	draw_wall_texture(data, ray);
 	// 	draw_door_texture(data, door, ray);
 	// }
-}
 // void	draw_wall_behind_door(t_data *data, int col, t_ray **ray, t_door **door)
 // {
 // 	(*door)->ray.ray_angle = (*ray)->ray_angle;

@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/23 18:51:45 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/24 08:20:07 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void    make_door_open(t_data *data, t_door **door)
 		data->frame = 0;
 	}
     (*door)->reverse_frame = 660;
-    (*door)->rev_animation = 0;
+    data->rev_animation = 0;
     // else if (!check_distance(data) && data->frame_door.frame_count >= 660)
     // {
     //     if (data->frame_door.frame_count > 0)
@@ -351,7 +351,7 @@ void    make_door_close(t_data *data, int index)
 	}
     if (!data->door[index]->reverse_frame)
     {
-        data->door[index]->rev_animation = 0;
+        data->rev_animation = 0;
         data->open_door = 0;
     }
 }
@@ -363,15 +363,15 @@ void    handle_animation_door(t_data *data, int index)
     
     if (index == -1)
         return ;
-    if (data->open_door && !data->door[index]->rev_animation)
+    if (data->open_door && !data->rev_animation)
             make_door_open(data, &data->door[index]);
     if (check_if_player_pass(data) && data->door[index]->frame_count >= 660
-    && data->door[index]->rev_animation)
+    && data->rev_animation)
     {
         data->door[index]->frame_count = 0;
-        data->door[index]->rev_animation = 1;
+        data->rev_animation = 1;
     }
-    if (data->door[index]->rev_animation && check_if_player_pass(data))
+    if (data->rev_animation && check_if_player_pass(data))
         make_door_close(data, index);
     if (!door)
     {  
