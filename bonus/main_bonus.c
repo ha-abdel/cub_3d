@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 14:32:20 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:38:28 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,6 @@ void	move_player(t_data *data, int key)
         data->player.x += cos(data->player.angle + M_PI_2) * PLAYER_SPEED;
         data->player.y += sin(data->player.angle + M_PI_2) * PLAYER_SPEED;
     }
-}
-
-int handle_mouse(int x, int y, t_data *data)
-{
-    (void)y;
-    static int oldx;
-    // double offset;
-
-    // offset = x - oldx;
-    if (x < oldx)
-    data->player.angle -= data->rotation_speed;
-    else if (x > oldx)
-    data->player.angle += data->rotation_speed;
-    if (data->player.angle > 2 * PI)
-	    data->player.angle -= 2 * PI;
-    if (data->player.angle < 0)
-		data->player.angle += 2 * PI;
-    oldx = x;
-    return 0;
 }
 
 // int     check_distance(t_data *data)
@@ -91,49 +72,46 @@ int check_distance(t_data *data)
     return (0);
 }
 
-
-int handle_key(int key, t_data *data)
+int	handle_mouse(int x, int y, t_data *data)
 {
-    double old_px = data->player.x;
-    double old_py = data->player.y;
+	static int	oldx;
 
-    if (key == ESC_KEY) {
-        mlx_destroy_window(data->mlx, data->win_3d);
-        mlx_destroy_window(data->mlx, data->win_2d);
-        exit(0);
-    }
-    if (key == 111)
-        data->open_door = check_distance(data);
-    move_player(data, key);
-    if ((is_wall(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle)))
-        || (is_door(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle)) && 
-        data->open_door == 0))
-    {
-        data->player.x = old_px;
-        data->player.y = old_py;
-    }
-    if (key == LEFT_ARROW)
-	{
-		data->player.x += cos(data->player.angle) * PLAYER_SPEED;
-		data->player.y += sin(data->player.angle) * PLAYER_SPEED;
-	}
-	if (key == S_KEY)
-	{
-		data->player.x += cos(data->player.angle + M_PI) * PLAYER_SPEED;
-		data->player.y += sin(data->player.angle + M_PI) * PLAYER_SPEED;
-	}
-	if (key == A_KEY)
-	{
-		data->player.x += cos(data->player.angle - M_PI_2) * PLAYER_SPEED;
-		data->player.y += sin(data->player.angle - M_PI_2) * PLAYER_SPEED;
-	}
-	if (key == D_KEY)
-	{
-		data->player.x += cos(data->player.angle + M_PI_2) * PLAYER_SPEED;
-		data->player.y += sin(data->player.angle + M_PI_2) * PLAYER_SPEED;
-	}
-    return 0;
+	(void)y;
+	if (x < oldx)
+		data->player.angle -= data->rotation_speed;
+	else if (x > oldx)
+		data->player.angle += data->rotation_speed;
+	if (data->player.angle > 2 * PI)
+		data->player.angle -= 2 * PI;
+	if (data->player.angle < 0)
+		data->player.angle += 2 * PI;
+	oldx = x;
+	return (0);
 }
+
+int	handle_key(int key, t_data *data)
+{
+	double	old_px;
+	double	old_py;
+
+	old_px = data->player.x;
+	old_py = data->player.y;
+	if (key == ESC_KEY)
+		destroy_window(data); 
+    move_player(data, key);
+    // if (key == 111)
+    //     data->open_door = check_distance(data);  
+	if (is_wall(data, data->player.x - is_facing_left(data->player.angle),
+			data->player.y - is_facing_up(data->player.angle)) || is_door(data,
+			data->player.x - is_facing_left(data->player.angle), data->player.y
+			- is_facing_up(data->player.angle)))
+	{
+		data->player.x = old_px;
+		data->player.y = old_py;
+	}
+	return (0);
+}
+
 
 void    make_door_open(t_data *data, t_door **door)
 {
