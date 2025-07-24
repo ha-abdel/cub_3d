@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 13:33:52 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:22:26 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int handle_key(int key, t_data *data)
 {
     double old_px = data->player.x;
     double old_py = data->player.y;
-
+    
     if (key == ESC_KEY) {
         mlx_destroy_window(data->mlx, data->win_3d);
         mlx_destroy_window(data->mlx, data->win_2d);
@@ -110,6 +110,7 @@ int handle_key(int key, t_data *data)
         || (is_door(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle)) && 
         data->open_door == 0))
     {
+        // printf("wall collide  here");
         data->player.x = old_px;
         data->player.y = old_py;
     }
@@ -333,8 +334,8 @@ int main(int ac, char **av) {
 	mlx_hook(data.win_2d, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win_3d, 17, 1L << 0, destroy_window, &data);
 	mlx_hook(data.win_2d, 17, 1L << 0, destroy_window, &data);
-	mlx_hook(data.win_2d, 6, 1L << 6, handle_mouse, &data);
-	mlx_hook(data.win_3d, 6, 1L << 6, handle_mouse, &data);
+	// mlx_hook(data.win_2d, 6, 1L << 6, handle_mouse, &data);
+	// mlx_hook(data.win_3d, 6, 1L << 6, handle_mouse, &data);
 	mlx_loop_hook(data.mlx, render, &data);
 	mlx_loop(data.mlx);
 	return (0);

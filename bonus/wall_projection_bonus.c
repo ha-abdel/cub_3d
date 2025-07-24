@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 13:30:26 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/24 13:38:38 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	draw_wall_texture(t_data *data, t_ray **ray)
 		texture.tex_x = texture.tex_x % img.width;
 		texture.tex_y = texture.tex_y % img.height;
 		// printf("color=[%u]\n", texture.color);
-		my_mlx_pixel_put(&data->bg1, (*ray)->wall_start.x, y++, texture.color);
+		my_mlx_pixel_put(&data->bg1, (*ray)->wall_start.x, y++, WHITE);
 		texture.tex_pos += texture.tex_step;
 	}
 }
