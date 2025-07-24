@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 13:33:52 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:32:20 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@ int handle_mouse(int x, int y, t_data *data)
 
     // offset = x - oldx;
     if (x < oldx)
-        data->player.angle -= data->rotation_speed;
+    data->player.angle -= data->rotation_speed;
     else if (x > oldx)
-        data->player.angle += data->rotation_speed;
-
+    data->player.angle += data->rotation_speed;
     if (data->player.angle > 2 * PI)
 	    data->player.angle -= 2 * PI;
     if (data->player.angle < 0)
@@ -106,7 +105,7 @@ int handle_key(int key, t_data *data)
     if (key == 111)
         data->open_door = check_distance(data);
     move_player(data, key);
-    if (is_wall(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle))
+    if ((is_wall(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle)))
         || (is_door(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle)) && 
         data->open_door == 0))
     {
@@ -296,9 +295,9 @@ int	render(t_data *data)
     {
         clear_image(&data->bg1, BLACK);
         draw_map(data);
+        draw_direction_lines(data);
         handle_animation_door(data, get_the_closest_door(data));
         cast_rays(data);
-        draw_direction_lines(data);
         create_minimap(data);
         mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
         mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
@@ -317,7 +316,8 @@ void	ft_player_debug(t_data *data)
     getchar();
 }
 
-int main(int ac, char **av) {
+int main(int ac, char **av)
+{
     t_data data;
 
     if (ac != 2)
