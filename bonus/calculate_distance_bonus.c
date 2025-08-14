@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:13:04 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 16:31:41 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:35:56 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	calc_distance(t_data *data, t_ray *ray, int col)
 			calc_door_distance(data, &data->door[i]);
 		i++;
 	}
-	printf("here\n");
 	draw_line(data, ray->player, ray->ray_end, BLUE, 2);
 	// if (door->found_door)
 	// 	draw_line(data, door->ray.player, door->ray.ray_end, YELLOW, 2);

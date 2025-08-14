@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 15:44:47 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:52:44 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,9 +273,10 @@ int	render(t_data *data)
 {
     static int frame_counter;
     
-    if (frame_counter >= 600)
+    if (frame_counter >= 60)
     {
         clear_image(&data->bg1, BLACK);
+        // clear_image(&data->bg, BLACK);
         draw_map(data);
         draw_direction_lines(data);
         handle_animation_door(data, get_the_closest_door(data));
@@ -286,7 +287,7 @@ int	render(t_data *data)
         frame_counter = 0;
     }
     frame_counter++;
-    data->frame++;
+    // data->frame++;
     return 0;
 }
 void	ft_player_debug(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:00 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 20:14:01 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:47:34 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	draw_grid_lines(t_data *data)
 		point1.y = 0;
 		point2.x = x * TILE_SIZE;
 		point2.y = data->map.height * TILE_SIZE;
-		draw_line(data, point1, point2, GRAY, 2);
+		draw_line(data, point1, point2, WHITE, 2);
 		x++;
 	}
 	while (y < data->map.height)
@@ -99,7 +99,7 @@ void	draw_grid_lines(t_data *data)
 		point1.y = y * TILE_SIZE;
 		point2.x = data->map.width * TILE_SIZE;
 		point2.y = y * TILE_SIZE;
-		draw_line(data, point1, point2, GRAY, 2);
+		draw_line(data, point1, point2, WHITE, 2);
 		y++;
 	}
 }
@@ -149,5 +149,6 @@ void	draw_map(t_data *data)
 {
 	draw_walls(data);
 	draw_grid_lines(data);
+	draw_direction_lines(data);
 	draw_player(data);
 }

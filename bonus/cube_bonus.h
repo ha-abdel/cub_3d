@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 08:19:37 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:53:27 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ typedef struct s_data
 	int				open_door;
 	int		rev_animation;
 }					t_data;
+int	render(t_data *data);
 int get_next_door(t_data *data, int index, int col);
 int get_current_door(t_data *data, double x, double y);
 void    main_func_doors(t_data *data);
