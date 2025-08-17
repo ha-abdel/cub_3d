@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:15:01 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 20:17:24 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/16 10:03:08 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,13 @@ void	clear_image(t_sprite *img, int color)
 		}
 		y++;
 	}
+}
+
+t_point	construct_point(int	x, int y)
+{
+	t_point	t;
+
+	t.x = x;
+	t.y = y;
+	return (t);
 }

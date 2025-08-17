@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:37:20 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/16 18:59:17 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ typedef struct s_ray
 	unsigned int	color;
 	double			ray_angle;
 	double			angle_step;
-	double			distance;
+	// double			distance;
 	double			first_y;
 	double			first_x;
 	double			y_step;
 	double			x_step;
-	double			h_dist;
-	double			v_dist;
+	// double			h_dist;
+	// double			v_dist;
 	double			dist_projection_plane;
 	double			wall_strip;
 	double			ceil;
@@ -129,11 +129,31 @@ typedef struct s_ray
 	t_wall_texture	wall_type;
 }					t_ray;
 
+typedef struct s_hit
+{
+	int				h_hit;
+	int				v_hit;
+	int				is_wall;
+	int				is_door;
+	int				h_door_index;
+	int				v_door_index;
+	int				door_index;
+	double			h_dist;
+	double			v_dist;
+	double			distance;
+	
+} t_hit;
+
 typedef struct s_door
 {
 	int				found_door;
 	int				found_door_pixel;
 	int				wall_behind_distance;
+	int				open;
+	int				col;
+	int				row;
+	t_sprite		frame_door;
+	// t_sprite		sprite_door;
 	t_ray			ray;
 
 }					t_door;
@@ -159,6 +179,8 @@ typedef struct minimap
 	double			r2;
 }					t_minimap;
 
+
+
 typedef struct s_data
 {
 	void			*mlx;
@@ -174,12 +196,17 @@ typedef struct s_data
 	t_sprite		minimap;
 	t_minimap		mini_map;
 	t_map			map;
+	t_door			**doors;
 	t_sprite		door;
 	t_sprite		frame_door;
+	t_hit			hit;
 	int				num_rays;
 	float			rotation_speed;
 	int				max_dist_pixel;
 }					t_data;
+int	check_if_open(t_data **data, int index, int horizontal);
+int	get_door_index(t_data *data, t_ray **ray, t_point p);
+t_point	construct_point(int	x, int y);
 void				print_map(char **map);
 int					main_function_parsing(t_data *data, char *file);
 int					map_check(t_data *data, char *file, char *line, int fd);
@@ -196,22 +223,19 @@ int					get_t(int trgb);
 void				calc_wall_ditance(t_data *data, t_ray **ray, t_door **door);
 void				calc_door_ditance(t_data *data, t_ray **ray, t_door **door);
 int					is_door(t_data *data, double x, double y);
-void				wall_projection(t_data *data, t_ray *ray, int col,
-						t_door *door);
-void				check_vertical_intersect(t_data *data, t_ray *ray,
-						t_door *door);
+void				wall_projection(t_data *data, t_ray *ray, int col);
+void				check_vertical_intersect(t_data *data, t_ray *ray);
 void				calc_vertical_step(t_data *data, t_ray *ray,
 						double tan_val);
 void				calc_first_v_intersect(t_data *data, t_ray *ray,
 						double tan_val);
-void				init_ray(t_ray *ray, t_data *data, t_door *door);
-void				check_horizontal_intersect(t_data *data, t_ray *ray,
-						t_door *door);
+void				init_ray(t_ray *ray, t_data *data);
+void				check_horizontal_intersect(t_data *data, t_ray *ray);
 void				calc_horizontal_step(t_data *data, t_ray *ray,
 						double tan_val);
 void				calc_first_h_intersect(t_data *data, t_ray *ray,
 						double tan_val);
-void				calc_distance(t_data *data, t_ray *ray, t_door *door);
+void				calc_distance(t_data *data, t_ray *ray);
 void				normalize_angle(double *angle);
 int					is_perpendicular_to_xaxis(double ray_angle);
 int					is_perpendicular_to_yaxis(double ray_angle);

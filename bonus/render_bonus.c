@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 20:19:58 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/16 11:11:09 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	render(t_data *data)
 	if (frame_counter >= 600)
 	{
 		clear_image(&data->bg1, BLACK);
-		animate_door(data);
+		// animate_door(data);
+		draw_direction_lines(data);
 		draw_map(data);
 		cast_rays(data);
-		draw_direction_lines(data);
 		create_minimap(data);
 		mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
 		mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);

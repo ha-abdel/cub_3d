@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:30:18 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/16 11:08:21 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,20 @@ int	handle_key(int key, t_data *data)
 	return (0);
 }
 
+void	print_info(t_data *data)
+{
+	int i = 0;
+	while (data->doors[i])
+	{
+		printf("door id is %d\n", i + 1);
+		printf("door col is %d\n", data->doors[i]->col);
+		printf("door row is %d\n", data->doors[i]->row);
+		printf("door is open %s\n", data->doors[i]->open ? "true":"false");
+		i++;
+	}
+	
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -84,6 +98,7 @@ int	main(int ac, char **av)
 	if (!main_function_parsing(&data, av[1]))
 		return (1);
 	init_data(&data);
+	// print_info(&data);
 	mlx_hook(data.win_3d, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win_2d, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win_3d, 17, 1L << 0, destroy_window, &data);

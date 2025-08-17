@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:33:59 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/16 18:59:27 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,74 @@ void	init_images(t_data **data)
 			(*data)->map.w_path, &(*data)->w_wall.width,
 			&(*data)->w_wall.height);
 	(*data)->door.img = mlx_xpm_file_to_image((*data)->mlx,
-			"wolfenstein/animated_door.xpm", &(*data)->door.width,
+			"wolfenstein/purple_stone.xpm", &(*data)->door.width,
 			&(*data)->door.height);
 	(*data)->minimap.img = mlx_xpm_file_to_image((*data)->mlx, SAHM,
 			&(*data)->minimap.width, &(*data)->minimap.height);
 	(*data)->frame_door.img = mlx_new_image((*data)->mlx, 250, 250);
 	get_imgs_addresses(data);
+}
+
+int	count_doors(t_data **data)
+{
+	int y;
+	int	x;
+	int count;
+
+	y = 0;
+	count = 0;
+	while (y < (*data)->map.height)
+	{
+		x = 0;
+		while (x < (*data)->map.width)
+		{
+			if ((*data)->map.map[y][x] == 'D')
+				count++;
+			x++;
+		}
+		y++;
+	}
+	return (count);
+	
+}
+
+void	fill_door(t_data **data, int index, t_point p)
+{
+	(*data)->doors[index] = ft_malloc(sizeof(t_door), 1);
+	if (!(*data)->doors[index])
+		destroy_window(*data);
+	(*data)->doors[index]->col = p.x;
+	(*data)->doors[index]->row = p.y;
+	(*data)->doors[index]->open = 0;
+	init_ray(&(*data)->doors[index]->ray, *data);
+}
+
+void	save_doors_info(t_data **data)
+{
+	int y;
+	int	x;
+	int	i;
+
+	i = 0;
+	y = 0;
+	(*data)->doors = ft_malloc((count_doors(data) + 1) * sizeof(t_door), 1);
+	if (!(*data)->doors)
+		destroy_window(*data);
+	while (y < (*data)->map.height)
+	{
+		x = 0;
+		while (x < (*data)->map.width)
+		{
+			if ((*data)->map.map[y][x] == 'D')
+			{
+				fill_door(data, i, construct_point(x, y));
+				i++;
+			}
+			x++;
+		}
+		y++;
+	}
+	(*data)->doors[i] = NULL;
 }
 
 void	init_data(t_data *data)
@@ -57,6 +119,7 @@ void	init_data(t_data *data)
 	ft_bzero(&data->mini_map, sizeof(t_minimap));
 	data->player.x *= TILE_SIZE + TILE_SIZE / 2;
 	data->player.y *= TILE_SIZE + TILE_SIZE / 2;
+	save_doors_info(&data);
 }
 
 void	initial_data(t_data *data)
@@ -79,25 +142,26 @@ void	initial_data(t_data *data)
 	data->max_dist_pixel = SCREEN_WIDTH * 2;
 }
 
-void	init_ray(t_ray *ray, t_data *data, t_door *door)
+void	init_ray(t_ray *ray, t_data *data)
 {
 	ray->h_intersect.x = 0;
 	ray->h_intersect.y = 0;
 	ray->v_intersect.x = 0;
 	ray->v_intersect.y = 0;
 	ray->angle_step = (FOV * PI / 180.0) / data->num_rays;
-	ray->distance = 0;
+	// ray->distance = 0;
 	ray->player.x = data->player.x;
 	ray->player.y = data->player.y;
-	door->found_door = 0;
-	door->found_door_pixel = 0;
-	door->ray.angle_step = ray->angle_step;
-	door->ray.distance = 0;
-	door->ray.player.x = data->player.x;
-	door->ray.player.y = data->player.y;
-	door->ray.h_intersect.x = 0;
-	door->ray.h_intersect.y = 0;
-	door->ray.v_intersect.x = 0;
-	door->ray.v_intersect.y = 0;
-	door->wall_behind_distance = 0;
+	ray->wall_type = NONE;
+	// door->found_door = 0;
+	// door->found_door_pixel = 0;
+	// door->ray.angle_step = ray->angle_step;
+	// door->ray.distance = 0;
+	// door->ray.player.x = data->player.x;
+	// door->ray.player.y = data->player.y;
+	// door->ray.h_intersect.x = 0;
+	// door->ray.h_intersect.y = 0;
+	// door->ray.v_intersect.x = 0;
+	// door->ray.v_intersect.y = 0;
+	// door->wall_behind_distance = 0;
 }

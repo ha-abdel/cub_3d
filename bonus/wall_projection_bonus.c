@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:27:27 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/17 13:21:48 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,21 +162,21 @@ void	draw_wall_behind_door(t_data *data, int col, t_ray **ray, t_door **door)
 	}
 	else
 	{
-		draw_line(data, (*door)->ray.ceil_start, (*door)->ray.ceil_end,
+		draw_line(data, (*ray)->ceil_start, (*ray)->ceil_end,
 			data->map.c_color, 1);
-		draw_line(data, (*door)->ray.floor_start, (*door)->ray.floor_end,
+		draw_line(data, (*ray)->floor_start, (*ray)->floor_end,
 			data->map.f_color, 1);
 		draw_wall_texture(data, ray);
 		draw_door_texture(data, door, ray);
 	}
 }
 
-void	wall_projection(t_data *data, t_ray *ray, int col, t_door *door)
+void	wall_projection(t_data *data, t_ray *ray, int col)
 {
-	project_wall(&ray, col);
-	if (door->found_door)
+	project_wall(&ray, data, col);
+	if (data->hit.is_door)
 	{
-		draw_wall_behind_door(data, col, &ray, &door);
+		draw_wall_behind_door(data, col, &ray);
 	}
 	else
 	{
