@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/16 11:08:21 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:29:04 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ int	handle_mouse(int x, int y, t_data *data)
 	return (0);
 }
 
+void    open_door(t_data *data)
+{
+    int     x;
+    int     y;
+    int     
+    
+}
+
 int	handle_key(int key, t_data *data)
 {
 	double	old_px;
@@ -62,6 +70,8 @@ int	handle_key(int key, t_data *data)
 	old_py = data->player.y;
 	if (key == ESC_KEY)
 		destroy_window(data);
+    if (key == 111)
+        open_door(data);
 	move_player(data, key);
 	if (is_wall(data, data->player.x - is_facing_left(data->player.angle),
 			data->player.y - is_facing_up(data->player.angle)) || is_door(data,
