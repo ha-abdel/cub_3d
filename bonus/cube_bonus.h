@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/16 18:59:17 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/19 12:17:39 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ typedef enum e_wall_texture
 typedef struct s_sprite
 {
 	void			*img;
+	char			*addr;
 	int				width;
 	int				height;
-	char			*addr;
 	int				bpp;
 	int				line_len;
 	int				endian;
@@ -146,9 +146,9 @@ typedef struct s_hit
 
 typedef struct s_door
 {
-	int				found_door;
-	int				found_door_pixel;
-	int				wall_behind_distance;
+	// int				found_door;
+	// int				found_door_pixel;
+	// int				wall_behind_distance;
 	int				open;
 	int				col;
 	int				row;
@@ -198,7 +198,7 @@ typedef struct s_data
 	t_map			map;
 	t_door			**doors;
 	t_sprite		door;
-	t_sprite		frame_door;
+	// t_sprite		frame_door;
 	t_hit			hit;
 	int				num_rays;
 	float			rotation_speed;
@@ -214,7 +214,7 @@ void				get_imgs_addresses(t_data **data);
 void				init_data(t_data *data);
 void				get_texture_img(t_data *data, t_ray **ray, t_sprite *img);
 void				copy_img(t_sprite *src, t_sprite **dst);
-void				set_wall_type(t_ray **ray);
+void				set_wall_type(t_ray **ray, t_data *data);
 int					destroy_window(t_data *data);
 int					clean_all(t_data **data);
 void				clean_mlx_mandatory_resources(t_data **data);
@@ -245,7 +245,7 @@ int					is_facing_down(double angle);
 int					is_facing_up(double angle);
 void				ft_player_debug(t_data *data);
 int					is_wall(t_data *data, double x, double y);
-int					render(t_data *data);
+// int					render(t_data *data);
 void				my_mlx_pixel_put(t_sprite *img, int x, int y, int color);
 int					inside_bounds(t_data *data, double x, double y);
 void				draw_square(t_data *data, int x, int y, int color, int win);

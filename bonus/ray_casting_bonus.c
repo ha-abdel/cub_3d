@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:26:45 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/16 18:59:46 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/19 13:35:41 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ void	init_all_doors(t_data **data, t_ray *ray)
 	i = 0;
 	while ((*data)->doors[i])
 	{
-		(*data)->doors[i]->found_door = 0;
-		(*data)->doors[i]->found_door_pixel = 0;
+		// (*data)->doors[i]->found_door = 0;
+		// (*data)->doors[i]->found_door_pixel = 0;
 		(*data)->doors[i]->ray.ray_angle = ray->ray_angle;
+		i++;
 	}
 	
 }
@@ -38,19 +39,15 @@ void	reset_hit_info(t_data **data)
 void	cast_rays(t_data *data)
 {
 	t_ray	ray;
-	// t_door	door;
 	int		i;
 
 	i = 0;
 	ray.ray_angle = data->player.angle - (FOV / 2 * PI / 180.0);
-	// door.ray.ray_angle = data->player.angle - (FOV / 2 * PI / 180.0);
 	while (i < data->num_rays)
 	{
 		init_ray(&ray, data);
 		init_all_doors(&data, &ray);
 		reset_hit_info(&data);
-		// init_ray(&door.ray, data);
-		// ray.wall_type = NONE;
 		check_horizontal_intersect(data, &ray);
 		check_vertical_intersect(data, &ray);
 		calc_distance(data, &ray);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_images.c                                     :+:      :+:    :+:   */
+/*   check_images_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:34:40 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:34:44 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/19 12:14:33 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	check_addresses(t_data **data)
 {
 	if (!(*data)->bg.img || !(*data)->bg1.img || !(*data)->n_wall.img
 		|| !(*data)->s_wall.img || !(*data)->e_wall.img || !(*data)->w_wall.img
-		|| !(*data)->door.img || !(*data)->minimap.img
-		|| !(*data)->frame_door.img)
+		|| !(*data)->door.img || !(*data)->minimap.img)
 		clean_all(data);
 }
 
@@ -45,7 +44,4 @@ void	get_imgs_addresses(t_data **data)
 	(*data)->minimap.addr = mlx_get_data_addr((*data)->minimap.img,
 			&(*data)->minimap.bpp, &(*data)->minimap.line_len,
 			&(*data)->minimap.endian);
-	(*data)->frame_door.addr = mlx_get_data_addr((*data)->frame_door.img,
-			&(*data)->frame_door.bpp, &(*data)->frame_door.line_len,
-			&(*data)->frame_door.endian);
 }

@@ -6,22 +6,22 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:51:46 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/16 10:18:22 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/19 12:17:09 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
 
-void	set_wall_type(t_ray **ray)
+void	set_wall_type(t_ray **ray, t_data *data)
 {
-	if ((*ray)->h_dist <= (*ray)->v_dist)
+	if (data->hit.h_dist <= data->hit.v_dist)
 	{
 		if (is_facing_down((*ray)->ray_angle))
 			(*ray)->wall_type = N_WALL;
 		else
 			(*ray)->wall_type = S_WALL;
 	}
-	else if ((*ray)->h_dist > (*ray)->v_dist)
+	else if (data->hit.h_dist > data->hit.v_dist)
 	{
 		if (is_facing_right((*ray)->ray_angle))
 			(*ray)->wall_type = E_WALL;
@@ -42,7 +42,7 @@ void	copy_img(t_sprite *src, t_sprite **dst)
 
 void	get_texture_img(t_data *data, t_ray **ray, t_sprite *img)
 {
-	set_wall_type(ray);
+	set_wall_type(ray, data);
 	if ((*ray)->wall_type == N_WALL)
 		copy_img(&data->n_wall, &img);
 	else if ((*ray)->wall_type == S_WALL)

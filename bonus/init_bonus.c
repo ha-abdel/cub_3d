@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/16 18:59:27 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/19 13:37:39 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_images(t_data **data)
 			&(*data)->door.height);
 	(*data)->minimap.img = mlx_xpm_file_to_image((*data)->mlx, SAHM,
 			&(*data)->minimap.width, &(*data)->minimap.height);
-	(*data)->frame_door.img = mlx_new_image((*data)->mlx, 250, 250);
+	// (*data)->frame_door.img = mlx_new_image((*data)->mlx, 250, 250);
 	get_imgs_addresses(data);
 }
 
@@ -69,6 +69,13 @@ void	fill_door(t_data **data, int index, t_point p)
 	(*data)->doors[index]->col = p.x;
 	(*data)->doors[index]->row = p.y;
 	(*data)->doors[index]->open = 0;
+	(*data)->doors[index]->frame_door.img = mlx_new_image((*data)->mlx, 250, 250);
+	(*data)->doors[index]->frame_door.addr = mlx_get_data_addr((*data)->doors[index]->frame_door.img,
+			&(*data)->doors[index]->frame_door.bpp, &(*data)->doors[index]->frame_door.line_len,
+			&(*data)->doors[index]->frame_door.endian);
+	(*data)->doors[index]->frame_door.height = 250;
+	(*data)->doors[index]->frame_door.width = 250;
+	(*data)->doors[index]->frame_door.frame_count = 0;
 	init_ray(&(*data)->doors[index]->ray, *data);
 }
 
@@ -113,9 +120,9 @@ void	init_data(t_data *data)
 	data->bg.height = data->map.height * TILE_SIZE;
 	data->bg1.width = SCREEN_WIDTH;
 	data->bg1.height = SCREEN_HEIGHT;
-	data->frame_door.width = 250;
-	data->frame_door.height = 250;
-	data->frame_door.frame_count = 0;
+	// data->frame_door.width = 250;
+	// data->frame_door.height = 250;
+	// data->frame_door.frame_count = 0;
 	ft_bzero(&data->mini_map, sizeof(t_minimap));
 	data->player.x *= TILE_SIZE + TILE_SIZE / 2;
 	data->player.y *= TILE_SIZE + TILE_SIZE / 2;
@@ -149,19 +156,7 @@ void	init_ray(t_ray *ray, t_data *data)
 	ray->v_intersect.x = 0;
 	ray->v_intersect.y = 0;
 	ray->angle_step = (FOV * PI / 180.0) / data->num_rays;
-	// ray->distance = 0;
 	ray->player.x = data->player.x;
 	ray->player.y = data->player.y;
 	ray->wall_type = NONE;
-	// door->found_door = 0;
-	// door->found_door_pixel = 0;
-	// door->ray.angle_step = ray->angle_step;
-	// door->ray.distance = 0;
-	// door->ray.player.x = data->player.x;
-	// door->ray.player.y = data->player.y;
-	// door->ray.h_intersect.x = 0;
-	// door->ray.h_intersect.y = 0;
-	// door->ray.v_intersect.x = 0;
-	// door->ray.v_intersect.y = 0;
-	// door->wall_behind_distance = 0;
 }
