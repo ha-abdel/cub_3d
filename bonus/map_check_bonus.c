@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 16:06:27 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/20 10:48:49 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:14:07 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,6 @@ int	map_check(t_data *data, char *file, char *line, int fd)
 		n_line = get_next_line(fd);
 	if (!fill_map(map, n_line, fd) || !create_new_map(data, map, count))
 	{
-		printf("here\n");
 		return (0);
 	}
 	return (1);
