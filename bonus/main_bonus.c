@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/24 16:36:53 by salahian         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:45:05 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,8 +178,8 @@ int get_next_door(t_data *data, int index, int col)
         }
         i++;
     }
-    if (in != -1)
-        printf("next_door.x=[%d]//////////next_door.y=[%d]\n", data->door[in]->x, data->door[in]->y);
+    //if (in != -1)
+        //printf("next_door.x=[%d]//////////next_door.y=[%d]\n", data->door[in]->x, data->door[in]->y);
     return (in);
 }
 
@@ -234,6 +234,7 @@ void    make_door_close(t_data *data, int index)
 	}
     if (!data->door[index]->reverse_frame)
     {
+        printf("here\n");
         data->rev_animation = 0;
         data->open_door = 0;
     }
@@ -276,6 +277,7 @@ int	render(t_data *data)
     {
         clear_image(&data->bg1, BLACK);
         draw_map(data);
+        draw_direction_lines(data);
         draw_direction_lines(data);
         handle_animation_door(data, get_the_closest_door(data));
         cast_rays(data);
