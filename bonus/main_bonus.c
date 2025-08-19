@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/19 15:29:04 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:39:33 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,49 @@ int	handle_mouse(int x, int y, t_data *data)
 	return (0);
 }
 
-void    open_door(t_data *data)
+int check_zone(t_data *data, t_door *door)
 {
-    int     x;
-    int     y;
-    int     
-    
+    double door_cx = door->col * TILE_SIZE + TILE_SIZE / 2;
+    double door_cy = door->row * TILE_SIZE + TILE_SIZE / 2;
+
+    double dx = door_cx - data->player.x;
+    double dy = door_cy - data->player.y;
+
+    double angle_to_door = atan2(dy, dx);
+
+    double diff = angle_to_door - data->player.angle;
+
+    if (diff > M_PI)
+        diff -= 2 * M_PI;
+    else if (diff < -M_PI)
+        diff += 2 * M_PI;
+
+    return (fabs(diff) <= FOV / 2);
+}
+
+void get_the_closest_door(t_data *data)
+{
+    int     i;
+    int     index = -1;
+    int     dt = INT_MAX;
+
+    i = 0;
+    while (data->doors[i])
+    {
+        int dx = abs(data->doors[i]->col * TILE_SIZE - (int)(data->player.x));
+        int dy = abs(data->doors[i]->row * TILE_SIZE - (int)(data->player.y));
+        int dist = dx + dy;
+
+        // Check if closer and inside FOV
+        if (dist < dt && check_zone(data, data->doors[i]))
+        {
+            dt = dist;
+            index = i;
+        }
+        i++;
+    }
+    if (index != -1)
+        data->doors[index]->open = 1;
 }
 
 int	handle_key(int key, t_data *data)
@@ -71,7 +108,7 @@ int	handle_key(int key, t_data *data)
 	if (key == ESC_KEY)
 		destroy_window(data);
     if (key == 111)
-        open_door(data);
+        get_the_closest_door(data);
 	move_player(data, key);
 	if (is_wall(data, data->player.x - is_facing_left(data->player.angle),
 			data->player.y - is_facing_up(data->player.angle)) || is_door(data,

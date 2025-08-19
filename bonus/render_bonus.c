@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/16 11:11:09 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:40:49 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	render(t_data *data)
 	if (frame_counter >= 600)
 	{
 		clear_image(&data->bg1, BLACK);
-		// animate_door(data);
+		animate_door(data);
 		draw_direction_lines(data);
 		draw_map(data);
 		cast_rays(data);
