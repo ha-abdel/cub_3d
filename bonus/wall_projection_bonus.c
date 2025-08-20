@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_projection_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 10:59:34 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:37:52 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,10 +188,10 @@ void	project_wall(t_ray **ray, t_data *data, int col)
 void	wall_projection(t_data *data, t_ray *ray, int col)
 {
 	project_wall(&ray, data, col);
-	if (data->hit.is_wall)
-		draw_wall_texture(data, &ray);
-	else
+	if (data->hit.is_door)
 		draw_door_texture(data, &ray);
+	else
+		draw_wall_texture(data, &ray);
 	draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
 	draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
 }

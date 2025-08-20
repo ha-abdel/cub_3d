@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 11:07:26 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:42:19 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ void	fill_img_door(t_data *data)
 	int				x;
 	int				y;
     int             i;
-	//unsigned int	color;
+	unsigned int	color;
 
     i = 0;
     while (data->doors[i])
@@ -154,9 +154,9 @@ void	fill_img_door(t_data *data)
 			x = 0;
             while (x < 100)
             {
-				//color = get_color(data->door.img, x, y);
-                //if (color != 0x00000000)
-				my_mlx_pixel_put(&data->doors[i]->frame_door, x , y, BLACK);
+				color = get_color(data->door.img, x, y);
+                if (color != 0x00000000)
+					my_mlx_pixel_put(&data->doors[i]->frame_door, x , y, color);
                 x++;
             }
             y++;
@@ -175,7 +175,7 @@ int	main(int ac, char **av)
 	if (!main_function_parsing(&data, av[1]))
 		return (1);
 	init_data(&data);
-    
+    fill_img_door(&data);
 	// print_info(&data);
 	mlx_hook(data.win_3d, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win_2d, 2, 1L << 0, handle_key, &data);
