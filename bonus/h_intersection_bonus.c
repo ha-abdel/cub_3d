@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 11:06:07 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:42:45 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int	get_door_index(t_data *data, t_point p)
 	i = 0;
 	while (data && data->doors && data->doors[i])
 	{
-		if (data->doors[i]->col * TILE_SIZE == p.x && 
-			data->doors[i]->row * TILE_SIZE == p.y )
+		if (data->doors[i]->col  == (int)(p.x / TILE_SIZE) && 
+			data->doors[i]->row  == (int)(p.y / TILE_SIZE))
 				return i;
 		i++;
 	}
@@ -81,7 +81,7 @@ void	find_h_wall(t_data *data, t_ray **ray)
 				- is_facing_up((*ray)->ray_angle)))
 		{
 			which_door = get_door_index(data,
-						construct_point((*ray)->h_intersect.x, (*ray)->h_intersect.y));
+						construct_point((*ray)->h_intersect.x, (*ray)->h_intersect.y - is_facing_up((*ray)->ray_angle)));
 			if (!check_if_open(&data, which_door, 1))
 			{
 				// data->doors[which_door]->found_door = 1;
