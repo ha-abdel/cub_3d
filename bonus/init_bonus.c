@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 10:38:43 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:21:13 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,8 @@ void	init_data(t_data *data)
 	// data->frame_door.height = 250;
 	// data->frame_door.frame_count = 0;
 	ft_bzero(&data->mini_map, sizeof(t_minimap));
-	data->player.x *= TILE_SIZE + TILE_SIZE / 2;
-	data->player.y *= TILE_SIZE + TILE_SIZE / 2;
+	data->player.x = (data->player.x * TILE_SIZE) + TILE_SIZE / 2;
+    data->player.y = (data->player.y * TILE_SIZE) + TILE_SIZE / 2;
 	save_doors_info(&data);
 }
 
