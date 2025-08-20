@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   v_intersection_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:20:12 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 11:37:30 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/20 13:06:14 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ void	find_v_wall(t_data *data, t_ray **ray)
 						construct_point((*ray)->v_intersect.x - is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y));
 			if (!check_if_open(&data, which_door, 0))
 			{
-				// data->doors[which_door]->found_door = 1;
-				// data->doors[which_door]->ray.v_intersect.x = (*ray)->v_intersect.x;
-				// data->doors[which_door]->ray.v_intersect.y = (*ray)->v_intersect.y;
 				data->hit.v_door_index = which_door;
 				data->hit.v_hit = 1;
 				data->hit.is_door = 1;
@@ -59,8 +56,11 @@ void	find_v_wall(t_data *data, t_ray **ray)
 		(*ray)->v_intersect.x += (*ray)->x_step;
 		(*ray)->v_intersect.y += (*ray)->y_step;
 	}
-	data->hit.v_hit = 1;
-	data->hit.is_wall = 1;
+	if (!data->hit.is_door)
+	{
+		data->hit.v_hit = 1;
+		data->hit.is_wall = 1;
+	}
 }
 
 void	check_vertical_intersect(t_data *data, t_ray *ray)

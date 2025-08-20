@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   h_intersection_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 11:42:45 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/20 13:05:20 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	check_if_open(t_data **data, int index, int horizontal)
 		text_x = fmod(door->ray.h_intersect.y, TILE_SIZE) / TILE_SIZE;
 	text_x *= (door->frame_door.width);
 	text_y = door->frame_door.height / 2;
-	color = get_color(door->frame_door.img, text_x, text_y);
+	color = get_color(&door->frame_door, text_x, text_y);
 	if (get_t(color))
 		return (1);
 	return (0);
@@ -84,9 +84,6 @@ void	find_h_wall(t_data *data, t_ray **ray)
 						construct_point((*ray)->h_intersect.x, (*ray)->h_intersect.y - is_facing_up((*ray)->ray_angle)));
 			if (!check_if_open(&data, which_door, 1))
 			{
-				// data->doors[which_door]->found_door = 1;
-				// data->doors[which_door]->ray.h_intersect.x = (*ray)->h_intersect.x;;
-				// data->doors[which_door]->ray.h_intersect.y = (*ray)->h_intersect.y;
 				data->hit.h_door_index = which_door;
 				data->hit.h_hit = 1;
 				data->hit.is_door = 1;
@@ -96,8 +93,12 @@ void	find_h_wall(t_data *data, t_ray **ray)
 		((*ray)->h_intersect).x += (*ray)->x_step;
 		((*ray)->h_intersect).y += (*ray)->y_step;
 	}
-	data->hit.h_hit = 1;
-	data->hit.is_wall = 1;
+	if (data->hit.is_door)
+	{
+		data->hit.h_hit = 1;
+		data->hit.is_wall = 1;
+	}
+	
 }
 
 double	handle_division_by_zero(double angle)

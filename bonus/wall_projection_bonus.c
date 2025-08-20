@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 12:37:52 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/20 13:00:13 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	make_animation(t_data *data, t_door *door)
 		x = door->frame_door.frame_count;
 		while (x < (door->frame_door.frame_count + 100))
 		{
-			color = get_color(data->door.img, x, y);
+			color = get_color(&data->door, x, y);
 			if (color != 0x00000000)
 				my_mlx_pixel_put(&door->frame_door, x
 					- door->frame_door.frame_count, y, color);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/12 13:28:34 by salahian          #+#    #+#             */
-/*   Updated: 2025/08/19 17:00:34 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:55:14 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,11 @@ unsigned int	get_color(t_sprite *img, int x, int y)
 {
 	unsigned int	color;
 	
-	if (x < 0 || y < 0 || x >= img->width || y >= img->height)
-		return (BLACK);
+	// if (x < 0 || y < 0 || x >= img->width || y >= img->height)
+	// {
+	// 	// printf("x=[%d]///////////y=[%d]\n", x, y);
+	// 	return (RED);
+	// }
 	color = *(unsigned int *)(img->addr + (y * img->line_len + x * (img->bpp
 					/ 8)));
 	return (color);

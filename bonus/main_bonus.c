@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 12:42:19 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/20 12:59:59 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void	fill_img_door(t_data *data)
 			x = 0;
             while (x < 100)
             {
-				color = get_color(data->door.img, x, y);
+				color = get_color(&data->door, x, y);
                 if (color != 0x00000000)
 					my_mlx_pixel_put(&data->doors[i]->frame_door, x , y, color);
                 x++;
