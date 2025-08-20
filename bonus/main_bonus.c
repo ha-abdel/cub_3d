@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/19 15:39:33 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:07:26 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,13 @@ int	handle_key(int key, t_data *data)
 
 	old_px = data->player.x;
 	old_py = data->player.y;
-	if (key == ESC_KEY)
-		destroy_window(data);
-    if (key == 111)
-        get_the_closest_door(data);
+	if (key == ESC_KEY || key == 111)
+    {
+        if (key == 111)
+            get_the_closest_door(data);
+        else
+		    destroy_window(data);
+    }
 	move_player(data, key);
 	if (is_wall(data, data->player.x - is_facing_left(data->player.angle),
 			data->player.y - is_facing_up(data->player.angle)) || is_door(data,
@@ -135,6 +138,33 @@ void	print_info(t_data *data)
 	
 }
 
+void	fill_img_door(t_data *data)
+{
+	int				x;
+	int				y;
+    int             i;
+	//unsigned int	color;
+
+    i = 0;
+    while (data->doors[i])
+    {
+		y = 0;
+        while (y < 100)
+        {
+			x = 0;
+            while (x < 100)
+            {
+				//color = get_color(data->door.img, x, y);
+                //if (color != 0x00000000)
+				my_mlx_pixel_put(&data->doors[i]->frame_door, x , y, BLACK);
+                x++;
+            }
+            y++;
+        }
+        i++;
+    }
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -145,6 +175,7 @@ int	main(int ac, char **av)
 	if (!main_function_parsing(&data, av[1]))
 		return (1);
 	init_data(&data);
+    
 	// print_info(&data);
 	mlx_hook(data.win_3d, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win_2d, 2, 1L << 0, handle_key, &data);

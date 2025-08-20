@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 16:06:27 by salahian          #+#    #+#             */
-/*   Updated: 2025/08/19 16:14:07 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:21:47 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,8 +253,6 @@ int	map_check(t_data *data, char *file, char *line, int fd)
 	while (ft_strncmp(n_line, line, ft_strlen(line)) != 0)
 		n_line = get_next_line(fd);
 	if (!fill_map(map, n_line, fd) || !create_new_map(data, map, count))
-	{
 		return (0);
-	}
 	return (1);
 }

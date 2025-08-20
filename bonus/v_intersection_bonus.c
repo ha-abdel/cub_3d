@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   v_intersection_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:20:12 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/19 11:07:55 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:06:15 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	find_v_wall(t_data *data, t_ray **ray)
 		if (is_door(data, (*ray)->v_intersect.x
 				- is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y))
 		{
-			which_door = get_door_index(data, ray,
+			which_door = get_door_index(data,
 						construct_point((*ray)->v_intersect.x, (*ray)->v_intersect.y));
-			if (check_if_open(&data, which_door, 0))
+			if (!check_if_open(&data, which_door, 0))
 			{
 				// data->doors[which_door]->found_door = 1;
 				// data->doors[which_door]->ray.v_intersect.x = (*ray)->v_intersect.x;

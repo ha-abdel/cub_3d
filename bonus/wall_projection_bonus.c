@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/19 16:09:16 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/20 10:59:34 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,32 @@ void	draw_wall_texture(t_data *data, t_ray **ray)
 	}
 }
 
+void	make_animation(t_data *data, t_door *door)
+{
+	int				x;
+	int				y;
+	unsigned int	color;
+
+	y = 0;
+	while (y < 100)
+	{
+		x = door->frame_door.frame_count;
+		while (x < (door->frame_door.frame_count + 100))
+		{
+			color = get_color(data->door.img, x, y);
+			if (color != 0x00000000)
+				my_mlx_pixel_put(&door->frame_door, x
+					- door->frame_door.frame_count, y, color);
+			x++;
+		}
+		y++;
+	}
+	if (door->frame_door.frame_count < 1500)
+		door->frame_door.frame_count += 100;
+	else
+		door->frame_door.frame_count = 0;
+}
+
 void	animate_door(t_data *data)
 {
 	int		i;
@@ -49,35 +75,9 @@ void	animate_door(t_data *data)
 	while (data->doors[i])
 	{
 		if (data->doors[i]->open)
-			make_animation(data);
+			make_animation(data, data->doors[i]);
 		i++;
 	}
-}
-
-void	make_animation(t_data *data)
-{
-	int				x;
-	int				y;
-	unsigned int	color;
-
-	y = 0;
-	while (y < 32)
-	{
-		x = data->frame_door.frame_count;
-		while (x < (data->frame_door.frame_count + 34))
-		{
-			color = get_color(&data->door, x, y);
-			if (color != 0x00000000)
-				my_mlx_pixel_put(&data->frame_door, x
-					- data->frame_door.frame_count, y, color);
-			x++;
-		}
-		y++;
-	}
-	if (data->frame_door.frame_count < 512)
-		data->frame_door.frame_count += 34;
-	else
-		data->frame_door.frame_count = 0;
 }
 
 void	draw_door_texture(t_data *data,  t_ray **ray)

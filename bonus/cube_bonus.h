@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/19 12:17:39 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:03:22 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ typedef struct s_data
 	int				max_dist_pixel;
 }					t_data;
 int	check_if_open(t_data **data, int index, int horizontal);
-int	get_door_index(t_data *data, t_ray **ray, t_point p);
+int	get_door_index(t_data *data, t_point p);
 t_point	construct_point(int	x, int y);
 void				print_map(char **map);
 int					main_function_parsing(t_data *data, char *file);
@@ -263,4 +263,5 @@ void				clear_image(t_sprite *img, int color);
 void				create_minimap(t_data *data);
 unsigned int		get_color(t_sprite *img, int x, int y);
 void				animate_door(t_data *data);
+void	fill_img_door(t_data *data);
 #endif

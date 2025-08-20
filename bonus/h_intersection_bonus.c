@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   h_intersection_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/19 13:40:06 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:06:07 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,8 @@ int	check_if_open(t_data **data, int index, int horizontal)
 	
 }
 
-int	get_door_index(t_data *data, t_ray **ray, t_point p)
+int	get_door_index(t_data *data, t_point p)
 {
-	(void)ray;
 	int	i;
 
 	i = 0;
@@ -81,7 +80,7 @@ void	find_h_wall(t_data *data, t_ray **ray)
 		if (is_door(data, ((*ray)->h_intersect).x, ((*ray)->h_intersect).y
 				- is_facing_up((*ray)->ray_angle)))
 		{
-			which_door = get_door_index(data, ray,
+			which_door = get_door_index(data,
 						construct_point((*ray)->h_intersect.x, (*ray)->h_intersect.y));
 			if (!check_if_open(&data, which_door, 1))
 			{
