@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 12:59:59 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/20 14:37:42 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,30 @@ int check_zone(t_data *data, t_door *door)
     return (fabs(diff) <= FOV / 2);
 }
 
+int check_distance(t_data *data)
+{
+    int tile_x = (int)data->player.x / TILE_SIZE;
+    int tile_y = (int)data->player.y / TILE_SIZE;
+
+    if (data->map.width > tile_x + 2
+        && is_facing_right(data->player.angle)
+        && (data->map.map[tile_y][tile_x + 2] == 'D' || data->map.map[tile_y][tile_x + 1] == 'D'))
+        return (1);
+    else if (data->map.height > tile_y + 2
+        && is_facing_down(data->player.angle)
+        && (data->map.map[tile_y + 2][tile_x] == 'D' || data->map.map[tile_y + 1][tile_x] == 'D'))
+        return (1);
+    else if (tile_x - 2 >= 0
+        && is_facing_left(data->player.angle)
+        && (data->map.map[tile_y][tile_x - 2] == 'D' || data->map.map[tile_y][tile_x - 1] == 'D'))
+        return (1);
+    else if (tile_y - 2 >= 0
+        && is_facing_up(data->player.angle)
+        && (data->map.map[tile_y - 2][tile_x] == 'D' || data->map.map[tile_y - 1][tile_x] == 'D'))
+        return (1);
+    return (0);
+}
+
 void get_the_closest_door(t_data *data)
 {
     int     i;
@@ -94,7 +118,7 @@ void get_the_closest_door(t_data *data)
         }
         i++;
     }
-    if (index != -1)
+    if (index != -1 && check_distance(data))
         data->doors[index]->open = 1;
 }
 

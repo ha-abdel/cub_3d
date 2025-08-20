@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 14:30:44 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/20 14:40:27 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	make_animation(t_data *data, t_door *door)
 		}
 		y++;
 	}
-	if (door->frame_door.frame_count < 1500)
+	if (door->frame_door.frame_count < 1400)
 		door->frame_door.frame_count += 100;
 	else
 		door->open = 0;
