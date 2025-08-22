@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 12:52:30 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/22 16:21:24 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	save_doors_info(t_data **data)
 void	init_data(t_data *data)
 {
 	data->mlx = mlx_init();
-	data->num_rays = SCREEN_WIDTH;
+	// data->num_rays = SCREEN_WIDTH;
 	data->win_3d = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT,
 			"3D View");
 	data->win_2d = mlx_new_window(data->mlx, data->map.width * TILE_SIZE,

@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:20:12 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 13:06:14 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/22 16:22:19 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,19 @@ void	find_v_wall(t_data *data, t_ray **ray)
 		{
 			which_door = get_door_index(data,
 						construct_point((*ray)->v_intersect.x - is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y));
-			if (!check_if_open(&data, which_door, 0))
+			if (!check_if_open(&data, which_door, 0, *ray))
 			{
 				data->hit.v_door_index = which_door;
 				data->hit.v_hit = 1;
-				data->hit.is_door = 1;
+				data->hit.is_v_door = 1;
 				return ;
 			}
 		}
 		(*ray)->v_intersect.x += (*ray)->x_step;
 		(*ray)->v_intersect.y += (*ray)->y_step;
 	}
-	if (!data->hit.is_door)
-	{
 		data->hit.v_hit = 1;
-		data->hit.is_wall = 1;
-	}
+		data->hit.is_v_wall = 1;
 }
 
 void	check_vertical_intersect(t_data *data, t_ray *ray)

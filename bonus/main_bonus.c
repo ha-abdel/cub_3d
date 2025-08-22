@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 14:37:42 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/20 15:40:29 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,18 @@ void	print_info(t_data *data)
 		i++;
 	}
 	
+}
+
+void	print_hit_info(t_data *data)
+{
+	printf("door hit horizontally %d\n", data->hit.is_h_door);
+	printf("door hit vertically %d\n", data->hit.is_v_door);
+	printf("wall hit horizontally %d\n", data->hit.is_h_wall);
+	printf("wall hit vertically %d\n", data->hit.is_v_wall);
+	printf("final hit door %d\n", data->hit.is_door);
+	printf("final hit wall %d\n", data->hit.is_wall);
+	printf("h dist %f\n", data->hit.h_dist);
+	printf("v dist %f\n", data->hit.v_dist);
 }
 
 void	fill_img_door(t_data *data)
