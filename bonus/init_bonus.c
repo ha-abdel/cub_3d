@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/22 16:21:24 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/22 19:01:06 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ void	fill_door(t_data **data, int index, t_point p)
 		destroy_window(*data);
 	(*data)->doors[index]->col = p.x;
 	(*data)->doors[index]->row = p.y;
-	(*data)->doors[index]->open = 0;
+	// if (index == 0)
+	// 	(*data)->doors[index]->open = 1;
+	// else
+		(*data)->doors[index]->open = 0;
 	(*data)->doors[index]->frame_door.img = mlx_new_image((*data)->mlx, 100, 100);
 	(*data)->doors[index]->frame_door.addr = mlx_get_data_addr((*data)->doors[index]->frame_door.img,
 			&(*data)->doors[index]->frame_door.bpp, &(*data)->doors[index]->frame_door.line_len,

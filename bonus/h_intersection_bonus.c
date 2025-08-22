@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/22 16:20:35 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/22 19:01:36 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,60 @@ void	calc_horizontal_step(t_data *data, t_ray *ray, double tan_val)
 }
 int	check_if_open(t_data **data, int index, int horizontal, t_ray *ray)
 {
-	int text_x;
-	int text_y;
-	t_door *door;
-	int color;
-	
 	if (!(*data)->doors || !(*data)->doors[0] || index == -1)
 		return (1);
-	door = (*data)->doors[index];
+
+	t_door *door = (*data)->doors[index];
+	double ratio;
+
 	if (horizontal)
-		text_x = fmod(ray->h_intersect.x, TILE_SIZE) / TILE_SIZE;
+		ratio = fmod(ray->h_intersect.x, TILE_SIZE) / (double)TILE_SIZE;
 	else
-		text_x = fmod(ray->v_intersect.y, TILE_SIZE) / TILE_SIZE;
-	text_x *= (door->frame_door.width);
-	text_y = door->frame_door.height / 2;
-	color = get_color(&door->frame_door, text_x, text_y);
+		ratio = fmod(ray->v_intersect.y, TILE_SIZE) / (double)TILE_SIZE;
+
+	int text_x = (int)(ratio * door->frame_door.width);
+	if (text_x >= door->frame_door.width)
+		text_x = door->frame_door.width - 1;
+
+	int text_y = door->frame_door.height / 2;
+
+	int color = get_color(&door->frame_door, text_x, text_y);
+
 	if (get_t(color))
 		return (1);
 	return (0);
-	
 }
+
+// int	check_if_open(t_data **data, int index, int horizontal, t_ray *ray)
+// {
+// 	double text_x;
+// 	double text_y;
+// 	t_door *door;
+// 	int color;
+	
+// 	if (!(*data)->doors || !(*data)->doors[0] || index == -1)
+// 		return (1);
+
+// 	door = (*data)->doors[index];
+
+// 	if (horizontal)
+// 		text_x = fmod(ray->h_intersect.x, TILE_SIZE) / (double)TILE_SIZE;
+// 	else
+// 		text_x = fmod(ray->v_intersect.y, TILE_SIZE) / (double)TILE_SIZE;
+
+// 	text_x *= (door->frame_door.width);
+// 	if (text_x >= door->frame_door.width)
+// 		text_x = door->frame_door.width - 1;
+// 	text_y = door->frame_door.height / 2;
+
+// 	color = get_color(&door->frame_door, text_x, text_y);
+
+// 	if (get_t(color))
+// 		return (1);
+// 	return (0);
+// }
+
+
 
 int	get_door_index(t_data *data, t_point p)
 {
@@ -84,6 +118,7 @@ void	find_h_wall(t_data *data, t_ray **ray)
 						construct_point((*ray)->h_intersect.x, (*ray)->h_intersect.y - is_facing_up((*ray)->ray_angle)));
 			if (!check_if_open(&data, which_door, 1, *ray))
 			{
+				// printf("%d\n", which_door);
 				data->hit.h_door_index = which_door;
 				data->hit.h_hit = 1;
 				data->hit.is_h_door = 1;

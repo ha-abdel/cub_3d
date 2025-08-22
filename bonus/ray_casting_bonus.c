@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:26:45 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 18:13:01 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/22 16:47:33 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_all_doors(t_data **data, t_ray *ray)
 	while ((*data)->doors[i])
 	{
 		(*data)->doors[i]->ray.ray_angle = ray->ray_angle;
-		(*data)->doors[i]->open = 1;
+		// (*data)->doors[i]->open = 1;
 		i++;
 	}
 	

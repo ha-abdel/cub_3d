@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 18:15:27 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/22 19:05:09 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ void	animate_door(t_data *data)
 	while (data->doors[i])
 	{
 		if (data->doors[i]->open)
+		{
 			make_animation(data, data->doors[i]);
+			break ;
+		}
 		i++;
 	}
 }
