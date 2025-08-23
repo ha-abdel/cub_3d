@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 09:19:04 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/23 15:18:42 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	make_animation(t_data *data, t_door *door)
 		}
 		y++;
 	}
-	if (door->frame_door.frame_count < 1400)
+	if (door->frame_door.frame_count < 1900)
 		door->frame_door.frame_count += 100;
 	else
 		door->open = 0;
@@ -76,7 +76,10 @@ void	animate_door(t_data *data)
 	{
 		if (data->doors[i]->open)
 		{
+		{
 			make_animation(data, data->doors[i]);
+			break ;
+		}
 			break ;
 		}
 		i++;
@@ -91,6 +94,8 @@ void	draw_door_texture(t_data *data,  t_ray **ray)
 	int				index;
 
 	index = data->hit.door_index;
+	printf("index hit is %d\n", index);
+	// getchar();
 	y = (*ray)->wall_start.y;
 	if (data->hit.h_dist < data->hit.v_dist)
 		texture.wall_x = fmod((*ray)->h_intersect.x, TILE_SIZE)
@@ -192,9 +197,15 @@ void	wall_projection(t_data *data, t_ray *ray, int col)
 {
 	project_wall(&ray, data, col);
 	if (data->hit.is_door)
+	{
 		draw_door_texture(data, &ray);
+		// printf("hit door\n");
+	}
 	else
+	{
 		draw_wall_texture(data, &ray);
+		// printf("hit wall\n");
+	}
 	draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
 	draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
 }

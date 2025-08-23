@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 11:03:22 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/23 10:36:38 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,10 @@ typedef struct s_hit
 	int				v_hit;
 	int				is_wall;
 	int				is_door;
+	int				is_h_wall;
+	int				is_v_wall;
+	int				is_h_door;
+	int				is_v_door;
 	int				h_door_index;
 	int				v_door_index;
 	int				door_index;
@@ -204,7 +208,10 @@ typedef struct s_data
 	float			rotation_speed;
 	int				max_dist_pixel;
 }					t_data;
-int	check_if_open(t_data **data, int index, int horizontal);
+void	print_data(t_data *data);
+void	print_info(t_data *data);
+void	print_hit_info(t_data *data);
+int	check_if_open(t_data **data, int index, int horizontal, t_ray *ray);
 int	get_door_index(t_data *data, t_point p);
 t_point	construct_point(int	x, int y);
 void				print_map(char **map);

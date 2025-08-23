@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/20 12:52:30 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/23 15:17:45 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	init_images(t_data **data)
 			(*data)->map.w_path, &(*data)->w_wall.width,
 			&(*data)->w_wall.height);
 	(*data)->door.img = mlx_xpm_file_to_image((*data)->mlx,
-			"wolfenstein/bab.xpm", &(*data)->door.width,
+			"wolfenstein/3bd_omar.xpm", &(*data)->door.width,
 			&(*data)->door.height);
 	(*data)->minimap.img = mlx_xpm_file_to_image((*data)->mlx, SAHM,
 			&(*data)->minimap.width, &(*data)->minimap.height);
@@ -68,7 +68,10 @@ void	fill_door(t_data **data, int index, t_point p)
 		destroy_window(*data);
 	(*data)->doors[index]->col = p.x;
 	(*data)->doors[index]->row = p.y;
-	(*data)->doors[index]->open = 0;
+	// if (index == 0)
+	// 	(*data)->doors[index]->open = 1;
+	// else
+		(*data)->doors[index]->open = 0;
 	(*data)->doors[index]->frame_door.img = mlx_new_image((*data)->mlx, 100, 100);
 	(*data)->doors[index]->frame_door.addr = mlx_get_data_addr((*data)->doors[index]->frame_door.img,
 			&(*data)->doors[index]->frame_door.bpp, &(*data)->doors[index]->frame_door.line_len,
@@ -110,7 +113,7 @@ void	save_doors_info(t_data **data)
 void	init_data(t_data *data)
 {
 	data->mlx = mlx_init();
-	data->num_rays = SCREEN_WIDTH;
+	// data->num_rays = SCREEN_WIDTH;
 	data->win_3d = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT,
 			"3D View");
 	data->win_2d = mlx_new_window(data->mlx, data->map.width * TILE_SIZE,
