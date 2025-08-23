@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/22 18:30:55 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/23 10:36:48 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,7 @@ int	main(int ac, char **av)
 	if (!main_function_parsing(&data, av[1]))
 		return (1);
 	init_data(&data);
+	print_data(&data);
 	fill_img_door(&data);
 	// print_info(&data);
 	mlx_hook(data.win_3d, 2, 1L << 0, handle_key, &data);

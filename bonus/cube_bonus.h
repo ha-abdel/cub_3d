@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/22 18:31:21 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/23 10:36:38 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,7 @@ typedef struct s_data
 	float			rotation_speed;
 	int				max_dist_pixel;
 }					t_data;
-
+void	print_data(t_data *data);
 void	print_info(t_data *data);
 void	print_hit_info(t_data *data);
 int	check_if_open(t_data **data, int index, int horizontal, t_ray *ray);
