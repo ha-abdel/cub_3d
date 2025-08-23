@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 15:44:13 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/23 15:56:04 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,45 @@ int	check_distance(t_data *data)
 	return (0);
 }
 
+// void	get_the_closest_door(t_data *data)
+// {
+// 	int	i;
+// 	int	index;
+// 	// int	dt;
+// 	// int	dx;
+// 	// int	dy;
+// 	// int	dist;
+
+// 	index = -1;
+// 	// dt = INT_MAX;
+// 	i = 0;
+// 	while (data->doors[i])
+// 	{
+// 		if (i != data->hit.door_index  || data->doors[i]->open)
+// 		{
+// 			// printf("%d\n", i);
+// 			i++;
+// 			continue;
+// 		}
+// 		else
+// 		{
+// 			printf("%d\n", i);
+// 			data->doors[i]->open = 1;
+// 			// dx = abs(data->doors[i]->col * TILE_SIZE - (int)(data->player.x));
+// 			// dy = abs(data->doors[i]->row * TILE_SIZE - (int)(data->player.y));
+// 			// dist = dx + dy;
+// 			// if (dist < dt)
+// 			// {
+// 			// 	dt = dist;
+// 			// 	index = i;
+// 			// 	break ;
+// 			// }
+// 		}
+// 		i++;
+// 	}
+// 	// if (index != -1)
+// 	// 	data->doors[index]->open = 1;
+// }
 void	get_the_closest_door(t_data *data)
 {
 	int	i;
@@ -123,7 +162,7 @@ void	get_the_closest_door(t_data *data)
 		{
 			dt = dist;
 			index = i;
-			printf("closest door is %d\n", index);
+			// printf("closest door is %d\n", index);
 		}
 		i++;
 	}
@@ -144,7 +183,7 @@ int	handle_key(int key, t_data *data)
 			get_the_closest_door(data);
 		else
 			destroy_window(data);
-		print_info(data);
+		// print_info(data);
 	}
 	move_player(data, key);
 	if (is_wall(data, data->player.x - is_facing_left(data->player.angle),
@@ -157,7 +196,7 @@ int	handle_key(int key, t_data *data)
 	if (is_door(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle))
 		&& (data->doors[get_door_index(data, construct_point(data->player.x
 					- is_facing_left(data->player.angle), data->player.y
-					- is_facing_up(data->player.angle)))]->open = 1))
+					- is_facing_up(data->player.angle)))]->open = 0))
 	{
 		// printf("is door\n");
 		data->player.x = old_px;
@@ -230,7 +269,7 @@ int	main(int ac, char **av)
 	if (!main_function_parsing(&data, av[1]))
 		return (1);
 	init_data(&data);
-	print_data(&data);
+	// print_data(&data);
 	fill_img_door(&data);
 	// print_info(&data);
 	mlx_hook(data.win_3d, 2, 1L << 0, handle_key, &data);

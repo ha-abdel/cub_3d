@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/22 19:09:01 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/23 15:17:44 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	render(t_data *data)
 {
 	static int	frame_counter;
 
-	if (frame_counter >= 600)
+	if (frame_counter >= 60)
 	{
 		clear_image(&data->bg1, BLACK);
 		animate_door(data);
