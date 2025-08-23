@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 10:56:21 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/23 11:37:33 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	draw_door_texture(t_data *data,  t_ray **ray)
 	int				index;
 
 	index = data->hit.door_index;
-	printf("index hit is %d\n", index);
+	// printf("index hit is %d\n", index);
 	// getchar();
 	y = (*ray)->wall_start.y;
 	if (data->hit.h_dist < data->hit.v_dist)

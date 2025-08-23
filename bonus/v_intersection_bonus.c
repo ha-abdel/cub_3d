@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:20:12 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 10:50:00 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/23 11:37:17 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	find_v_wall(t_data *data, t_ray **ray)
 						construct_point((*ray)->v_intersect.x - is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y));
 			if (!check_if_open(&data, which_door, 0, *ray))
 			{
-				printf("door %d is closed\n", which_door);
+				// printf("door %d is closed\n", which_door);
 				data->hit.v_door_index = which_door;
 				data->hit.v_hit = 1;
 				data->hit.is_v_door = 1;
