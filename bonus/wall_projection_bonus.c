@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 15:18:42 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/23 15:45:10 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	make_animation(t_data *data, t_door *door)
 	unsigned int	color;
 
 	y = 0;
-	while (y < 100)
+	while (y < 32)
 	{
 		x = door->frame_door.frame_count;
-		while (x < (door->frame_door.frame_count + 100))
+		while (x < (door->frame_door.frame_count + 32))
 		{
 			color = get_color(&data->door, x, y);
 			if (color != 0x00000000)
@@ -61,8 +61,8 @@ void	make_animation(t_data *data, t_door *door)
 		}
 		y++;
 	}
-	if (door->frame_door.frame_count < 1900)
-		door->frame_door.frame_count += 100;
+	if (door->frame_door.frame_count < 480)
+		door->frame_door.frame_count += 32;
 	else
 		door->open = 0;
 }

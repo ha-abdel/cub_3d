@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 10:36:48 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/23 15:44:13 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,10 +204,10 @@ void	fill_img_door(t_data *data)
 	while (data->doors[i])
 	{
 		y = 0;
-		while (y < 100)
+		while (y < 32)
 		{
 			x = 0;
-			while (x < 100)
+			while (x < 32)
 			{
 				color = get_color(&data->door, x, y);
 				if (color != 0x00000000)

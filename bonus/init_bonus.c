@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 15:17:45 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/23 15:43:56 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	init_images(t_data **data)
 			(*data)->map.w_path, &(*data)->w_wall.width,
 			&(*data)->w_wall.height);
 	(*data)->door.img = mlx_xpm_file_to_image((*data)->mlx,
-			"wolfenstein/3bd_omar.xpm", &(*data)->door.width,
+			"wolfenstein/small_bab.xpm", &(*data)->door.width,
 			&(*data)->door.height);
 	(*data)->minimap.img = mlx_xpm_file_to_image((*data)->mlx, SAHM,
 			&(*data)->minimap.width, &(*data)->minimap.height);
@@ -72,12 +72,12 @@ void	fill_door(t_data **data, int index, t_point p)
 	// 	(*data)->doors[index]->open = 1;
 	// else
 		(*data)->doors[index]->open = 0;
-	(*data)->doors[index]->frame_door.img = mlx_new_image((*data)->mlx, 100, 100);
+	(*data)->doors[index]->frame_door.img = mlx_new_image((*data)->mlx, 32, 32);
 	(*data)->doors[index]->frame_door.addr = mlx_get_data_addr((*data)->doors[index]->frame_door.img,
 			&(*data)->doors[index]->frame_door.bpp, &(*data)->doors[index]->frame_door.line_len,
 			&(*data)->doors[index]->frame_door.endian);
-	(*data)->doors[index]->frame_door.height = 100;
-	(*data)->doors[index]->frame_door.width = 100;
+	(*data)->doors[index]->frame_door.height = 32;
+	(*data)->doors[index]->frame_door.width = 32;
 	(*data)->doors[index]->frame_door.frame_count = 0;
 	init_ray(&(*data)->doors[index]->ray, *data);
 }
