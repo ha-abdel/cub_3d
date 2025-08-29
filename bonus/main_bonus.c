@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 15:56:04 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/24 09:31:14 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,7 +198,6 @@ int	handle_key(int key, t_data *data)
 					- is_facing_left(data->player.angle), data->player.y
 					- is_facing_up(data->player.angle)))]->open = 0))
 	{
-		// printf("is door\n");
 		data->player.x = old_px;
 		data->player.y = old_py;
 	}

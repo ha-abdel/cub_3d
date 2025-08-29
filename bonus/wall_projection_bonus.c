@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 15:54:20 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/24 09:31:59 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,7 @@ void	animate_door(t_data *data)
 	{
 		if (data->doors[i]->open)
 		{
-		{
 			make_animation(data, data->doors[i]);
-			break ;
-		}
 			break ;
 		}
 		i++;
