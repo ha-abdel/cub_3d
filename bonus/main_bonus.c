@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/30 15:30:19 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/30 15:43:46 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,6 @@ int	handle_key(int key, t_data *data)
 		&& (data->doors[get_door_index(data, construct_point(data->player.x
 					- is_facing_left(data->player.angle), data->player.y
 					- is_facing_up(data->player.angle)))]->open == 0))
-					- is_facing_up(data->player.angle)))]->open == 1))
 	{
 		data->player.x = old_px;
 		data->player.y = old_py;
