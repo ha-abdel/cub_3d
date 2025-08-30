@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 08:15:15 by salahian          #+#    #+#             */
-/*   Updated: 2025/08/19 16:24:34 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/30 15:46:24 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,7 @@ int		read_file(t_data *data, char *file)
 	
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
-		return (printf("here\n"), 0);
+		return (0);
 	line = get_next_line(fd);
 	tmp = ft_malloc(sizeof(char *) * 7, 1);
 	fill_tmp(tmp);
@@ -319,7 +319,7 @@ int		main_function_parsing(t_data *data, char *file)
 	}
 	if (!read_file(data, file) || !check_data(data))
 	{
-		return (printf("here\n"), 0);
+		return (printf("Error\nFILE\n"), 0);
 	}
 	if (!data->map.map)
 	{
