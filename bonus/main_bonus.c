@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/30 15:43:46 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/30 15:49:53 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	get_the_closest_door(t_data *data)
 		}
 		i++;
 	}
-	if (index != -1)
+	if (index != -1 && check_distance(data))
 	{
 		// printf("index is %d\n", index);
 		data->doors[index]->open = 1;
@@ -179,6 +179,7 @@ int	handle_key(int key, t_data *data)
 {
 	double	old_px;
 	double	old_py;
+	// int index;
 
 	old_px = data->player.x;
 	old_py = data->player.y;
@@ -197,6 +198,16 @@ int	handle_key(int key, t_data *data)
 		data->player.x = old_px;
 		data->player.y = old_py;
 	}
+	print_info(data);
+	printf("======================");
+	// index = get_door_index(data, construct_point(data->player.x
+	// 				- is_facing_left(data->player.angle), data->player.y
+	// 				- is_facing_up(data->player.angle)));
+	// printf("index is : %d\n", index);
+	// if (index != -1)
+	// 	printf("index is : %d\n", data->doors[get_door_index(data, construct_point(data->player.x
+	// 				- is_facing_left(data->player.angle), data->player.y
+	// 				- is_facing_up(data->player.angle)))]->open);
 	if (is_door(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle))
 		&& (data->doors[get_door_index(data, construct_point(data->player.x
 					- is_facing_left(data->player.angle), data->player.y
