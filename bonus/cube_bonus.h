@@ -272,4 +272,18 @@ void				create_minimap(t_data *data);
 unsigned int		get_color(t_sprite *img, int x, int y);
 void				animate_door(t_data *data);
 void	fill_img_door(t_data *data);
+
+/* FUNCTIONS */
+int	check_distance(t_data *data);
+void	get_the_closest_door(t_data *data);
+void	fill_img_door(t_data *data);
+int	handle_mouse(int x, int y, t_data *data);
+void	get_the_closest_door(t_data *data);
+int	handle_key(int key, t_data *data);
+void	check_collision(t_data *data, int old_px, int old_py);
+void	move_player(t_data *data, int key);
+void	print_front_doors(t_data *data);
+void	print_info(t_data *data);
+void	print_hit_info(t_data *data);
+
 #endif

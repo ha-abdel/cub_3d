@@ -6,11 +6,39 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:20:12 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 11:37:17 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/30 15:48:20 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
+
+void	find_v_wall(t_data *data, t_ray **ray)
+{
+	int	which_door;
+	
+	while (!is_wall(data, (*ray)->v_intersect.x
+			- is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y)
+		&& inside_bounds(data, (*ray)->v_intersect.x, (*ray)->v_intersect.y))
+	{
+		if (is_door(data, (*ray)->v_intersect.x
+				- is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y))
+		{
+			which_door = get_door_index(data,
+						construct_point((*ray)->v_intersect.x - is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y));
+			if (!check_if_open(&data, which_door, 0, *ray))
+			{
+				data->hit.v_door_index = which_door;
+				data->hit.v_hit = 1;
+				data->hit.is_v_door = 1;
+				return ;
+			}
+		}
+		(*ray)->v_intersect.x += (*ray)->x_step;
+		(*ray)->v_intersect.y += (*ray)->y_step;
+	}
+		data->hit.v_hit = 1;
+		data->hit.is_v_wall = 1;
+}
 
 void	calc_first_v_intersect(t_data *data, t_ray *ray, double tan_val)
 {
@@ -31,34 +59,6 @@ void	calc_vertical_step(t_data *data, t_ray *ray, double tan_val)
 	ray->y_step = TILE_SIZE * fabs(tan_val);
 	if (is_facing_up(ray->ray_angle))
 		ray->y_step = -ray->y_step;
-}
-
-void	find_v_wall(t_data *data, t_ray **ray)
-{
-	int	which_door;
-	while (!is_wall(data, (*ray)->v_intersect.x
-			- is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y)
-		&& inside_bounds(data, (*ray)->v_intersect.x, (*ray)->v_intersect.y))
-	{
-		if (is_door(data, (*ray)->v_intersect.x
-				- is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y))
-		{
-			which_door = get_door_index(data,
-						construct_point((*ray)->v_intersect.x - is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y));
-			if (!check_if_open(&data, which_door, 0, *ray))
-			{
-				// printf("door %d is closed\n", which_door);
-				data->hit.v_door_index = which_door;
-				data->hit.v_hit = 1;
-				data->hit.is_v_door = 1;
-				return ;
-			}
-		}
-		(*ray)->v_intersect.x += (*ray)->x_step;
-		(*ray)->v_intersect.y += (*ray)->y_step;
-	}
-		data->hit.v_hit = 1;
-		data->hit.is_v_wall = 1;
 }
 
 void	check_vertical_intersect(t_data *data, t_ray *ray)
