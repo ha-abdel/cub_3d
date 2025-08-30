@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_projection_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 15:54:20 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/30 12:08:43 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	make_animation(t_data *data, t_door *door)
 	}
 	if (door->frame_door.frame_count < 480)
 		door->frame_door.frame_count += 32;
-	else
-		door->open = 0;
+	// else
+	// 	door->open = 0;
 }
 
 void	animate_door(t_data *data)
