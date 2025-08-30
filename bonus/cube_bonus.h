@@ -274,6 +274,7 @@ void				animate_door(t_data *data);
 void	fill_img_door(t_data *data);
 
 /* FUNCTIONS */
+int	get_door_index(t_data *data, t_point p);
 int	check_distance(t_data *data);
 void	get_the_closest_door(t_data *data);
 void	fill_img_door(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:02 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 15:17:32 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/30 17:50:18 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	clean_mlx_mandatory_resources(t_data **data)
 {
+	if ((*data)->door.img)
+		mlx_destroy_image((*data)->mlx, (*data)->door.img);
 	if ((*data)->e_wall.img)
 		mlx_destroy_image((*data)->mlx, (*data)->e_wall.img);
 	if ((*data)->n_wall.img)

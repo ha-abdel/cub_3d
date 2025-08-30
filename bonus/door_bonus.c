@@ -76,8 +76,8 @@ int	check_distance(t_data *data)
 
 void	get_the_closest_door(t_data *data)
 {
-	int	i;
-	int	index;
+	int i;
+	int index;
 	int dx;
 	int dy;
 	int dt;
@@ -101,4 +101,21 @@ void	get_the_closest_door(t_data *data)
 	}
 	if (index != -1 && check_distance(data))
 		data->doors[index]->open = 1;
+}
+
+
+int	get_door_index(t_data *data, t_point p)
+{
+	int	i;
+
+	i = 0;
+	while (data && data->doors && data->doors[i])
+	{
+		if (data->doors[i]->col  == (int)(p.x / TILE_SIZE) && 
+			data->doors[i]->row  == (int)(p.y / TILE_SIZE))
+				return i;
+		i++;
+	}
+	return (-1);
+	
 }

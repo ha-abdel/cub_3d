@@ -6,19 +6,11 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/30 15:54:07 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/30 16:16:49 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
-
-
-
-
-
-
-
-
 
 // void	get_the_closest_door(t_data *data)
 // {
