@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/30 12:08:43 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/30 14:23:37 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	make_animation(t_data *data, t_door *door)
 	}
 	if (door->frame_door.frame_count < 480)
 		door->frame_door.frame_count += 32;
-	// else
-	// 	door->open = 0;
+	else
+		door->open = 2;
 }
 
 void	animate_door(t_data *data)
@@ -74,12 +74,9 @@ void	animate_door(t_data *data)
 	i = 0;
 	while (data->doors[i])
 	{
-		if (data->doors[i]->open)
-		{
+		if (data->doors[i]->open == 1)
 		{
 			make_animation(data, data->doors[i]);
-			break ;
-		}
 			break ;
 		}
 		i++;
