@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 15:43:56 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/24 10:32:05 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,9 @@ void	save_doors_info(t_data **data)
 
 	i = 0;
 	y = 0;
-	(*data)->doors = ft_malloc((count_doors(data) + 1) * sizeof(t_door), 1);
-	if (!(*data)->doors)
+	(*data)->doors = ft_malloc(((*data)->nb_doors + 1) * sizeof(t_door), 1);
+	(*data)->front_doors = ft_malloc((*data)->nb_doors * sizeof(int), 1);
+	if (!(*data)->doors || !(*data)->front_doors)
 		destroy_window(*data);
 	while (y < (*data)->map.height)
 	{
@@ -129,6 +130,7 @@ void	init_data(t_data *data)
 	ft_bzero(&data->mini_map, sizeof(t_minimap));
 	data->player.x = (data->player.x * TILE_SIZE) + TILE_SIZE / 2;
     data->player.y = (data->player.y * TILE_SIZE) + TILE_SIZE / 2;
+	data->nb_doors = count_doors(&data);
 	save_doors_info(&data);
 }
 

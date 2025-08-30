@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/24 09:31:14 by salahian         ###   ########.fr       */
+/*   Updated: 2025/08/29 15:18:35 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,74 +101,79 @@ int	check_distance(t_data *data)
 	return (0);
 }
 
-// void	get_the_closest_door(t_data *data)
-// {
-// 	int	i;
-// 	int	index;
-// 	// int	dt;
-// 	// int	dx;
-// 	// int	dy;
-// 	// int	dist;
+void	print_front_doors(t_data *data)
+{
+	int i = 0;
+	while (i < data->nb_doors)
+	{
+		printf("door %d is %s\n", i, data->front_doors[i] == 1 ? "opend" : "closed");
+		i++;
+	}
+	printf("===================\n");
+}
 
-// 	index = -1;
-// 	// dt = INT_MAX;
-// 	i = 0;
-// 	while (data->doors[i])
-// 	{
-// 		if (i != data->hit.door_index  || data->doors[i]->open)
-// 		{
-// 			// printf("%d\n", i);
-// 			i++;
-// 			continue;
-// 		}
-// 		else
-// 		{
-// 			printf("%d\n", i);
-// 			data->doors[i]->open = 1;
-// 			// dx = abs(data->doors[i]->col * TILE_SIZE - (int)(data->player.x));
-// 			// dy = abs(data->doors[i]->row * TILE_SIZE - (int)(data->player.y));
-// 			// dist = dx + dy;
-// 			// if (dist < dt)
-// 			// {
-// 			// 	dt = dist;
-// 			// 	index = i;
-// 			// 	break ;
-// 			// }
-// 		}
-// 		i++;
-// 	}
-// 	// if (index != -1)
-// 	// 	data->doors[index]->open = 1;
-// }
 void	get_the_closest_door(t_data *data)
 {
 	int	i;
 	int	index;
-	int	dt;
-	int	dx;
-	int	dy;
-	int	dist;
+	int dx;
+	int dy;
+	int dt;
 
 	index = -1;
-	dt = INT_MAX;
 	i = 0;
-	while (data->doors[i])
+	dt = INT_MAX;
+	// print_front_doors(data);
+	while (i < data->nb_doors)
 	{
-		dx = abs(data->doors[i]->col * TILE_SIZE - (int)(data->player.x));
-		dy = abs(data->doors[i]->row * TILE_SIZE - (int)(data->player.y));
-		dist = dx + dy;
-		// Check if closer and inside FOV
-		if (dist < dt && check_zone(data, data->doors[i]))
+		if (data->front_doors[i] == 1 && data->doors[i]->open == 0)
 		{
-			dt = dist;
-			index = i;
-			// printf("closest door is %d\n", index);
+			// printf("front door  is %d\n", i);
+			dx = abs(data->doors[i]->col * TILE_SIZE - (int)(data->player.x));
+			dy = abs(data->doors[i]->row * TILE_SIZE - (int)(data->player.y));
+			if (dx + dy <= dt)
+			{
+				dt = dx + dy;
+				index = i;
+			}
 		}
 		i++;
 	}
-	if (index != -1 && check_distance(data))
+	if (index != -1)
+	{
+		// printf("index is %d\n", index);
 		data->doors[index]->open = 1;
+	}
 }
+// void	get_the_closest_door(t_data *data)
+// {
+// 	int	i;
+// 	int	index;
+// 	int	dt;
+// 	int	dx;
+// 	int	dy;
+// 	int	dist;
+
+// 	index = -1;
+// 	dt = INT_MAX;
+// 	i = 0;
+// 	while (data->doors[i])
+// 	{
+// 		dx = abs(data->doors[i]->col * TILE_SIZE - (int)(data->player.x));
+// 		dy = abs(data->doors[i]->row * TILE_SIZE - (int)(data->player.y));
+// 		dist = dx + dy;
+// 		// Check if closer and inside FOV
+// 		if (dist < dt && check_zone(data, data->doors[i]))
+// 		{
+// 			dt = dist;
+// 			index = i;
+// 			// printf("closest door is %d\n", index);
+// 		}
+// 		i++;
+// 	}
+// 	if (index != -1 && check_distance(data))
+// 		data->doors[index]->open = 1;
+// }
 
 int	handle_key(int key, t_data *data)
 {
@@ -189,14 +194,13 @@ int	handle_key(int key, t_data *data)
 	if (is_wall(data, data->player.x - is_facing_left(data->player.angle),
 			data->player.y - is_facing_up(data->player.angle)))
 	{
-		// printf("is wall\n");
 		data->player.x = old_px;
 		data->player.y = old_py;
 	}
 	if (is_door(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle))
 		&& (data->doors[get_door_index(data, construct_point(data->player.x
 					- is_facing_left(data->player.angle), data->player.y
-					- is_facing_up(data->player.angle)))]->open = 0))
+					- is_facing_up(data->player.angle)))]->open == 1))
 	{
 		data->player.x = old_px;
 		data->player.y = old_py;

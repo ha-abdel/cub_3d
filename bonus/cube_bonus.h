@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 10:36:38 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/23 17:09:47 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,9 @@ typedef struct s_data
 	void			*mlx;
 	void			*win_3d;
 	void			*win_2d;
+	t_door			**doors;
+	int				*front_doors;
+	int				nb_doors;
 	t_player		player;
 	t_sprite		bg;
 	t_sprite		bg1;
@@ -200,9 +203,7 @@ typedef struct s_data
 	t_sprite		minimap;
 	t_minimap		mini_map;
 	t_map			map;
-	t_door			**doors;
 	t_sprite		door;
-	// t_sprite		frame_door;
 	t_hit			hit;
 	int				num_rays;
 	float			rotation_speed;

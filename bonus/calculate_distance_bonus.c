@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:13:04 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 11:08:29 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/24 10:08:07 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	calc_wall_distance(t_data *data, t_ray **ray)
 		if (data->hit.is_h_door)
 		{
 			data->hit.is_door = 1;
-			data->hit.door_index = data->hit.h_dist;
+			data->hit.door_index = data->hit.h_door_index;
+			data->front_doors[data->hit.door_index] = 1;
 		}
 		else
 			data->hit.is_wall = 1;
@@ -42,6 +43,7 @@ void	calc_wall_distance(t_data *data, t_ray **ray)
 		{
 			data->hit.is_door = 1;
 			data->hit.door_index = data->hit.v_door_index;
+			data->front_doors[data->hit.door_index] = 1;
 		}
 	}
 	data->hit.distance *= cos((*ray)->ray_angle - data->player.angle);

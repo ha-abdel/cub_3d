@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:26:45 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 15:17:30 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/25 16:08:10 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	cast_rays(t_data *data)
 	ray.ray_angle = data->player.angle - (FOV / 2 * PI / 180.0);
 	while (i < data->num_rays)
 	{
-		
+		// ft_bzero(data->front_doors, data->nb_doors * sizeof(int));
 		init_ray(&ray, data);
 		init_all_doors(&data, &ray);
 		reset_hit_info(&data);
