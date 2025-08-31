@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:26:45 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/25 16:08:10 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/31 12:02:37 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	init_all_doors(t_data **data, t_ray *ray)
 {
+	// (void)ray;
 	int	i;
 
 	i = 0;
@@ -29,11 +30,14 @@ void	init_all_doors(t_data **data, t_ray *ray)
 void	reset_hit_info(t_data **data)
 {
 	(*data)->hit.is_door = 0;
+	(*data)->hit.is_exit = 0;
 	(*data)->hit.is_wall = 0;
 	(*data)->hit.is_h_wall = 0;
-	(*data)->hit.is_v_wall = 0;
 	(*data)->hit.is_h_door = 0;
+	(*data)->hit.is_h_exit = 0;
+	(*data)->hit.is_v_wall = 0;
 	(*data)->hit.is_v_door = 0;
+	(*data)->hit.is_v_exit = 0;
 	(*data)->hit.h_hit = 0;
 	(*data)->hit.v_hit = 0;
 	(*data)->hit.door_index = 0;
@@ -49,7 +53,6 @@ void	cast_rays(t_data *data)
 	ray.ray_angle = data->player.angle - (FOV / 2 * PI / 180.0);
 	while (i < data->num_rays)
 	{
-		// ft_bzero(data->front_doors, data->nb_doors * sizeof(int));
 		init_ray(&ray, data);
 		init_all_doors(&data, &ray);
 		reset_hit_info(&data);

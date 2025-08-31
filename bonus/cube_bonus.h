@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/23 17:09:47 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/31 12:02:10 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,10 @@ typedef struct s_ray
 	unsigned int	color;
 	double			ray_angle;
 	double			angle_step;
-	// double			distance;
 	double			first_y;
 	double			first_x;
 	double			y_step;
 	double			x_step;
-	// double			h_dist;
-	// double			v_dist;
 	double			dist_projection_plane;
 	double			wall_strip;
 	double			ceil;
@@ -135,32 +132,37 @@ typedef struct s_hit
 	int				v_hit;
 	int				is_wall;
 	int				is_door;
+	int				is_exit;
 	int				is_h_wall;
-	int				is_v_wall;
 	int				is_h_door;
+	int				is_h_exit;
+	int				is_v_wall;
 	int				is_v_door;
+	int				is_v_exit;
 	int				h_door_index;
 	int				v_door_index;
 	int				door_index;
 	double			h_dist;
 	double			v_dist;
 	double			distance;
-	
 } t_hit;
 
 typedef struct s_door
 {
-	// int				found_door;
-	// int				found_door_pixel;
-	// int				wall_behind_distance;
 	int				open;
 	int				col;
 	int				row;
 	t_sprite		frame_door;
-	// t_sprite		sprite_door;
 	t_ray			ray;
 
 }					t_door;
+
+typedef struct s_exit
+{
+	int				open;
+	t_sprite		frame_exit;
+	// t_ray			ray;
+}					t_exit;
 
 typedef struct s_map
 {
@@ -201,9 +203,11 @@ typedef struct s_data
 	t_sprite		e_wall;
 	t_sprite		w_wall;
 	t_sprite		minimap;
+	t_sprite		door;
+	t_sprite		exit_sprite;
+	t_exit			exit;
 	t_minimap		mini_map;
 	t_map			map;
-	t_sprite		door;
 	t_hit			hit;
 	int				num_rays;
 	float			rotation_speed;
@@ -274,6 +278,7 @@ void				animate_door(t_data *data);
 void	fill_img_door(t_data *data);
 
 /* FUNCTIONS */
+int	is_exit(t_data *data, double x, double y);
 int	get_door_index(t_data *data, t_point p);
 int	check_distance(t_data *data);
 void	get_the_closest_door(t_data *data);

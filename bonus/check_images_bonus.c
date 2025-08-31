@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:34:40 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/19 12:14:33 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/31 10:28:08 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	check_addresses(t_data **data)
 {
 	if (!(*data)->bg.img || !(*data)->bg1.img || !(*data)->n_wall.img
 		|| !(*data)->s_wall.img || !(*data)->e_wall.img || !(*data)->w_wall.img
-		|| !(*data)->door.img || !(*data)->minimap.img)
+		|| !(*data)->door.img || !(*data)->exit_sprite.img || !(*data)->minimap.img)
 		clean_all(data);
 }
 
@@ -41,6 +41,8 @@ void	get_imgs_addresses(t_data **data)
 			&(*data)->w_wall.endian);
 	(*data)->door.addr = mlx_get_data_addr((*data)->door.img,
 			&(*data)->door.bpp, &(*data)->door.line_len, &(*data)->door.endian);
+	(*data)->exit_sprite.addr = mlx_get_data_addr((*data)->exit_sprite.img,
+			&(*data)->exit_sprite.bpp, &(*data)->exit_sprite.line_len, &(*data)->exit_sprite.endian);
 	(*data)->minimap.addr = mlx_get_data_addr((*data)->minimap.img,
 			&(*data)->minimap.bpp, &(*data)->minimap.line_len,
 			&(*data)->minimap.endian);

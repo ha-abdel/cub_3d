@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:13:04 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/30 16:41:49 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/31 14:56:04 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	calc_horizontal_dist(t_data *data, t_ray **ray)
 		data->hit.door_index = data->hit.h_door_index;
 		data->front_doors[data->hit.door_index] = 1;
 	}
+	else if (data->hit.is_h_exit)
+		data->hit.is_exit = 1;
 	else
 		data->hit.is_wall = 1;
 }
@@ -33,6 +35,8 @@ void	calc_vertical_dist(t_data *data, t_ray **ray)
 	(*ray)->ray_end.y = (*ray)->v_intersect.y;
 	if (data->hit.is_v_wall)
 		data->hit.is_wall = 1;
+	else if (data->hit.is_v_exit)
+		data->hit.is_exit = 1;
 	else
 	{
 		data->hit.is_door = 1;
@@ -62,7 +66,18 @@ void	calc_distance(t_data *data, t_ray *ray)
 {
 	calc_wall_distance(data, &ray);
 	if (data->hit.is_door)
+	{
 		draw_line(data, ray->player, ray->ray_end, YELLOW, 2);
+		// printf("hit door\n");
+	}
+	else if (data->hit.is_exit)
+	{
+		draw_line(data, ray->player, ray->ray_end, GREEN, 2);
+		// printf("hit exit\n");
+	}
 	else
+	{
 		draw_line(data, ray->player, ray->ray_end, BLUE, 2);
+		// printf("hit wall\n");
+	}
 }

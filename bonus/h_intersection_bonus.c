@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/30 17:53:11 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/31 14:52:45 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,35 @@ int	check_if_open(t_data **data, int index, int horizontal, t_ray *ray)
 	return (0);
 }
 
-void	find_h_wall(t_data *data, t_ray **ray)
+int	find_h_door(t_data *data, t_ray **ray)
 {
 	int	which_door;
 
+	which_door = get_door_index(data, construct_point((*ray)->h_intersect.x,
+				(*ray)->h_intersect.y - is_facing_up((*ray)->ray_angle)));
+	if (!check_if_open(&data, which_door, 1, *ray))
+	{
+		data->hit.h_door_index = which_door;
+		data->hit.h_hit = 1;
+		data->hit.is_h_door = 1;
+		return (1);
+	}
+	return (0);
+}
+int	find_h_exit(t_data *data, t_ray **ray)
+{
+	
+	if (is_exit(data, (*ray)->h_intersect.x, (*ray)->h_intersect.y - is_facing_up((*ray)->ray_angle)))
+	{
+		data->hit.h_hit = 1;
+		data->hit.is_h_exit = 1;
+		return (1);
+	}
+	return (0);
+}
+
+void	find_h_wall(t_data *data, t_ray **ray)
+{
 	while (!is_wall(data, ((*ray)->h_intersect).x, ((*ray)->h_intersect).y
 			- is_facing_up((*ray)->ray_angle)) && inside_bounds(data,
 			((*ray)->h_intersect).x, ((*ray)->h_intersect).y))
@@ -68,17 +93,11 @@ void	find_h_wall(t_data *data, t_ray **ray)
 		if (is_door(data, ((*ray)->h_intersect).x, ((*ray)->h_intersect).y
 				- is_facing_up((*ray)->ray_angle)))
 		{
-			which_door = get_door_index(data,
-					construct_point((*ray)->h_intersect.x, (*ray)->h_intersect.y
-						- is_facing_up((*ray)->ray_angle)));
-			if (!check_if_open(&data, which_door, 1, *ray))
-			{
-				data->hit.h_door_index = which_door;
-				data->hit.h_hit = 1;
-				data->hit.is_h_door = 1;
+			if (find_h_door(data, ray))
 				return ;
-			}
 		}
+		if (find_h_exit(data, ray))
+				return ;
 		((*ray)->h_intersect).x += (*ray)->x_step;
 		((*ray)->h_intersect).y += (*ray)->y_step;
 	}

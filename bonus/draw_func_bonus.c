@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:00 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 20:14:01 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/08/31 13:02:00 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	draw_walls(t_data *data)
 				data->map.map[y][x] == '1' ? BLACK : DARK_GRAY, 2);
 			if (data->map.map[y][x] == 'D')
 				draw_square(data, x * TILE_SIZE, y * TILE_SIZE, GREEN, 2);
+			if (data->map.map[y][x] == 'P')
+				draw_square(data, x * TILE_SIZE, y * TILE_SIZE, RED, 2);
 			x++;
 		}
 		y++;
