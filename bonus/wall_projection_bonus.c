@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/31 14:54:35 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/01 10:02:37 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,47 +41,7 @@ void	draw_wall_texture(t_data *data, t_ray **ray)
 	}
 }
 
-void	make_animation(t_data *data, t_door *door)
-{
-	int				x;
-	int				y;
-	unsigned int	color;
 
-	y = 0;
-	while (y < 32)
-	{
-		x = door->frame_door.frame_count;
-		while (x < (door->frame_door.frame_count + 32))
-		{
-			color = get_color(&data->door, x, y);
-			if (color != 0x00000000)
-				my_mlx_pixel_put(&door->frame_door, x
-					- door->frame_door.frame_count, y, color);
-			x++;
-		}
-		y++;
-	}
-	if (door->frame_door.frame_count < 480)
-		door->frame_door.frame_count += 32;
-	else
-		door->open = 2;
-}
-
-void	animate_door(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (data->doors[i])
-	{
-		if (data->doors[i]->open == 1)
-		{
-			make_animation(data, data->doors[i]);
-			break ;
-		}
-		i++;
-	}
-}
 
 void	draw_door_texture(t_data *data, t_ray **ray)
 {

@@ -26,27 +26,6 @@ void	fill_img_door(t_data *data)
 		i++;
 	}
 }
-int	check_zone(t_data *data, t_door *door)
-{
-	double	door_cx;
-	double	door_cy;
-	double	dx;
-	double	dy;
-	double	angle_to_door;
-	double	diff;
-
-	door_cx = door->col * TILE_SIZE + TILE_SIZE / 2;
-	door_cy = door->row * TILE_SIZE + TILE_SIZE / 2;
-	dx = door_cx - data->player.x;
-	dy = door_cy - data->player.y;
-	angle_to_door = atan2(dy, dx);
-	diff = angle_to_door - data->player.angle;
-	if (diff > M_PI)
-		diff -= 2 * M_PI;
-	else if (diff < -M_PI)
-		diff += 2 * M_PI;
-	return (fabs(diff) <= FOV / 2);
-}
 
 int	check_distance(t_data *data)
 {
@@ -118,4 +97,29 @@ int	get_door_index(t_data *data, t_point p)
 	}
 	return (-1);
 	
+}
+
+int	check_if_open(t_data **data, int index, int horizontal, t_ray *ray)
+{
+	t_door	*door;
+	double	ratio;
+	int		text_x;
+	int		text_y;
+	int		color;
+
+	if (!(*data)->doors || !(*data)->doors[0] || index == -1)
+		return (1);
+	door = (*data)->doors[index];
+	if (horizontal)
+		ratio = fmod(ray->h_intersect.x, TILE_SIZE) / (double)TILE_SIZE;
+	else
+		ratio = fmod(ray->v_intersect.y, TILE_SIZE) / (double)TILE_SIZE;
+	text_x = (int)(ratio * door->frame_door.width);
+	if (text_x >= door->frame_door.width)
+		text_x = door->frame_door.width - 1;
+	text_y = door->frame_door.height / 2;
+	color = get_color(&door->frame_door, text_x, text_y);
+	if (get_t(color))
+		return (1);
+	return (0);
 }

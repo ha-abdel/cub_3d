@@ -16,6 +16,12 @@ void	check_collision(t_data *data, int old_px, int old_py)
 		data->player.x = old_px;
 		data->player.y = old_py;
 	}
+	if (is_exit(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle))
+		&& data->exit.open == 0)
+	{
+		data->player.x = old_px;
+		data->player.y = old_py;
+	}
 }
 
 void	move_player(t_data *data, int key)

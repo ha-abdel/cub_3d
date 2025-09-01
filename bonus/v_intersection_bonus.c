@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:20:12 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/31 14:53:04 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:19:29 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,27 +58,6 @@ void	find_v_wall(t_data *data, t_ray **ray)
 	}
 	data->hit.v_hit = 1;
 	data->hit.is_v_wall = 1;
-}
-
-void	calc_first_v_intersect(t_data *data, t_ray *ray, double tan_val)
-{
-	if (is_facing_right(ray->ray_angle))
-		ray->first_x = (floor(data->player.x / TILE_SIZE) + 1) * TILE_SIZE;
-	else
-		ray->first_x = floor(data->player.x / TILE_SIZE) * TILE_SIZE;
-	ray->first_y = data->player.y + (ray->first_x - data->player.x) * tan_val;
-}
-
-void	calc_vertical_step(t_data *data, t_ray *ray, double tan_val)
-{
-	(void)data;
-	if (is_facing_right(ray->ray_angle))
-		ray->x_step = TILE_SIZE;
-	else
-		ray->x_step = -TILE_SIZE;
-	ray->y_step = TILE_SIZE * fabs(tan_val);
-	if (is_facing_up(ray->ray_angle))
-		ray->y_step = -ray->y_step;
 }
 
 void	check_vertical_intersect(t_data *data, t_ray *ray)

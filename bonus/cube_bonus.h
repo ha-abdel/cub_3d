@@ -278,6 +278,13 @@ void				animate_door(t_data *data);
 void	fill_img_door(t_data *data);
 
 /* FUNCTIONS */
+void	init_images(t_data **data);
+void	calc_vertical_step(t_data *data, t_ray *ray, double tan_val);
+void	calc_first_v_intersect(t_data *data, t_ray *ray, double tan_val);
+void	calc_horizontal_step(t_data *data, t_ray *ray, double tan_val);
+void	calc_first_h_intersect(t_data *data, t_ray *ray, double tan_val);
+double	handle_division_by_zero(double angle);
+int	check_if_open(t_data **data, int index, int horizontal, t_ray *ray);
 int	is_exit(t_data *data, double x, double y);
 int	get_door_index(t_data *data, t_point p);
 int	check_distance(t_data *data);

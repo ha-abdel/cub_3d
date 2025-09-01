@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:34:40 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/31 10:28:08 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/01 09:49:13 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,33 @@ void	get_imgs_addresses(t_data **data)
 	(*data)->minimap.addr = mlx_get_data_addr((*data)->minimap.img,
 			&(*data)->minimap.bpp, &(*data)->minimap.line_len,
 			&(*data)->minimap.endian);
+}
+
+void	init_images(t_data **data)
+{
+	(*data)->bg.img = mlx_new_image((*data)->mlx, (*data)->map.width
+			* TILE_SIZE, (*data)->map.height * TILE_SIZE);
+	(*data)->bg1.img = mlx_new_image((*data)->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	(*data)->n_wall.img = mlx_xpm_file_to_image((*data)->mlx,
+			(*data)->map.n_path, &(*data)->n_wall.width,
+			&(*data)->n_wall.height);
+	(*data)->s_wall.img = mlx_xpm_file_to_image((*data)->mlx,
+			(*data)->map.s_path, &(*data)->s_wall.width,
+			&(*data)->s_wall.height);
+	(*data)->e_wall.img = mlx_xpm_file_to_image((*data)->mlx,
+			(*data)->map.e_path, &(*data)->e_wall.width,
+			&(*data)->e_wall.height);
+	(*data)->w_wall.img = mlx_xpm_file_to_image((*data)->mlx,
+			(*data)->map.w_path, &(*data)->w_wall.width,
+			&(*data)->w_wall.height);
+	(*data)->door.img = mlx_xpm_file_to_image((*data)->mlx,
+			"wolfenstein/small_bab.xpm", &(*data)->door.width,
+			&(*data)->door.height);
+	(*data)->exit_sprite.img = mlx_xpm_file_to_image((*data)->mlx,
+			"wolfenstein/grey_stone.xpm", &(*data)->exit_sprite.width,
+			&(*data)->exit_sprite.height);
+	(*data)->minimap.img = mlx_xpm_file_to_image((*data)->mlx, SAHM,
+			&(*data)->minimap.width, &(*data)->minimap.height);
+	// (*data)->frame_door.img = mlx_new_image((*data)->mlx, 250, 250);
+	get_imgs_addresses(data);
 }
