@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:13:04 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/31 14:56:04 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/01 17:08:02 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ void	calc_wall_distance(t_data *data, t_ray **ray)
 		+ pow((*ray)->v_intersect.y - data->player.y, 2);
 	if (data->hit.h_dist < data->hit.v_dist)
 	{
+		printf("horizontal hit\n");
 		calc_horizontal_dist(data, ray);
 	}
 	else
 	{
+		printf("vertical hit\n");
 		calc_vertical_dist(data, ray);
 	}
 	data->hit.distance *= cos((*ray)->ray_angle - data->player.angle);

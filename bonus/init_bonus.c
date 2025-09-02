@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/01 09:59:15 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/01 17:06:24 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	initial_data(t_data *data)
 	data->map.e_path = NULL;
 	data->player.y = -1;
 	data->player.x = -1;
-	data->num_rays = SCREEN_WIDTH;
+	data->num_rays = 1;
 	data->rotation_speed = M_PI / 180;
 	data->max_dist_pixel = SCREEN_WIDTH * 2;
 }
