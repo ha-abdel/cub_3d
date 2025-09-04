@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:15:01 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/16 10:03:08 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/03 16:43:35 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	get_t(int trgb)
 int	inside_bounds(t_data *data, double x, double y)
 {
 	(void)data;
-	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
+	if (x < 0 || x >= data->map.width * TILE_SIZE || y < 0 || y >= data->map.height * TILE_SIZE)
 		return (0);
 	return (1);
 }

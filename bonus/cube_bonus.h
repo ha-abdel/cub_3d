@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/31 12:02:10 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/03 19:13:35 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 # define SCREEN_WIDTH 1500
 # define SCREEN_HEIGHT 1000
@@ -212,6 +213,7 @@ typedef struct s_data
 	int				num_rays;
 	float			rotation_speed;
 	int				max_dist_pixel;
+	long			start_time;
 }					t_data;
 void	print_data(t_data *data);
 void	print_info(t_data *data);
@@ -278,6 +280,11 @@ void				animate_door(t_data *data);
 void	fill_img_door(t_data *data);
 
 /* FUNCTIONS */
+long	get_time(void);
+int	is_facing_right1(double angle);
+int	is_facing_left1(double angle);
+int	is_facing_down1(double angle);
+int	is_facing_up1(double angle);
 void	init_images(t_data **data);
 void	calc_vertical_step(t_data *data, t_ray *ray, double tan_val);
 void	calc_first_v_intersect(t_data *data, t_ray *ray, double tan_val);
@@ -293,7 +300,7 @@ void	fill_img_door(t_data *data);
 int	handle_mouse(int x, int y, t_data *data);
 void	get_the_closest_door(t_data *data);
 int	handle_key(int key, t_data *data);
-void	check_collision(t_data *data, int old_px, int old_py);
+void	check_collision(t_data *data, double old_px, double old_py);
 void	move_player(t_data *data, int key);
 void	print_front_doors(t_data *data);
 void	print_info(t_data *data);
