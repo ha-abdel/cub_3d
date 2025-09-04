@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:26:45 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/01 09:54:28 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/03 16:44:08 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	cast_rays(t_data *data)
 	int		i;
 
 	i = 0;
+	// ray.ray_angle = data->player.angle;
 	ray.ray_angle = data->player.angle - (FOV / 2 * PI / 180.0);
 	while (i < data->num_rays)
 	{
