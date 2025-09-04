@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/01 10:02:45 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/04 11:48:29 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,32 @@ void	animate_door(t_data *data)
 	}
 }
 
+void	animate_exit(t_data *data)
+{
+	int				x;
+	int				y;
+	unsigned int	color;
+
+	y = 0;
+	while (y < 16)
+	{
+		x = data->exit.frame_exit.frame_count;
+		while (x < (data->exit.frame_exit.frame_count + 16))
+		{
+			color = get_color(&data->exit_sprite, x, y);
+			if (color != 0x00000000)
+				my_mlx_pixel_put(&data->exit.frame_exit, x
+					- data->exit.frame_exit.frame_count, y, color);
+			x++;
+		}
+		y++;
+	}
+	if (data->exit.frame_exit.frame_count < 512)
+		data->exit.frame_exit.frame_count += 16;
+	else
+		data->exit.frame_exit.frame_count = 0;
+}
+
 int	render(t_data *data)
 {
 	static int	frame_counter;
@@ -62,6 +88,7 @@ int	render(t_data *data)
 	{
 		clear_image(&data->bg1, BLACK);
 		animate_door(data);
+		animate_exit(data);
 		draw_direction_lines(data);
 		draw_map(data);
 		cast_rays(data);

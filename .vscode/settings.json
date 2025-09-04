@@ -3,6 +3,8 @@
     "files.associations": {
         "cube.h": "c",
         "cube_bonus.h": "c",
-        "cmath": "c"
+        "cmath": "c",
+        "chrono": "c",
+        "variant": "c"
     }
 }
