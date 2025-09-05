@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/05 09:03:13 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/05 12:06:22 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	make_animation(t_data *data, t_door *door)
 		}
 		y++;
 	}
-	if (door->frame_door.frame_count < 480)
+	if (door->frame_door.frame_count < 512)
 		door->frame_door.frame_count += 32;
 	else
 		door->open = 2;
@@ -61,6 +61,40 @@ void	animate_door(t_data *data)
 	}
 }
 
+void	rotate_view(t_data *data)
+{
+	if (data->mouse.x > (SCREEN_WIDTH / 2))
+	{
+		data->player.angle += data->rotation_speed * 6;
+	}
+	else
+	{
+		data->player.angle -= data->rotation_speed * 6;
+	}
+	// data->event = no
+	// data->mouse.old_x = data->mouse.;
+}
+
+void	check_movements(t_data *data)
+{
+	double	old_px;
+	double	old_py;
+
+	old_px = data->player.x;
+	old_py = data->player.y;
+	move_player(data);
+	check_collision(data, old_px, old_py);
+	// rotate_view(data);
+}
+
+void	check_other_events(t_data *data)
+{
+	if (data->event == OPEN)
+		get_the_closest_door(data);
+	else if (data->event == QUIT)
+		destroy_window(data);
+}
+
 int	render(t_data *data)
 {
 	long	current_time;
@@ -69,7 +103,9 @@ int	render(t_data *data)
 	if ((current_time - data->start_time) >= (1000 / 30))
 	{
 		data->start_time = current_time;
-		clear_image(&data->bg1, BLACK);
+		check_movements(data);
+		check_other_events(data);
+		// clear_image(&data->bg1, BLACK);
 		animate_door(data);
 		draw_direction_lines(data);
 		draw_map(data);
@@ -78,6 +114,7 @@ int	render(t_data *data)
 		mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
 		mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
 		mlx_mouse_move(data->mlx, data->win_3d, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+		data->event = NO_EVENT;
 	}
 	else
 		return (0);

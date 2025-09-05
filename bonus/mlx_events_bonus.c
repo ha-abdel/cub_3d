@@ -10,15 +10,38 @@ int	handle_key(int key, t_data *data)
 	if (key == ESC_KEY || key == 111)
 	{
 		if (key == 111)
-			get_the_closest_door(data);
+		{
+			data->event = OPEN;
+		}
 		else
-			destroy_window(data);
+		{
+			data->event = QUIT;
+		}
 	}
-	move_player(data, key);
-	check_collision(data, old_px, old_py);
+	set_direction(data, key);
+	// check_collision(data, old_px, old_py);
 	return (0);
 }
 
+// int	handle_mouse(int x, int y, t_data *data)
+// {
+// 	data->event = MOUSE_MOVE;
+// 	data->mouse.x = x;
+// 	data->mouse.y = y;
+// 	// static int	oldx;
+
+// 	// (void)y;
+// 	// if (x < oldx)
+// 	// 	data->player.angle -= data->rotation_speed;
+// 	// else if (x > oldx)
+// 	// 	data->player.angle += data->rotation_speed;
+// 	// if (data->player.angle > 2 * PI)
+// 	// 	data->player.angle -= 2 * PI;
+// 	// if (data->player.angle < 0)
+// 	// 	data->player.angle += 2 * PI;
+// 	// oldx = x;
+// 	return (0);
+// }
 int	handle_mouse(int x, int y, t_data *data)
 {
 	static int	oldx;

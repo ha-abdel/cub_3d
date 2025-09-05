@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/03 19:13:35 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/05 11:23:13 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define PI 3.1415926535
 # define MAP_WIDTH 26
 # define MAP_HEIGHT 22
-# define PLAYER_SPEED 5
+# define PLAYER_SPEED 10
 # define MAX_RAY_DISTANCE 10000
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
@@ -154,7 +154,7 @@ typedef struct s_door
 	int				col;
 	int				row;
 	t_sprite		frame_door;
-	t_ray			ray;
+	// t_ray			ray;
 
 }					t_door;
 
@@ -186,7 +186,24 @@ typedef struct minimap
 	double			r2;
 }					t_minimap;
 
+typedef enum event
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	OPEN,
+	MOUSE_MOVE,
+	QUIT,
+	NO_EVENT,
+} e_event;
 
+typedef	struct mouse
+{
+	double	x;
+	double	y;
+	double	old_x;
+} t_mouse;
 
 typedef struct s_data
 {
@@ -196,6 +213,12 @@ typedef struct s_data
 	t_door			**doors;
 	int				*front_doors;
 	int				nb_doors;
+	int				num_rays;
+	float			rotation_speed;
+	int				max_dist_pixel;
+	long			start_time;
+	e_event			event;
+	t_mouse			mouse;
 	t_player		player;
 	t_sprite		bg;
 	t_sprite		bg1;
@@ -210,10 +233,6 @@ typedef struct s_data
 	t_minimap		mini_map;
 	t_map			map;
 	t_hit			hit;
-	int				num_rays;
-	float			rotation_speed;
-	int				max_dist_pixel;
-	long			start_time;
 }					t_data;
 void	print_data(t_data *data);
 void	print_info(t_data *data);
@@ -280,6 +299,7 @@ void				animate_door(t_data *data);
 void	fill_img_door(t_data *data);
 
 /* FUNCTIONS */
+void	set_direction(t_data *data, int key);
 long	get_time(void);
 int	is_facing_right1(double angle);
 int	is_facing_left1(double angle);
@@ -301,7 +321,7 @@ int	handle_mouse(int x, int y, t_data *data);
 void	get_the_closest_door(t_data *data);
 int	handle_key(int key, t_data *data);
 void	check_collision(t_data *data, double old_px, double old_py);
-void	move_player(t_data *data, int key);
+void	move_player(t_data *data);
 void	print_front_doors(t_data *data);
 void	print_info(t_data *data);
 void	print_hit_info(t_data *data);

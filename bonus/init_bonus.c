@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/03 19:14:07 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/05 11:26:07 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	fill_door(t_data **data, int index, t_point p)
 	(*data)->doors[index]->frame_door.height = 32;
 	(*data)->doors[index]->frame_door.width = 32;
 	(*data)->doors[index]->frame_door.frame_count = 0;
-	init_ray(&(*data)->doors[index]->ray, *data);
+	// init_ray(&(*data)->doors[index]->ray, *data);
 }
 
 void	save_doors_info(t_data **data)
@@ -121,6 +121,7 @@ void	initial_data(t_data *data)
 	data->rotation_speed = M_PI / 180;
 	data->max_dist_pixel = SCREEN_WIDTH * 2;
 	data->start_time = get_time();
+	data->mouse.old_x = SCREEN_WIDTH / 2;
 }
 
 void	init_ray(t_ray *ray, t_data *data)
