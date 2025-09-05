@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_projection_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/01 16:43:36 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/04 12:46:18 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,14 +128,14 @@ void	draw_exit_texture(t_data *data, t_ray **ray)
 		texture.wall_x = fmod((*ray)->h_intersect.x, TILE_SIZE) / TILE_SIZE;
 	else
 		texture.wall_x = fmod((*ray)->v_intersect.y, TILE_SIZE) / TILE_SIZE;
-	texture.tex_x = (int)(texture.wall_x * (data->exit_sprite.width - 1));
-	texture.tex_step = data->exit_sprite.height / (*ray)->wall_strip;
+	texture.tex_x = (int)(texture.wall_x * (data->exit.frame_exit.width - 1));
+	texture.tex_step = data->exit.frame_exit.height / (*ray)->wall_strip;
 	texture.tex_pos = ((*ray)->wall_start.y - SCREEN_HEIGHT / 2
 			+ (*ray)->wall_strip / 2) * texture.tex_step;
 	while (y < (*ray)->wall_end.y)
 	{
-		texture.tex_y = (int)texture.tex_pos % data->exit_sprite.height;
-		color = get_color(&data->exit_sprite, texture.tex_x, texture.tex_y);
+		texture.tex_y = (int)texture.tex_pos % data->exit.frame_exit.height;
+		color = get_color(&data->exit.frame_exit, texture.tex_x, texture.tex_y);
 		my_mlx_pixel_put(&data->bg1, (*ray)->wall_start.x, y, color);
 		texture.tex_pos += texture.tex_step;
 		y++;

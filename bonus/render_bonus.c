@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/05 16:14:56 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:52:58 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int	render(t_data *data)
 		check_other_events(data);
 		// clear_image(&data->bg1, BLACK);
 		animate_door(data);
+		// animate_exit(data);
 		draw_direction_lines(data);
 		draw_map(data);
 		cast_rays(data);

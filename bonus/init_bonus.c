@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/05 16:40:27 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:51:13 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,25 @@ void	save_doors_info(t_data **data)
 	(*data)->doors[i] = NULL;
 }
 
+void	init_exit(t_data *data)
+{
+	data->exit.frame_exit.img = mlx_new_image(data->mlx, 16, 16);
+	data->exit.frame_exit.addr = mlx_get_data_addr(data->exit.frame_exit.img,
+			&data->exit.frame_exit.bpp, &data->exit.frame_exit.line_len,
+			&data->exit.frame_exit.endian);
+	data->exit.frame_exit.height = 16;
+	data->exit.frame_exit.width = 16;
+	data->exit.frame_exit.frame_count = 0;
+	data->exit.open = 0;
+	data->exit_sprite.img = mlx_xpm_file_to_image(data->mlx,
+			"wolfenstein/exit_1_.xpm", &data->exit_sprite.width,
+			&data->exit_sprite.height);
+	data->exit_sprite.addr = mlx_get_data_addr(data->exit_sprite.img,
+			&data->exit_sprite.bpp, &data->exit_sprite.line_len,
+			&data->exit_sprite.endian);
+	data->exit_sprite.frame_count = 0;
+}
+
 void	init_data(t_data *data)
 {
 	data->mlx = mlx_init();
@@ -100,6 +119,7 @@ void	init_data(t_data *data)
 	data->exit.open = 0;
 	data->nb_doors = count_doors(&data);
 	save_doors_info(&data);
+	init_exit(data);
 }
 
 void	initial_data(t_data *data)
