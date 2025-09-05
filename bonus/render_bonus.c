@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/05 09:03:13 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:48:09 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,48 @@ void	animate_door(t_data *data)
 	}
 }
 
+void	player_won(t_data *data)
+{
+	int		y;
+	int		x;
+
+	y = (int)((data->player.y / TILE_SIZE) - TILE_SIZE / 2);
+	x = (int)((data->player.x / TILE_SIZE) - TILE_SIZE / 2);
+	if (x < 0 || y < 0)
+		return ;
+	if (data->map.map[y][x] == 'P')
+	{
+		printf("YOU WON\n");
+		destroy_window(data);
+	}
+}
+
+void	animate_exit(t_data *data)
+{
+	int				x;
+	int				y;
+	unsigned int	color;
+
+	y = 0;
+	while (y < 16)
+	{
+		x = data->exit.frame_exit.frame_count;
+		while (x < (data->exit.frame_exit.frame_count + 16))
+		{
+			color = get_color(&data->exit_sprite, x, y);
+			if (color != 0x00000000)
+				my_mlx_pixel_put(&data->exit.frame_exit, x
+					- data->exit.frame_exit.frame_count, y, color);
+			x++;
+		}
+		y++;
+	}
+	if (data->exit.frame_exit.frame_count < 512)
+		data->exit.frame_exit.frame_count += 16;
+	else
+		data->exit.frame_exit.frame_count = 0;
+}
+
 int	render(t_data *data)
 {
 	long	current_time;
@@ -71,6 +113,7 @@ int	render(t_data *data)
 		data->start_time = current_time;
 		clear_image(&data->bg1, BLACK);
 		animate_door(data);
+		animate_exit(data);
 		draw_direction_lines(data);
 		draw_map(data);
 		cast_rays(data);
