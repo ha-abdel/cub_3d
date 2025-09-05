@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/05 12:06:22 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:14:56 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void	rotate_view(t_data *data)
 {
 	if (data->mouse.x > (SCREEN_WIDTH / 2))
 	{
-		data->player.angle += data->rotation_speed * 6;
+		data->player.angle += data->rotation_speed;
 	}
 	else
 	{
-		data->player.angle -= data->rotation_speed * 6;
+		data->player.angle -= data->rotation_speed;
 	}
 	// data->event = no
 	// data->mouse.old_x = data->mouse.;
@@ -89,15 +89,16 @@ void	check_movements(t_data *data)
 
 void	check_other_events(t_data *data)
 {
-	if (data->event == OPEN)
+	if (data->event.open_door == true)
 		get_the_closest_door(data);
-	else if (data->event == QUIT)
+	else if (data->event.quit == true)
 		destroy_window(data);
 }
 
 int	render(t_data *data)
 {
 	long	current_time;
+	int x,y;
 
 	current_time = get_time();
 	if ((current_time - data->start_time) >= (1000 / 30))
@@ -114,11 +115,8 @@ int	render(t_data *data)
 		mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
 		mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
 		mlx_mouse_move(data->mlx, data->win_3d, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-		data->event = NO_EVENT;
+		mlx_mouse_get_pos(data->mlx, data->win_3d, &x, &y);
 	}
-	else
-		return (0);
-
 	return (0);
 }
 // int	render(t_data *data)

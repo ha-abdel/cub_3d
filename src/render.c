@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/21 18:08:20 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:10:31 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	render(t_data *data)
 
 	if (frame_counter == 60)
 	{
-		clear_image(&data->bg1, BLACK);
+		// clear_image(&data->bg1, BLACK);
 		draw_map(data);
 		cast_rays(data);
 		draw_direction_lines(data);

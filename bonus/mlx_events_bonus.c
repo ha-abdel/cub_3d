@@ -2,24 +2,34 @@
 
 int	handle_key(int key, t_data *data)
 {
-	double	old_px;
-	double	old_py;
-
-	old_px = data->player.x;
-	old_py = data->player.y;
-	if (key == ESC_KEY || key == 111)
-	{
-		if (key == 111)
-		{
-			data->event = OPEN;
-		}
-		else
-		{
-			data->event = QUIT;
-		}
-	}
-	set_direction(data, key);
-	// check_collision(data, old_px, old_py);
+	if (key == ESC_KEY)
+		data->event.quit = true;
+	if (key == O_KEY)
+		data->event.open_door = true;
+	if (key == W_KEY)
+		data->event.up = true;
+	if (key == S_KEY)
+		data->event.down = true;
+	if (key == D_KEY)
+		data->event.right = true;
+	if (key == A_KEY)
+		data->event.left = true;
+	return (0);
+}
+int	release_key(int key, t_data *data)
+{
+	if (key == ESC_KEY)
+		data->event.quit = false;
+	if (key == O_KEY)
+		data->event.open_door = false;
+	if (key == W_KEY)
+		data->event.up = false;
+	if (key == S_KEY)
+		data->event.down = false;
+	if (key == D_KEY)
+		data->event.right = false;
+	if (key == A_KEY)
+		data->event.left = false;
 	return (0);
 }
 

@@ -37,52 +37,25 @@ void	check_collision(t_data *data, double old_px, double old_py)
 	}
 }
 
-void	set_direction(t_data *data, int key)
-{
-	if (key == W_KEY)
-	{
-		data->event = UP;
-		// data->player.x += cos(data->player.angle) * PLAYER_SPEED;
-		// data->player.y += sin(data->player.angle) * PLAYER_SPEED;
-	}
-	if (key == S_KEY)
-	{
-		data->event = DOWN;
-		// data->player.x += cos(data->player.angle + M_PI) * PLAYER_SPEED;
-		// data->player.y += sin(data->player.angle + M_PI) * PLAYER_SPEED;
-	}
-	if (key == A_KEY)
-	{
-		data->event = LEFT;
-		// data->player.x += cos(data->player.angle - M_PI_2) * PLAYER_SPEED;
-		// data->player.y += sin(data->player.angle - M_PI_2) * PLAYER_SPEED;
-	}
-	if (key == D_KEY)
-	{
-		data->event = RIGHT;
-		// data->player.x += cos(data->player.angle + M_PI_2) * PLAYER_SPEED;
-		// data->player.y += sin(data->player.angle + M_PI_2) * PLAYER_SPEED;
-	}
-}
 
 void	move_player(t_data *data)
 {
-	if (data->event == UP)
+	if (data->event.up == true)
 	{
 		data->player.x += PLAYER_SPEED * cos(data->player.angle);
 		data->player.y += PLAYER_SPEED * sin(data->player.angle);
 	}
-	else if (data->event == DOWN)
+	if (data->event.down == true)
 	{
 		data->player.x += PLAYER_SPEED * cos(data->player.angle + M_PI);
 		data->player.y += PLAYER_SPEED * sin(data->player.angle + M_PI);
 	}
-	if (data->event == LEFT)
+	if (data->event.left == true)
 	{
 		data->player.x += PLAYER_SPEED * cos(data->player.angle - M_PI_2);
 		data->player.y += PLAYER_SPEED * sin(data->player.angle - M_PI_2);
 	}
-	if (data->event == RIGHT)
+	if (data->event.right == true)
 	{
 		data->player.x += PLAYER_SPEED * cos(data->player.angle + M_PI_2);
 		data->player.y += PLAYER_SPEED * sin(data->player.angle + M_PI_2);

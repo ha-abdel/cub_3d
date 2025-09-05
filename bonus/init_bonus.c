@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/05 11:26:07 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:40:27 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,13 @@ void	initial_data(t_data *data)
 	data->max_dist_pixel = SCREEN_WIDTH * 2;
 	data->start_time = get_time();
 	data->mouse.old_x = SCREEN_WIDTH / 2;
+	data->event.up = false;
+	data->event.down = false;
+	data->event.left = false;
+	data->event.right = false;
+	data->event.open_door = false;
+	data->event.quit = false;
+	data->event.mouse_move = false;
 }
 
 void	init_ray(t_ray *ray, t_data *data)

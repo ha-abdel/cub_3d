@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/05 11:23:13 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/05 16:40:05 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <stdbool.h>
 
 # define SCREEN_WIDTH 1500
 # define SCREEN_HEIGHT 1000
@@ -50,6 +51,7 @@
 # define S_KEY 115
 # define A_KEY 97
 # define D_KEY 100
+# define O_KEY 111
 # define ESC_KEY 65307
 
 # define SAHM "wolfenstein/AnyConv.com__minimap_player-resized.xpm"
@@ -186,17 +188,29 @@ typedef struct minimap
 	double			r2;
 }					t_minimap;
 
-typedef enum event
+// typedef enum event
+// {
+// 	UP,
+// 	DOWN,
+// 	LEFT,
+// 	RIGHT,
+// 	OPEN,
+// 	MOUSE_MOVE,
+// 	QUIT,
+// 	NO_EVENT,
+// } e_event;
+
+typedef struct events
 {
-	UP,
-	DOWN,
-	LEFT,
-	RIGHT,
-	OPEN,
-	MOUSE_MOVE,
-	QUIT,
-	NO_EVENT,
-} e_event;
+	bool	up;
+	bool	down;
+	bool	left;
+	bool	right;
+	bool	mouse_move;
+	bool	open_door;
+	bool	quit;
+} t_event;
+
 
 typedef	struct mouse
 {
@@ -217,7 +231,7 @@ typedef struct s_data
 	float			rotation_speed;
 	int				max_dist_pixel;
 	long			start_time;
-	e_event			event;
+	t_event			event;
 	t_mouse			mouse;
 	t_player		player;
 	t_sprite		bg;
@@ -299,6 +313,7 @@ void				animate_door(t_data *data);
 void	fill_img_door(t_data *data);
 
 /* FUNCTIONS */
+int	release_key(int key, t_data *data);
 void	set_direction(t_data *data, int key);
 long	get_time(void);
 int	is_facing_right1(double angle);
