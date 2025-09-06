@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_events_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/06 15:06:15 by abdel-ha          #+#    #+#             */
+/*   Updated: 2025/09/06 15:06:16 by abdel-ha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube_bonus.h"
 
 int	handle_key(int key, t_data *data)
@@ -16,6 +28,7 @@ int	handle_key(int key, t_data *data)
 		data->event.left = true;
 	return (0);
 }
+
 int	release_key(int key, t_data *data)
 {
 	if (key == ESC_KEY)

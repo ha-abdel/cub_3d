@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 10:45:06 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 14:58:32 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	find_h_door(t_data *data, t_ray **ray)
 	}
 	return (0);
 }
+
 int	find_h_exit(t_data *data, t_ray **ray)
 {
 	if (is_exit(data, (*ray)->h_intersect.x, (*ray)->h_intersect.y

@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:43:41 by salahian          #+#    #+#             */
-/*   Updated: 2025/09/06 11:21:06 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 17:46:08 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 # include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -206,5 +207,6 @@ void				initial_data(t_data *data);
 void				cast_rays(t_data *data);
 void				draw_map(t_data *data);
 void				clear_image(t_sprite *img, int color);
+void	check_collision(t_data *data, double old_px, double old_py)
 
 #endif

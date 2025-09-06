@@ -6,11 +6,11 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:40:11 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 17:22:09 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 15:54:19 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "cube.h"
 
 void	calc_first_v_intersect(t_data *data, t_ray *ray, double tan_val)
 {

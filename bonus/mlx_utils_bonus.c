@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:15:01 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/03 16:43:35 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 15:06:32 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	get_t(int trgb)
 int	inside_bounds(t_data *data, double x, double y)
 {
 	(void)data;
-	if (x < 0 || x >= data->map.width * TILE_SIZE || y < 0 || y >= data->map.height * TILE_SIZE)
+	if (x < 0 || x >= data->map.width * TILE_SIZE || y < 0
+		|| y >= data->map.height * TILE_SIZE)
 		return (0);
 	return (1);
 }
@@ -53,7 +54,7 @@ void	clear_image(t_sprite *img, int color)
 	}
 }
 
-t_point	construct_point(int	x, int y)
+t_point	construct_point(int x, int y)
 {
 	t_point	t;
 

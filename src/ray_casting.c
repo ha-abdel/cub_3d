@@ -6,11 +6,11 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:55 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 15:47:46 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 15:54:19 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "cube.h"
 
 void	cast_rays(t_data *data)
 {

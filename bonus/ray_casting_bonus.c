@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:26:45 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 10:49:46 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 15:26:39 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	cast_rays(t_data *data)
 		check_horizontal_intersect(data, &ray);
 		check_vertical_intersect(data, &ray);
 		calc_distance(data, &ray);
-		// print_hit_info(data);
 		wall_projection(data, &ray, i);
 		ray.ray_angle += ray.angle_step;
 		i++;

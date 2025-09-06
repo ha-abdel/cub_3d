@@ -6,11 +6,11 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:28:18 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 11:16:06 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 17:43:54 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "cube.h"
 
 void	calc_distance(t_data *data, t_ray *ray, int *color)
 {
@@ -35,5 +35,4 @@ void	calc_distance(t_data *data, t_ray *ray, int *color)
 		ray->ray_end.y = ray->v_intersect.y;
 	}
 	ray->distance *= cos(ray->ray_angle - data->player.angle);
-	draw_line(data, ray->player, ray->ray_end, BLUE);
 }

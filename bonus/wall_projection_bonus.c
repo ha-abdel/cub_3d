@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 13:30:01 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 15:35:55 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@ void	draw_wall_texture(t_data *data, t_ray **ray)
 
 void	draw_door_texture(t_data *data, t_ray **ray)
 {
-	t_texture		texture;
-	int				y;
-	unsigned int	color;
-	int				index;
+	t_texture	texture;
+	int			y;
+	int			index;
 
 	index = data->hit.door_index;
 	y = (*ray)->wall_start.y;
@@ -64,11 +63,10 @@ void	draw_door_texture(t_data *data, t_ray **ray)
 	{
 		texture.tex_y = (int)texture.tex_pos
 			% data->doors[index]->frame_door.height;
-		color = get_color(&data->doors[index]->frame_door, texture.tex_x,
-				texture.tex_y);
-		my_mlx_pixel_put(&data->bg1, (*ray)->wall_start.x, y, color);
+		my_mlx_pixel_put(&data->bg1, (*ray)->wall_start.x, y++,
+			get_color(&data->doors[index]->frame_door, texture.tex_x,
+				texture.tex_y));
 		texture.tex_pos += texture.tex_step;
-		y++;
 	}
 }
 

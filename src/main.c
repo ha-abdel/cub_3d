@@ -6,11 +6,29 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:38:56 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 12:33:40 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 17:46:19 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "cube.h"
+
+bool	is_valid_move(t_data *data, double x, double y)
+{
+	double	safety;
+
+	safety = 6;
+	if (is_wall(data, x, y))
+		return (false);
+	if (is_wall(data, x + safety, y))
+		return (false);
+	if (is_wall(data, x - safety, y))
+		return (false);
+	if (is_wall(data, x, y + safety))
+		return (false);
+	if (is_wall(data, x, y - safety))
+		return (false);
+	return (true);
+}
 
 void	move_player(t_data *data, int key)
 {
@@ -62,12 +80,7 @@ int	handle_key(int key, t_data *data)
 	if (key == ESC_KEY)
 		destroy_window(data);
 	move_player(data, key);
-	if (is_wall(data, data->player.x - is_facing_left(data->player.angle),
-			data->player.y - is_facing_up(data->player.angle)))
-	{
-		data->player.x = old_px;
-		data->player.y = old_py;
-	}
+	check_collision(data, old_px, old_py);
 	rotate_player(data, key);
 	return (0);
 }
@@ -83,9 +96,7 @@ int	main(int ac, char **av)
 		return (1);
 	init_data(&data);
 	mlx_hook(data.win_3d, 2, 1L << 0, handle_key, &data);
-	// mlx_hook(data.win_2d, 2, 1L << 0, handle_key, &data);
 	mlx_hook(data.win_3d, 17, 1L << 0, destroy_window, &data);
-	// mlx_hook(data.win_2d, 17, 1L << 0, destroy_window, &data);
 	mlx_loop_hook(data.mlx, render, &data);
 	mlx_loop(data.mlx);
 	return (0);
