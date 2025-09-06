@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 16:06:27 by salahian          #+#    #+#             */
-/*   Updated: 2025/07/18 16:11:27 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/06 15:15:33 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,43 +33,6 @@ int	get_long_line(char **map)
 	return (line);
 }
 
-char	*get_new_line(char *str, int size)
-{
-	int		i;
-	char	*tmp;
-
-	tmp = ft_malloc(size + 1, 1);
-	i = 0;
-	while (str[i])
-	{
-		tmp[i] = str[i];
-		i++;
-	}
-	while (i < size)
-	{
-		tmp[i] = ' ';
-		i++;
-	}
-	tmp[i] = '\0';
-	return (tmp);
-}
-
-int	handle_direction(t_data *data, char c)
-{
-	if ((c != 'N' && c != 'E' && c != 'W' && c != 'S') || data->player.angle != -1)
-		return (0);
-	if (c == 'N')
-		data->player.angle = PI / 2;
-	if (c == 'E')
-		data->player.angle = 0;
-	if (c == 'W')
-		data->player.angle = PI;
-	if (c == 'S')
-		data->player.angle = 1.5 * PI;
-	// data->player.angle = 90;
-	return (1);
-}
-
 int	check_around_floor(t_data *data, int i, int j)
 {
 	if (j != 0)
@@ -91,7 +54,7 @@ int	check_around_floor(t_data *data, int i, int j)
 	{
 		if (data->map.map[i + 1][j] == ' ')
 			return (0);
-	}	
+	}
 	return (1);
 }
 
@@ -108,10 +71,8 @@ int	valid_map(t_data *data)
 		{
 			if (!ft_isdigit(data->map.map[i][j]) && data->map.map[i][j] != ' ')
 			{
-				if (!handle_direction(data, data->map.map[i][j]))
+				if (!handle_direction(data, data->map.map[i][j], i, j))
 					return (0);
-				data->player.y = i;
-				data->player.x = j;
 			}
 			if (data->map.map[i][j] == '0')
 			{
@@ -125,38 +86,6 @@ int	valid_map(t_data *data)
 	return (1);
 }
 
-int		check_every_character(char *s)
-{
-	int		i;
-
-	i = 0;
-	while (s && s[i])
-	{
-		if (s[i] != '1' && s[i] != ' ')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int		check_walls(t_data *data, int size)
-{
-	int		i;
-
-	i = 1;
-	if (!check_every_character(data->map.map[0]) || !check_every_character(data->map.map[size]))
-		return (0);
-	while (data->map.map[i])
-	{
-		if (data->map.map[i][0] != '1' && data->map.map[i][0] != ' ')
-			return (0);
-		if (data->map.map[i][data->map.width - 1] != '1' && data->map.map[i][data->map.width - 1] != ' ')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 int	create_new_map(t_data *data, char **map, int size)
 {
 	int	i;
@@ -165,7 +94,6 @@ int	create_new_map(t_data *data, char **map, int size)
 	data->map.map = ft_malloc(sizeof(char *) * (size + 1), 1);
 	long_line = get_long_line(map) - 1;
 	i = 0;
-	//printf("{%d}\n", long_line);
 	while (map[i])
 	{
 		if (long_line > ft_strlen(map[i]))
@@ -178,44 +106,7 @@ int	create_new_map(t_data *data, char **map, int size)
 	data->map.height = size;
 	data->map.width = long_line;
 	if (!check_walls(data, size) || !valid_map(data))
-	{
 		return (0);
-	}
-	return (1);
-}
-
-int	calculate_lines(char *buf)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (buf[i])
-	{
-		if (buf[i] == '\n')
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-int	fill_map(char **map, char *line, int fd)
-{
-	int	i;
-
-	i = 0;
-	while (line)
-	{
-		if (line[ft_strlen(line) - 1] == '\n')
-			line[ft_strlen(line) - 1] = '\0';
-		// if (line[0] == '\0')
-		// 	return (0);
-		map[i] = ft_strdup(line);
-		i++;
-		line = get_next_line(fd);
-	}
-	map[i] = NULL;
 	return (1);
 }
 

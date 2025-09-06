@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 11:20:46 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 15:33:50 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,5 +340,26 @@ void	move_player(t_data *data);
 void	print_front_doors(t_data *data);
 void	print_info(t_data *data);
 void	print_hit_info(t_data *data);
+void	animate_door(t_data *data);
+void	animate_exit(t_data *data);
+int	calculate_lines(char *buf);
+int	check_every_character(char *s);
+char	*get_new_line(char *str, int size);
+int	get_long_line(char **map);
+int	fill_map(char **map, char *line, int fd);
+int		get_last_slash(char *file);
+int		check_data(t_data *data);
+int		check_is_map(char *line);
+int		fill_data(t_data *data, char *line, char *s, int index);
+void		take_path(t_data *data, char *line, char *s, int index);
+int		help_fill_data(t_data *data, char *tmp, char *s, int *count);
+char *append_char(char c);
+void	fill_tmp(char **tmp);
+int		parse_spaces(char *line, int *index, int flag);
+int		check_is_valid_param(char **tmp, char *str, char **s);
+int	handle_direction(t_data *data, char c, int i, int j);
+int	fill_color(t_data *data, char *s, char *tmp, int count);
+int		take_color(t_data *data, char *line, char *s, int index);
+void	rotate_the_map(t_data *data, t_point wxy, t_point dxy);
 
 #endif

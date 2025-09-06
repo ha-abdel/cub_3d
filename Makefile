@@ -8,13 +8,14 @@ LFLAGS = -lmlx -lXext -lX11 -lm
 files = angle.c  calculate_distance.c  directions.c  draw_func.c \
 h_intersection.c  init.c  main.c  map_check.c  mlx_utils.c  parsing.c \
 ray_casting.c  v_intersection.c  wall_projection.c textures.c render.c \
-cleaner.c 
+cleaner.c map_utiles.c	parse_utiles.c	utiles.c	parse_color.c
 
 files_bonus = angle_bonus.c  calculate_distance_bonus.c  directions_bonus.c  draw_func_bonus.c \
 h_intersection_bonus.c  init_bonus.c  main_bonus.c  map_check_bonus.c  mlx_utils_bonus.c  parsing_bonus.c \
 ray_casting_bonus.c v_intersection_bonus.c  wall_projection_bonus.c minimap_bonus.c textures_bonus.c render_bonus.c \
 cleaner_bonus.c map_collision_bonus.c images_bonus.c print_utils_bonus.c \
-movements_bonus.c mlx_events_bonus.c door_bonus.c intersection_calc_bonus.c
+movements_bonus.c mlx_events_bonus.c door_bonus.c intersection_calc_bonus.c	animation_bonus.c	map_utiles_bonus.c	\
+minimap_utiles_bonus.c	parse_color_bonus.c	parsing_utiles_bonus.c	utiles_bonus.c
 
 SRCS = $(addprefix src/, $(files))
 SRCS_BONUS = $(addprefix bonus/, $(files_bonus))
