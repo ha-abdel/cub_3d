@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 10:52:37 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 13:20:03 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	count_doors(t_data **data)
 {
-	int y;
+	int	y;
 	int	x;
-	int count;
+	int	count;
 
 	y = 0;
 	count = 0;
@@ -44,7 +44,8 @@ void	fill_door(t_data **data, int index, t_point p)
 	(*data)->doors[index]->open = 0;
 	(*data)->doors[index]->frame_door.img = mlx_new_image((*data)->mlx, 32, 32);
 	(*data)->doors[index]->frame_door.addr = mlx_get_data_addr((*data)->doors[index]->frame_door.img,
-			&(*data)->doors[index]->frame_door.bpp, &(*data)->doors[index]->frame_door.line_len,
+			&(*data)->doors[index]->frame_door.bpp,
+			&(*data)->doors[index]->frame_door.line_len,
 			&(*data)->doors[index]->frame_door.endian);
 	(*data)->doors[index]->frame_door.height = 32;
 	(*data)->doors[index]->frame_door.width = 32;
@@ -54,7 +55,7 @@ void	fill_door(t_data **data, int index, t_point p)
 
 void	save_doors_info(t_data **data)
 {
-	int y;
+	int	y;
 	int	x;
 	int	i;
 
@@ -81,43 +82,24 @@ void	save_doors_info(t_data **data)
 	(*data)->doors[i] = NULL;
 }
 
-void	init_exit(t_data *data)
-{
-	data->exit.frame_exit.img = mlx_new_image(data->mlx, 16, 16);
-	data->exit.frame_exit.addr = mlx_get_data_addr(data->exit.frame_exit.img,
-			&data->exit.frame_exit.bpp, &data->exit.frame_exit.line_len,
-			&data->exit.frame_exit.endian);
-	data->exit.frame_exit.height = 16;
-	data->exit.frame_exit.width = 16;
-	data->exit.frame_exit.frame_count = 0;
-	// data->exit.open = 0;
-	data->exit_sprite.img = mlx_xpm_file_to_image(data->mlx,
-			"wolfenstein/exit_1_.xpm", &data->exit_sprite.width,
-			&data->exit_sprite.height);
-	data->exit_sprite.addr = mlx_get_data_addr(data->exit_sprite.img,
-			&data->exit_sprite.bpp, &data->exit_sprite.line_len,
-			&data->exit_sprite.endian);
-	data->exit_sprite.frame_count = 0;
-}
-
 void	init_data(t_data *data)
 {
 	data->mlx = mlx_init();
 	data->win_3d = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT,
 			"3D View");
-	data->win_2d = mlx_new_window(data->mlx, data->map.width * TILE_SIZE,
-			data->map.height * TILE_SIZE, "2D Debug View");
 	init_images(&data);
 	ft_bzero(&data->mini_map, sizeof(t_minimap));
-	data->bg.width = data->map.width * TILE_SIZE;
-	data->bg.height = data->map.height * TILE_SIZE;
 	data->bg1.width = SCREEN_WIDTH;
 	data->bg1.height = SCREEN_HEIGHT;
 	data->player.x = (data->player.x * TILE_SIZE) + TILE_SIZE / 2;
-    data->player.y = (data->player.y * TILE_SIZE) + TILE_SIZE / 2;
+	data->player.y = (data->player.y * TILE_SIZE) + TILE_SIZE / 2;
 	data->nb_doors = count_doors(&data);
+	data->exit.frame_exit.height = 16;
+	data->exit.frame_exit.width = 16;
+	data->exit.frame_exit.frame_count = 0;
+	data->exit_sprite.frame_count = 0;
 	save_doors_info(&data);
-	init_exit(data);
+	// init_exit(data);
 }
 
 void	initial_data(t_data *data)
@@ -148,5 +130,3 @@ void	initial_data(t_data *data)
 	data->event.quit = false;
 	data->event.mouse_move = false;
 }
-
-

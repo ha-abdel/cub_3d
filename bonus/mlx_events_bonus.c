@@ -33,25 +33,6 @@ int	release_key(int key, t_data *data)
 	return (0);
 }
 
-// int	handle_mouse(int x, int y, t_data *data)
-// {
-// 	data->event = MOUSE_MOVE;
-// 	data->mouse.x = x;
-// 	data->mouse.y = y;
-// 	// static int	oldx;
-
-// 	// (void)y;
-// 	// if (x < oldx)
-// 	// 	data->player.angle -= data->rotation_speed;
-// 	// else if (x > oldx)
-// 	// 	data->player.angle += data->rotation_speed;
-// 	// if (data->player.angle > 2 * PI)
-// 	// 	data->player.angle -= 2 * PI;
-// 	// if (data->player.angle < 0)
-// 	// 	data->player.angle += 2 * PI;
-// 	// oldx = x;
-// 	return (0);
-// }
 int	handle_mouse(int x, int y, t_data *data)
 {
 	static int	oldx;

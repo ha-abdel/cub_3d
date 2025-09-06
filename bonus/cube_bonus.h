@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 09:51:20 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 11:20:46 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,9 +295,9 @@ int					is_wall(t_data *data, double x, double y);
 // int					render(t_data *data);
 void				my_mlx_pixel_put(t_sprite *img, int x, int y, int color);
 int					inside_bounds(t_data *data, double x, double y);
-void				draw_square(t_data *data, int x, int y, int color, int win);
+void				draw_square(t_data *data, int x, int y, int color);
 void				draw_line(t_data *data, t_point start_p, t_point end_p,
-						int color, int win);
+						int color);
 void				draw_walls(t_data *data);
 void				draw_grid_lines(t_data *data);
 void				draw_player(t_data *data);

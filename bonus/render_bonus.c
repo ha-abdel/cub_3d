@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/05 16:55:51 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 13:29:39 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,34 +135,14 @@ int	render(t_data *data)
 		// clear_image(&data->bg1, BLACK);
 		animate_door(data);
 		animate_exit(data);
-		draw_direction_lines(data);
-		draw_map(data);
+		// draw_direction_lines(data);
+		// draw_map(data);
 		cast_rays(data);
 		create_minimap(data);
-		mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
+		// mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
 		mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
 		mlx_mouse_move(data->mlx, data->win_3d, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 		mlx_mouse_get_pos(data->mlx, data->win_3d, &x, &y);
 	}
 	return (0);
 }
-// int	render(t_data *data)
-// {
-// 	static int	frame_counter;
-
-// 	if (frame_counter >= 60)
-// 	{
-// 		clear_image(&data->bg1, BLACK);
-// 		animate_door(data);
-// 		draw_direction_lines(data);
-// 		draw_map(data);
-// 		cast_rays(data);
-// 		create_minimap(data);
-// 		mlx_put_image_to_window(data->mlx, data->win_2d, data->bg.img, 0, 0);
-// 		mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
-// 		mlx_mouse_move(data->mlx, data->win_3d, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-// 		frame_counter = 0;
-// 	}
-// 	frame_counter++;
-// 	return (0);
-// }
