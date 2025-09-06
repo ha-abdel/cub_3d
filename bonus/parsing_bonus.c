@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 08:15:15 by salahian          #+#    #+#             */
-/*   Updated: 2025/08/30 15:46:24 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/06 12:37:35 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int		fill_color(t_data *data, char *s, char *tmp, int count)
 		set_color(&data->map.c_color, nbr, count);
 	return (1);
 }
+
 void		take_path(t_data *data, char *line, char *s, int index)
 {
 	if (s[0] == 'N')
@@ -109,6 +110,30 @@ void	scape_space(char *s, int *i)
 		(*i)++;
 }
 
+int		parse_spaces(char *line, int *index)
+{
+	if (!ft_isdigit(line[*index]) && line[*index] != ',')
+	{
+		if (line[*index] == ' ')
+			scape_space(line, index);
+		else
+			return (0);
+	}
+	return (1);
+}
+
+int		parse_spaces1(char *line, int *index)
+{
+	if (!ft_isdigit(line[*index]))
+	{
+		if (line[*index] == ' ')
+			scape_space(line, index);
+		else
+			return (0);
+	}
+	return (1);
+}
+
 int		take_color(t_data *data, char *line, char *s, int index)
 {
 	char	*tmp;
@@ -118,24 +143,14 @@ int		take_color(t_data *data, char *line, char *s, int index)
 	count = 0;
 	while (line[index])
 	{
-		if (!ft_isdigit(line[index]) && line[index] != ',')
-		{
-			if (line[index] == ' ')
-				scape_space(line, &index);
-			else
-				return (0);
-		}
+		if (!parse_spaces(line, &index))
+			return (0);
 		if (line[index] == ',')
 		{
 			index++;
 			count++;
-			if (!ft_isdigit(line[index]))
-			{
-				if (line[index] == ' ')
-					scape_space(line, &index);
-				else
-					return (0);
-			}
+			if (!parse_spaces1(line, &index))
+				return (0);
 			if (!fill_color(data, s, tmp, count))
 				return (0);
 			tmp = NULL;
@@ -183,7 +198,6 @@ int		check_parameters(t_data *data, char **tmp, char *line)
 		return (0);
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
-	//printf("line=[%s]\n", &line[i]);
 	if (!line[i] || !fill_data(data, line, s, i))
 		return (0);
 	return (1);

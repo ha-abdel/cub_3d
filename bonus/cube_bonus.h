@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/03 19:13:35 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 11:05:29 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,5 +305,7 @@ void	move_player(t_data *data, int key);
 void	print_front_doors(t_data *data);
 void	print_info(t_data *data);
 void	print_hit_info(t_data *data);
+void	animate_door(t_data *data);
+void	animate_exit(t_data *data);
 
 #endif

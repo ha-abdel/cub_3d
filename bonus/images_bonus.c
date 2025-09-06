@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_images_bonus.c                               :+:      :+:    :+:   */
+/*   images_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:34:40 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/01 09:49:13 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 11:10:53 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	init_images(t_data **data)
 			(*data)->map.w_path, &(*data)->w_wall.width,
 			&(*data)->w_wall.height);
 	(*data)->door.img = mlx_xpm_file_to_image((*data)->mlx,
-			"wolfenstein/small_bab.xpm", &(*data)->door.width,
+			"wolfenstein/door.xpm", &(*data)->door.width,
 			&(*data)->door.height);
 	(*data)->exit_sprite.img = mlx_xpm_file_to_image((*data)->mlx,
 			"wolfenstein/grey_stone.xpm", &(*data)->exit_sprite.width,

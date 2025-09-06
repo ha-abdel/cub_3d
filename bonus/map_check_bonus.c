@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 16:06:27 by salahian          #+#    #+#             */
-/*   Updated: 2025/08/30 15:46:51 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/06 11:15:22 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ char	*get_new_line(char *str, int size)
 
 int	handle_direction(t_data *data, char c, int i, int j)
 {
-	if ((c != 'N' && c != 'E' && c != 'W' && c != 'S' && c != 'D' && c != 'P') || (data->player.angle != -1 && (c != 'D' && c != 'P')))
+	if ((c != 'N' && c != 'E' && c != 'W' && c != 'S' && c != 'D' && c != 'P')
+	|| (data->player.angle != -1 && (c != 'D' && c != 'P')))
 		return (0);
 	if (c == 'N')
 		data->player.angle = PI / 2;
@@ -154,13 +155,15 @@ int		check_walls(t_data *data, int size)
 	int		i;
 
 	i = 1;
-	if (!check_every_character(data->map.map[0]) || !check_every_character(data->map.map[size]))
+	if (!check_every_character(data->map.map[0])
+	|| !check_every_character(data->map.map[size]))
 		return (0);
 	while (data->map.map[i])
 	{
 		if (data->map.map[i][0] != '1' && data->map.map[i][0] != ' ')
 			return (0);
-		if (data->map.map[i][data->map.width - 1] != '1' && data->map.map[i][data->map.width - 1] != ' ')
+		if (data->map.map[i][data->map.width - 1] != '1'
+			&& data->map.map[i][data->map.width - 1] != ' ')
 			return (0);
 		i++;
 	}
@@ -216,11 +219,6 @@ int	fill_map(char **map, char *line, int fd)
 	{
 		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
-		// if (line[0] == '\0')
-		// {
-		// 	printf("here\n");
-		// 	return (0);
-		// }
 		map[i] = ft_strdup(line);
 		i++;
 		line = get_next_line(fd);
