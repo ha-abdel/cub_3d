@@ -11,10 +11,10 @@ void	fill_img_door(t_data *data)
 	while (data->doors[i])
 	{
 		y = 0;
-		while (y < 32)
+		while (y < 64)
 		{
 			x = 0;
-			while (x < 32)
+			while (x < 64)
 			{
 				color = get_color(&data->door, x, y);
 				if (color != 0x00000000)

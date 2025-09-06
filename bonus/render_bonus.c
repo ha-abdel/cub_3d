@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 13:29:39 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 14:15:25 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	make_animation(t_data *data, t_door *door)
 	unsigned int	color;
 
 	y = 0;
-	while (y < 32)
+	while (y < 64)
 	{
 		x = door->frame_door.frame_count;
-		while (x < (door->frame_door.frame_count + 32))
+		while (x < (door->frame_door.frame_count + 64))
 		{
 			color = get_color(&data->door, x, y);
 			if (color != 0x00000000)
@@ -39,8 +39,8 @@ void	make_animation(t_data *data, t_door *door)
 		}
 		y++;
 	}
-	if (door->frame_door.frame_count < 512)
-		door->frame_door.frame_count += 32;
+	if (door->frame_door.frame_count < 576)
+		door->frame_door.frame_count += 64;
 	else
 		door->open = 2;
 }

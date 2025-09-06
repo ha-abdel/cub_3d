@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 13:20:03 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 14:14:42 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	fill_door(t_data **data, int index, t_point p)
 	(*data)->doors[index]->col = p.x;
 	(*data)->doors[index]->row = p.y;
 	(*data)->doors[index]->open = 0;
-	(*data)->doors[index]->frame_door.img = mlx_new_image((*data)->mlx, 32, 32);
+	(*data)->doors[index]->frame_door.img = mlx_new_image((*data)->mlx, 64, 64);
 	(*data)->doors[index]->frame_door.addr = mlx_get_data_addr((*data)->doors[index]->frame_door.img,
 			&(*data)->doors[index]->frame_door.bpp,
 			&(*data)->doors[index]->frame_door.line_len,
 			&(*data)->doors[index]->frame_door.endian);
-	(*data)->doors[index]->frame_door.height = 32;
-	(*data)->doors[index]->frame_door.width = 32;
+	(*data)->doors[index]->frame_door.height = 64;
+	(*data)->doors[index]->frame_door.width = 64;
 	(*data)->doors[index]->frame_door.frame_count = 0;
 	// init_ray(&(*data)->doors[index]->ray, *data);
 }
