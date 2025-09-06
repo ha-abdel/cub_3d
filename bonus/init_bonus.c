@@ -6,12 +6,11 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/05 16:51:13 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 10:52:37 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
-
 
 int	count_doors(t_data **data)
 {
@@ -91,7 +90,7 @@ void	init_exit(t_data *data)
 	data->exit.frame_exit.height = 16;
 	data->exit.frame_exit.width = 16;
 	data->exit.frame_exit.frame_count = 0;
-	data->exit.open = 0;
+	// data->exit.open = 0;
 	data->exit_sprite.img = mlx_xpm_file_to_image(data->mlx,
 			"wolfenstein/exit_1_.xpm", &data->exit_sprite.width,
 			&data->exit_sprite.height);
@@ -109,14 +108,13 @@ void	init_data(t_data *data)
 	data->win_2d = mlx_new_window(data->mlx, data->map.width * TILE_SIZE,
 			data->map.height * TILE_SIZE, "2D Debug View");
 	init_images(&data);
+	ft_bzero(&data->mini_map, sizeof(t_minimap));
 	data->bg.width = data->map.width * TILE_SIZE;
 	data->bg.height = data->map.height * TILE_SIZE;
 	data->bg1.width = SCREEN_WIDTH;
 	data->bg1.height = SCREEN_HEIGHT;
-	ft_bzero(&data->mini_map, sizeof(t_minimap));
 	data->player.x = (data->player.x * TILE_SIZE) + TILE_SIZE / 2;
     data->player.y = (data->player.y * TILE_SIZE) + TILE_SIZE / 2;
-	data->exit.open = 0;
 	data->nb_doors = count_doors(&data);
 	save_doors_info(&data);
 	init_exit(data);
@@ -129,8 +127,8 @@ void	initial_data(t_data *data)
 	data->map.direction = 0;
 	data->map.height = 0;
 	data->map.width = 0;
-	data->map.map = NULL;
 	data->player.angle = -1;
+	data->map.map = NULL;
 	data->map.n_path = NULL;
 	data->map.s_path = NULL;
 	data->map.w_path = NULL;
@@ -151,14 +149,4 @@ void	initial_data(t_data *data)
 	data->event.mouse_move = false;
 }
 
-void	init_ray(t_ray *ray, t_data *data)
-{
-	ray->h_intersect.x = 0;
-	ray->h_intersect.y = 0;
-	ray->v_intersect.x = 0;
-	ray->v_intersect.y = 0;
-	ray->angle_step = (FOV * PI / 180.0) / data->num_rays;
-	ray->player.x = data->player.x;
-	ray->player.y = data->player.y;
-	ray->wall_type = NONE;
-}
+

@@ -1,31 +1,32 @@
 #include "cube_bonus.h"
 #include <stdbool.h>
 
-bool is_valid_move(t_data *data, double x, double y)
+bool	is_valid_move(t_data *data, double x, double y)
 {
-	double safety = 6;
-	
-	if (is_wall(data, x, y) 
-		|| (is_door(data, x, y) && (data->doors[get_door_index(data, construct_point(x, y))]->open == 0))
-		|| (is_exit(data, x , y) && data->exit.open == 0))
-			return (false);
-	if (is_wall(data, x + safety, y) 
-		|| (is_door(data, x + safety, y) && (data->doors[get_door_index(data, construct_point(x + safety, y))]->open == 0))
-		|| (is_exit(data, x + safety , y) && data->exit.open == 0))
-			return (false);
-	if (is_wall(data, x - safety, y) 
-		|| (is_door(data, x - safety, y) && (data->doors[get_door_index(data, construct_point(x - safety, y))]->open == 0))
-		|| (is_exit(data, x - safety , y) && data->exit.open == 0))
-			return (false);
-	if (is_wall(data, x, y + safety) 
-		|| (is_door(data, x, y + safety) && (data->doors[get_door_index(data, construct_point(x, y + safety))]->open == 0))
-		|| (is_exit(data, x , y + safety) && data->exit.open == 0))
-			return (false);
-	if (is_wall(data, x, y - safety) 
-		|| (is_door(data, x, y - safety) && (data->doors[get_door_index(data, construct_point(x, y - safety))]->open == 0))
-		|| (is_exit(data, x , y - safety) && data->exit.open == 0))
-			return (false);
-	return true;
+	double	safety;
+
+	safety = 6;
+	if (is_wall(data, x, y) || (is_door(data, x, y)
+			&& (data->doors[get_door_index(data, construct_point(x,
+						y))]->open == 0)))
+		return (false);
+	if (is_wall(data, x + safety, y) || (is_door(data, x + safety, y)
+			&& (data->doors[get_door_index(data, construct_point(x + safety,
+						y))]->open == 0)))
+		return (false);
+	if (is_wall(data, x - safety, y) || (is_door(data, x - safety, y)
+			&& (data->doors[get_door_index(data, construct_point(x - safety,
+						y))]->open == 0)))
+		return (false);
+	if (is_wall(data, x, y + safety) || (is_door(data, x, y + safety)
+			&& (data->doors[get_door_index(data, construct_point(x, y
+						+ safety))]->open == 0)))
+		return (false);
+	if (is_wall(data, x, y - safety) || (is_door(data, x, y - safety)
+			&& (data->doors[get_door_index(data, construct_point(x, y
+						- safety))]->open == 0)))
+		return (false);
+	return (true);
 }
 
 void	check_collision(t_data *data, double old_px, double old_py)
@@ -35,8 +36,12 @@ void	check_collision(t_data *data, double old_px, double old_py)
 		data->player.x = old_px;
 		data->player.y = old_py;
 	}
+	else if (is_exit(data, data->player.x, data->player.y))
+	{
+		printf("you found the exit\n");
+		destroy_window(data);
+	}
 }
-
 
 void	move_player(t_data *data)
 {

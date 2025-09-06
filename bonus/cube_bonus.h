@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/05 16:40:05 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 09:51:20 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ typedef struct s_door
 
 typedef struct s_exit
 {
-	int				open;
+	// int				open;
 	t_sprite		frame_exit;
 	// t_ray			ray;
 }					t_exit;
