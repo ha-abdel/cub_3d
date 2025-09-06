@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:51:43 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 17:25:39 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 11:16:27 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ void	wall_projection(t_data *data, t_ray *ray, int *color, int col)
 	ray->floor_end.x = col;
 	ray->floor_end.y = SCREEN_HEIGHT;
 	draw_wall_texture(data, ray);
-	draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
-	draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
+	draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color);
+	draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color);
 }

@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:13:04 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/02 09:26:42 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 11:05:56 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,10 @@ void	calc_wall_distance(t_data *data, t_ray **ray)
 		+ pow((*ray)->v_intersect.y - data->player.y, 2);
 	if (data->hit.h_dist < data->hit.v_dist)
 	{
-		// printf("horizontal hit\n");
 		calc_horizontal_dist(data, ray);
 	}
 	else
 	{
-		// printf("vertical hit\n");
 		calc_vertical_dist(data, ray);
 	}
 	data->hit.distance *= cos((*ray)->ray_angle - data->player.angle);
@@ -67,19 +65,16 @@ void	calc_wall_distance(t_data *data, t_ray **ray)
 void	calc_distance(t_data *data, t_ray *ray)
 {
 	calc_wall_distance(data, &ray);
-	if (data->hit.is_door)
-	{
-		draw_line(data, ray->player, ray->ray_end, YELLOW, 2);
-		// printf("hit door\n");
-	}
-	else if (data->hit.is_exit)
-	{
-		draw_line(data, ray->player, ray->ray_end, GREEN, 2);
-		// printf("hit exit\n");
-	}
-	else
-	{
-		draw_line(data, ray->player, ray->ray_end, BLUE, 2);
-		// printf("hit wall\n");
-	}
+	// if (data->hit.is_door)
+	// {
+	// 	// draw_line(data, ray->player, ray->ray_end, YELLOW);
+	// }
+	// else if (data->hit.is_exit)
+	// {
+	// 	// draw_line(data, ray->player, ray->ray_end, GREEN);
+	// }
+	// else
+	// {
+	// 	// draw_line(data, ray->player, ray->ray_end, BLUE);
+	// }
 }

@@ -4,7 +4,6 @@
         "cube.h": "c",
         "cube_bonus.h": "c",
         "cmath": "c",
-        "chrono": "c",
-        "variant": "c"
+        "stdbool.h": "c"
     }
 }

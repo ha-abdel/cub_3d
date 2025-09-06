@@ -6,28 +6,24 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:30:49 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 15:25:44 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 11:23:55 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-void	draw_square(t_data *data, int x, int y, int color, int win)
+void	draw_square(t_data *data, int x, int y, int color)
 {
 	for (int dy = 0; dy < TILE_SIZE; dy++)
 	{
 		for (int dx = 0; dx < TILE_SIZE; dx++)
 		{
-			if (win == 1)
-				my_mlx_pixel_put(&data->bg1, x + dx, y + dy, color);
-			else
-				my_mlx_pixel_put(&data->bg, x + dx, y + dy, color);
+			my_mlx_pixel_put(&data->bg1, x + dx, y + dy, color);
 		}
 	}
 }
 
-void	draw_line(t_data *data, t_point start_p, t_point end_p, int color,
-		int win)
+void	draw_line(t_data *data, t_point start_p, t_point end_p, int color)
 {
 	t_point	point;
 	double	dx;
@@ -44,10 +40,7 @@ void	draw_line(t_data *data, t_point start_p, t_point end_p, int color,
 	i = 0;
 	while (i < steps)
 	{
-		if (win == 1)
-			my_mlx_pixel_put(&data->bg1, (int)point.x, (int)point.y, color);
-		else
-			my_mlx_pixel_put(&data->bg, (int)point.x, (int)point.y, color);
+		my_mlx_pixel_put(&data->bg1, (int)point.x, (int)point.y, color);
 		i++;
 		point.x += dx / steps;
 		point.y += dy / steps;
@@ -66,9 +59,9 @@ void	draw_walls(t_data *data)
 		while (x < data->map.width)
 		{
 			draw_square(data, x * TILE_SIZE, y * TILE_SIZE,
-				data->map.map[y][x] == '1' ? BLACK : DARK_GRAY, 2);
+				data->map.map[y][x] == '1' ? BLACK : DARK_GRAY);
 			if (data->map.map[y][x] == 'P')
-				draw_square(data, x * TILE_SIZE, y * TILE_SIZE, GREEN, 2);
+				draw_square(data, x * TILE_SIZE, y * TILE_SIZE, GREEN);
 			x++;
 		}
 		y++;
@@ -90,7 +83,7 @@ void	draw_grid_lines(t_data *data)
 		point1.y = 0;
 		point2.x = x * TILE_SIZE;
 		point2.y = data->map.height * TILE_SIZE;
-		draw_line(data, point1, point2, GRAY, 2);
+		draw_line(data, point1, point2, GRAY);
 		x++;
 	}
 	while (y < data->map.height)
@@ -99,7 +92,7 @@ void	draw_grid_lines(t_data *data)
 		point1.y = y * TILE_SIZE;
 		point2.x = data->map.width * TILE_SIZE;
 		point2.y = y * TILE_SIZE;
-		draw_line(data, point1, point2, GRAY, 2);
+		draw_line(data, point1, point2, GRAY);
 		y++;
 	}
 }
@@ -142,7 +135,7 @@ void	draw_direction_lines(t_data *data)
 	point1.y = py;
 	point2.x = dx;
 	point2.y = dy;
-	draw_line(data, point1, point2, GREEN, 2);
+	draw_line(data, point1, point2, GREEN);
 }
 
 void	draw_map(t_data *data)

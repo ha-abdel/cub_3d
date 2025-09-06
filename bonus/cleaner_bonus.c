@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:02 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/08/30 17:50:18 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 12:35:46 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	clean_mlx_mandatory_resources(t_data **data)
 {
 	if ((*data)->door.img)
 		mlx_destroy_image((*data)->mlx, (*data)->door.img);
+	if ((*data)->exit_sprite.img)
+		mlx_destroy_image((*data)->mlx, (*data)->exit_sprite.img);
 	if ((*data)->e_wall.img)
 		mlx_destroy_image((*data)->mlx, (*data)->e_wall.img);
 	if ((*data)->n_wall.img)
@@ -24,14 +26,14 @@ void	clean_mlx_mandatory_resources(t_data **data)
 		mlx_destroy_image((*data)->mlx, (*data)->s_wall.img);
 	if ((*data)->w_wall.img)
 		mlx_destroy_image((*data)->mlx, (*data)->w_wall.img);
-	if ((*data)->bg.img)
-		mlx_destroy_image((*data)->mlx, (*data)->bg.img);
+	// if ((*data)->bg.img)
+	// 	mlx_destroy_image((*data)->mlx, (*data)->bg.img);
 	if ((*data)->bg1.img)
 		mlx_destroy_image((*data)->mlx, (*data)->bg1.img);
 	if ((*data)->win_3d)
 		mlx_destroy_window((*data)->mlx, (*data)->win_3d);
-	if ((*data)->win_2d)
-		mlx_destroy_window((*data)->mlx, (*data)->win_2d);
+	// if ((*data)->win_2d)
+	// 	mlx_destroy_window((*data)->mlx, (*data)->win_2d);
 	if ((*data)->mlx)
 		mlx_destroy_display((*data)->mlx);
 }

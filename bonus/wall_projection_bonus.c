@@ -3,36 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   wall_projection_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:27:24 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/04 12:46:18 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/06 13:30:01 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
 
-// void	draw_wall_texture(t_data *data, t_ray **ray)
-// {
-// 	t_sprite	img;
-// 	t_texture	texture;
-// 	int			y;
-
-// 	y = (*ray)->wall_start.y;
-// 	get_texture_img(data, ray, &img);
-// 	if (data->hit.h_dist < data->hit.v_dist)
-// 		texture.wall_x = (int)(*ray)->ray_end.x % TILE_SIZE;
-// 	else
-// 		texture.wall_x = (int)(*ray)->ray_end.y % TILE_SIZE;
-// 	texture.tex_x = texture.wall_x * img.width / TILE_SIZE;
-// 	while (y < (*ray)->wall_end.y)
-// 	{
-// 		texture.tex_y = ((y - SCREEN_HEIGHT / 2 + (*ray)->wall_strip / 2) * img.height) / (*ray)->wall_strip;
-// 		texture.color = get_color(&img, texture.tex_x, texture.tex_y);
-// 		my_mlx_pixel_put(&data->bg1, (*ray)->wall_start.x, y, texture.color);
-// 		y++;
-// 	}
-// }
 void	draw_wall_texture(t_data *data, t_ray **ray)
 {
 	t_sprite	img;
@@ -62,30 +41,6 @@ void	draw_wall_texture(t_data *data, t_ray **ray)
 	}
 }
 
-// void	draw_door_texture(t_data *data, t_ray **ray)
-// {
-// 	t_texture		texture;
-// 	int				y;
-// 	unsigned int	color;
-// 	int				index;
-
-// 	index = data->hit.door_index;
-// 	y = (*ray)->wall_start.y;
-// 	if (data->hit.h_dist < data->hit.v_dist)
-// 		texture.wall_x = (int)(*ray)->ray_end.x % TILE_SIZE;
-// 	else
-// 		texture.wall_x = (int)(*ray)->ray_end.y % TILE_SIZE;
-// 	texture.tex_x = texture.wall_x * data->doors[index]->frame_door.width
-// 		/ TILE_SIZE;
-// 	while (y < (*ray)->wall_end.y)
-// 	{
-// 		texture.tex_y = ((y - SCREEN_HEIGHT / 2 + (*ray)->wall_strip / 2) * data->doors[index]->frame_door.height )/ (*ray)->wall_strip;
-// 		color = get_color(&data->doors[index]->frame_door, texture.tex_x,
-// 				texture.tex_y);
-// 		my_mlx_pixel_put(&data->bg1, (*ray)->wall_start.x, y, color);
-// 		y++;
-// 	}
-// }
 void	draw_door_texture(t_data *data, t_ray **ray)
 {
 	t_texture		texture;
@@ -177,6 +132,6 @@ void	wall_projection(t_data *data, t_ray *ray, int col)
 		draw_exit_texture(data, &ray);
 	else
 		draw_wall_texture(data, &ray);
-	draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color, 1);
-	draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color, 1);
+	draw_line(data, ray->ceil_start, ray->ceil_end, data->map.c_color);
+	draw_line(data, ray->floor_start, ray->floor_end, data->map.f_color);
 }

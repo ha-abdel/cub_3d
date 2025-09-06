@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 11:05:29 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/06 13:32:23 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <sys/time.h>
+# include <stdbool.h>
 
 # define SCREEN_WIDTH 1500
 # define SCREEN_HEIGHT 1000
@@ -30,7 +31,7 @@
 # define PI 3.1415926535
 # define MAP_WIDTH 26
 # define MAP_HEIGHT 22
-# define PLAYER_SPEED 5
+# define PLAYER_SPEED 10
 # define MAX_RAY_DISTANCE 10000
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
@@ -50,6 +51,7 @@
 # define S_KEY 115
 # define A_KEY 97
 # define D_KEY 100
+# define O_KEY 111
 # define ESC_KEY 65307
 
 # define SAHM "wolfenstein/AnyConv.com__minimap_player-resized.xpm"
@@ -154,13 +156,13 @@ typedef struct s_door
 	int				col;
 	int				row;
 	t_sprite		frame_door;
-	t_ray			ray;
+	// t_ray			ray;
 
 }					t_door;
 
 typedef struct s_exit
 {
-	int				open;
+	// int				open;
 	t_sprite		frame_exit;
 	// t_ray			ray;
 }					t_exit;
@@ -186,7 +188,36 @@ typedef struct minimap
 	double			r2;
 }					t_minimap;
 
+// typedef enum event
+// {
+// 	UP,
+// 	DOWN,
+// 	LEFT,
+// 	RIGHT,
+// 	OPEN,
+// 	MOUSE_MOVE,
+// 	QUIT,
+// 	NO_EVENT,
+// } e_event;
 
+typedef struct events
+{
+	bool	up;
+	bool	down;
+	bool	left;
+	bool	right;
+	bool	mouse_move;
+	bool	open_door;
+	bool	quit;
+} t_event;
+
+
+typedef	struct mouse
+{
+	double	x;
+	double	y;
+	double	old_x;
+} t_mouse;
 
 typedef struct s_data
 {
@@ -196,6 +227,12 @@ typedef struct s_data
 	t_door			**doors;
 	int				*front_doors;
 	int				nb_doors;
+	int				num_rays;
+	float			rotation_speed;
+	int				max_dist_pixel;
+	long			start_time;
+	t_event			event;
+	t_mouse			mouse;
 	t_player		player;
 	t_sprite		bg;
 	t_sprite		bg1;
@@ -210,10 +247,6 @@ typedef struct s_data
 	t_minimap		mini_map;
 	t_map			map;
 	t_hit			hit;
-	int				num_rays;
-	float			rotation_speed;
-	int				max_dist_pixel;
-	long			start_time;
 }					t_data;
 void	print_data(t_data *data);
 void	print_info(t_data *data);
@@ -262,9 +295,9 @@ int					is_wall(t_data *data, double x, double y);
 // int					render(t_data *data);
 void				my_mlx_pixel_put(t_sprite *img, int x, int y, int color);
 int					inside_bounds(t_data *data, double x, double y);
-void				draw_square(t_data *data, int x, int y, int color, int win);
+void				draw_square(t_data *data, int x, int y, int color);
 void				draw_line(t_data *data, t_point start_p, t_point end_p,
-						int color, int win);
+						int color);
 void				draw_walls(t_data *data);
 void				draw_grid_lines(t_data *data);
 void				draw_player(t_data *data);
@@ -280,6 +313,8 @@ void				animate_door(t_data *data);
 void	fill_img_door(t_data *data);
 
 /* FUNCTIONS */
+int	release_key(int key, t_data *data);
+void	set_direction(t_data *data, int key);
 long	get_time(void);
 int	is_facing_right1(double angle);
 int	is_facing_left1(double angle);
@@ -301,7 +336,7 @@ int	handle_mouse(int x, int y, t_data *data);
 void	get_the_closest_door(t_data *data);
 int	handle_key(int key, t_data *data);
 void	check_collision(t_data *data, double old_px, double old_py);
-void	move_player(t_data *data, int key);
+void	move_player(t_data *data);
 void	print_front_doors(t_data *data);
 void	print_info(t_data *data);
 void	print_hit_info(t_data *data);

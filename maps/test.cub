@@ -1,14 +1,14 @@
-N wolfenstein/Concrete_grey_5.xpm
-S wolfenstein/Concrete_orange.xpm
-W wolfenstein/door1.xpm
-E wolfenstein/wood_moss_1.xpm
+N wolfenstein/Asset1.xpm
+S wolfenstein/Asset2.xpm
+W wolfenstein/Asset5.xpm
+E wolfenstein/Asset6.xpm
 
 F 0,0,0
 C 0,30,0
 
 
 111111111111111111111111
-100000000000000010001001
+100000000000000011D11001
 1011111111111111D000D001
 100000000000000010001001
 1000000000000000D0001001

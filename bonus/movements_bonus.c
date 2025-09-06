@@ -1,31 +1,32 @@
 #include "cube_bonus.h"
 #include <stdbool.h>
 
-bool is_valid_move(t_data *data, double x, double y)
+bool	is_valid_move(t_data *data, double x, double y)
 {
-	double safety = 6;
-	
-	if (is_wall(data, x, y) 
-		|| (is_door(data, x, y) && (data->doors[get_door_index(data, construct_point(x, y))]->open == 0))
-		|| (is_exit(data, x , y) && data->exit.open == 0))
-			return (false);
-	if (is_wall(data, x + safety, y) 
-		|| (is_door(data, x + safety, y) && (data->doors[get_door_index(data, construct_point(x + safety, y))]->open == 0))
-		|| (is_exit(data, x + safety , y) && data->exit.open == 0))
-			return (false);
-	if (is_wall(data, x - safety, y) 
-		|| (is_door(data, x - safety, y) && (data->doors[get_door_index(data, construct_point(x - safety, y))]->open == 0))
-		|| (is_exit(data, x - safety , y) && data->exit.open == 0))
-			return (false);
-	if (is_wall(data, x, y + safety) 
-		|| (is_door(data, x, y + safety) && (data->doors[get_door_index(data, construct_point(x, y + safety))]->open == 0))
-		|| (is_exit(data, x , y + safety) && data->exit.open == 0))
-			return (false);
-	if (is_wall(data, x, y - safety) 
-		|| (is_door(data, x, y - safety) && (data->doors[get_door_index(data, construct_point(x, y - safety))]->open == 0))
-		|| (is_exit(data, x , y - safety) && data->exit.open == 0))
-			return (false);
-	return true;
+	double	safety;
+
+	safety = 6;
+	if (is_wall(data, x, y) || (is_door(data, x, y)
+			&& (data->doors[get_door_index(data, construct_point(x,
+						y))]->open == 0)))
+		return (false);
+	if (is_wall(data, x + safety, y) || (is_door(data, x + safety, y)
+			&& (data->doors[get_door_index(data, construct_point(x + safety,
+						y))]->open == 0)))
+		return (false);
+	if (is_wall(data, x - safety, y) || (is_door(data, x - safety, y)
+			&& (data->doors[get_door_index(data, construct_point(x - safety,
+						y))]->open == 0)))
+		return (false);
+	if (is_wall(data, x, y + safety) || (is_door(data, x, y + safety)
+			&& (data->doors[get_door_index(data, construct_point(x, y
+						+ safety))]->open == 0)))
+		return (false);
+	if (is_wall(data, x, y - safety) || (is_door(data, x, y - safety)
+			&& (data->doors[get_door_index(data, construct_point(x, y
+						- safety))]->open == 0)))
+		return (false);
+	return (true);
 }
 
 void	check_collision(t_data *data, double old_px, double old_py)
@@ -35,42 +36,33 @@ void	check_collision(t_data *data, double old_px, double old_py)
 		data->player.x = old_px;
 		data->player.y = old_py;
 	}
-	// if (is_door(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle))
-	// 	&& (data->doors[get_door_index(data, construct_point(data->player.x
-	// 				- is_facing_left(data->player.angle), data->player.y
-	// 				- is_facing_up(data->player.angle)))]->open == 0))
-	// {
-	// 	data->player.x = old_px;
-	// 	data->player.y = old_py;
-	// }
-	// if (is_exit(data, data->player.x - is_facing_left(data->player.angle), data->player.y - is_facing_up(data->player.angle))
-	// 	&& data->exit.open == 0)
-	// {
-	// 	data->player.x = old_px;
-	// 	data->player.y = old_py;
-	// }
+	else if (is_exit(data, data->player.x, data->player.y))
+	{
+		printf("you found the exit\n");
+		destroy_window(data);
+	}
 }
 
-void	move_player(t_data *data, int key)
+void	move_player(t_data *data)
 {
-	if (key == W_KEY)
+	if (data->event.up == true)
 	{
-		data->player.x += cos(data->player.angle) * PLAYER_SPEED;
-		data->player.y += sin(data->player.angle) * PLAYER_SPEED;
+		data->player.x += PLAYER_SPEED * cos(data->player.angle);
+		data->player.y += PLAYER_SPEED * sin(data->player.angle);
 	}
-	if (key == S_KEY)
+	if (data->event.down == true)
 	{
-		data->player.x += cos(data->player.angle + M_PI) * PLAYER_SPEED;
-		data->player.y += sin(data->player.angle + M_PI) * PLAYER_SPEED;
+		data->player.x += PLAYER_SPEED * cos(data->player.angle + M_PI);
+		data->player.y += PLAYER_SPEED * sin(data->player.angle + M_PI);
 	}
-	if (key == A_KEY)
+	if (data->event.left == true)
 	{
-		data->player.x += cos(data->player.angle - M_PI_2) * PLAYER_SPEED;
-		data->player.y += sin(data->player.angle - M_PI_2) * PLAYER_SPEED;
+		data->player.x += PLAYER_SPEED * cos(data->player.angle - M_PI_2);
+		data->player.y += PLAYER_SPEED * sin(data->player.angle - M_PI_2);
 	}
-	if (key == D_KEY)
+	if (data->event.right == true)
 	{
-		data->player.x += cos(data->player.angle + M_PI_2) * PLAYER_SPEED;
-		data->player.y += sin(data->player.angle + M_PI_2) * PLAYER_SPEED;
+		data->player.x += PLAYER_SPEED * cos(data->player.angle + M_PI_2);
+		data->player.y += PLAYER_SPEED * sin(data->player.angle + M_PI_2);
 	}
 }

@@ -66,7 +66,7 @@ void	get_the_closest_door(t_data *data)
 	dt = INT_MAX;
 	while (i < data->nb_doors)
 	{
-		if (data->front_doors[i] == 1 && data->doors[i]->open == 0)
+		if (data->front_doors[i] == 1)
 		{
 			dx = abs(data->doors[i]->col * TILE_SIZE - (int)(data->player.x));
 			dy = abs(data->doors[i]->row * TILE_SIZE - (int)(data->player.y));
@@ -99,27 +99,3 @@ int	get_door_index(t_data *data, t_point p)
 	
 }
 
-int	check_if_open(t_data **data, int index, int horizontal, t_ray *ray)
-{
-	t_door	*door;
-	double	ratio;
-	int		text_x;
-	int		text_y;
-	int		color;
-
-	if (!(*data)->doors || !(*data)->doors[0] || index == -1)
-		return (1);
-	door = (*data)->doors[index];
-	if (horizontal)
-		ratio = fmod(ray->h_intersect.x, TILE_SIZE) / (double)TILE_SIZE;
-	else
-		ratio = fmod(ray->v_intersect.y, TILE_SIZE) / (double)TILE_SIZE;
-	text_x = (int)(ratio * door->frame_door.width);
-	if (text_x >= door->frame_door.width)
-		text_x = door->frame_door.width - 1;
-	text_y = door->frame_door.height / 2;
-	color = get_color(&door->frame_door, text_x, text_y);
-	if (get_t(color))
-		return (1);
-	return (0);
-}
