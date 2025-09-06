@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:43:41 by salahian          #+#    #+#             */
-/*   Updated: 2025/09/06 17:46:08 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 17:52:31 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define PI 3.1415926535
 # define MAP_WIDTH 16
 # define MAP_HEIGHT 12
-# define PLAYER_SPEED 5
+# define PLAYER_SPEED 10
 # define MAX_RAY_DISTANCE 10000
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
@@ -190,23 +190,17 @@ int					is_facing_right(double angle);
 int					is_facing_left(double angle);
 int					is_facing_down(double angle);
 int					is_facing_up(double angle);
-void				ft_player_debug(t_data *data);
 int					is_wall(t_data *data, double x, double y);
 int					render(t_data *data);
 void				my_mlx_pixel_put(t_sprite *img, int x, int y, int color);
 int					inside_bounds(t_data *data, double x, double y);
-void				draw_square(t_data *data, int x, int y, int color);
 void				draw_line(t_data *data, t_point start_p, t_point end_p,
 						int color);
-void				draw_walls(t_data *data);
-void				draw_grid_lines(t_data *data);
-void				draw_player(t_data *data);
-void				draw_direction_lines(t_data *data);
 void				init_data(t_data *data);
 void				initial_data(t_data *data);
 void				cast_rays(t_data *data);
-void				draw_map(t_data *data);
 void				clear_image(t_sprite *img, int color);
-void	check_collision(t_data *data, double old_px, double old_py)
+void				check_collision(t_data *data, double old_px, double old_py);
+bool				is_valid_move(t_data *data, double x, double y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:32:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 17:08:37 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 17:52:48 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	initial_data(t_data *data)
 	data->player.y = -1;
 	data->player.x = -1;
 	data->num_rays = SCREEN_WIDTH;
-	data->rotation_speed = M_PI / 180;
+	data->rotation_speed = M_PI / 90;
 	data->max_dist_pixel = SCREEN_WIDTH * 2;
 }
 
