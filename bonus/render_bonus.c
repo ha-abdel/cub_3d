@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/07 15:48:05 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/08 09:05:01 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	rotate_view(t_data *data)
 	{
 		data->player.angle -= data->rotation_speed;
 	}
-	// data->event = no
-	// data->mouse.old_x = data->mouse.;
 }
 
 void	check_movements(t_data *data)

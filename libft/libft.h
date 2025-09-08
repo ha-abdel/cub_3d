@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 17:41:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/06/24 15:52:10 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/08 09:04:40 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define LIBFT_H
 
 # include "get_next_line.h"
+# include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
 
 typedef struct s_list
 {
@@ -29,8 +29,6 @@ typedef struct s_allocs
 	void			*ptr;
 	struct s_allocs	*next;
 }					t_allocs;
-
-// #include "minishell.h"
 
 void				*ft_malloc(size_t size, int flag);
 void				ft_free(t_allocs **lst);
@@ -76,7 +74,7 @@ int					ft_memcmp(void *s1, void *s2, int n);
 
 char				*ft_strnstr(char *haystack, char *needle, int len);
 
-int     ft_atoi(const char *str, int *flag);
+int					ft_atoi(const char *str, int *flag);
 
 void				*ft_calloc(int count, int size);
 

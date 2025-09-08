@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 18:31:28 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/10 12:53:06 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/08 09:04:19 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,6 @@ void	*ft_malloc(size_t size, int flag)
 	if (!flag)
 		return (ft_free(&allocations), NULL);
 	new = malloc(sizeof(t_allocs));
-	// if (!(new->ptr))
-	// {
-	// 	ft_free(&allocations);
-	// 	exit(1);
-	// }
 	new->ptr = malloc(size);
 	if (!(new->ptr))
 	{
