@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:02 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/08 14:11:54 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/08 18:00:53 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	clean_doors(t_data **data)
 {
-	int	i = 0;
+	int	i;
+
+	i = 0;
 	while ((*data)->doors[i])
 	{
 		if ((*data)->doors[i]->frame_door.img)
