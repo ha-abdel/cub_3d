@@ -40,7 +40,7 @@ $(LIBFT):
 	@make bonus -C $(LIBFT_PATH)
 
 
-$(NAME): $(OBJS) cube.h
+$(NAME): $(OBJS) src/cube.h
 	@$(CC) $(CFLAGS) $(OBJS) $(LFLAGS) $(LIBFT) -o $(NAME)
 
 

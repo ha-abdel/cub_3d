@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:20:12 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/01 09:19:29 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 15:30:06 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	find_v_door(t_data *data, t_ray **ray)
 
 int	find_v_exit(t_data *data, t_ray **ray)
 {
-	if (is_exit(data, (*ray)->v_intersect.x - is_facing_left((*ray)->ray_angle), (*ray)->v_intersect.y))
+	if (is_exit(data, (*ray)->v_intersect.x - is_facing_left((*ray)->ray_angle),
+			(*ray)->v_intersect.y))
 	{
 		data->hit.v_hit = 1;
 		data->hit.is_v_exit = 1;
@@ -52,7 +53,7 @@ void	find_v_wall(t_data *data, t_ray **ray)
 				return ;
 		}
 		if (find_v_exit(data, ray))
-				return ;
+			return ;
 		(*ray)->v_intersect.x += (*ray)->x_step;
 		(*ray)->v_intersect.y += (*ray)->y_step;
 	}

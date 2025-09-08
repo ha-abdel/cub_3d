@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 14:14:42 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/06 15:00:14 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ void	fill_door(t_data **data, int index, t_point p)
 	(*data)->doors[index]->row = p.y;
 	(*data)->doors[index]->open = 0;
 	(*data)->doors[index]->frame_door.img = mlx_new_image((*data)->mlx, 64, 64);
-	(*data)->doors[index]->frame_door.addr = mlx_get_data_addr((*data)->doors[index]->frame_door.img,
+	(*data)->doors[index]->frame_door.addr = mlx_get_data_addr(
+			(*data)->doors[index]->frame_door.img,
 			&(*data)->doors[index]->frame_door.bpp,
 			&(*data)->doors[index]->frame_door.line_len,
 			&(*data)->doors[index]->frame_door.endian);
 	(*data)->doors[index]->frame_door.height = 64;
 	(*data)->doors[index]->frame_door.width = 64;
 	(*data)->doors[index]->frame_door.frame_count = 0;
-	// init_ray(&(*data)->doors[index]->ray, *data);
 }
 
 void	save_doors_info(t_data **data)
@@ -87,6 +87,7 @@ void	init_data(t_data *data)
 	data->mlx = mlx_init();
 	data->win_3d = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT,
 			"3D View");
+	init_wall_images(&data);
 	init_images(&data);
 	ft_bzero(&data->mini_map, sizeof(t_minimap));
 	data->bg1.width = SCREEN_WIDTH;
@@ -99,7 +100,6 @@ void	init_data(t_data *data)
 	data->exit.frame_exit.frame_count = 0;
 	data->exit_sprite.frame_count = 0;
 	save_doors_info(&data);
-	// init_exit(data);
 }
 
 void	initial_data(t_data *data)

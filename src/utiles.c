@@ -6,11 +6,11 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:14:51 by salahian          #+#    #+#             */
-/*   Updated: 2025/09/06 15:28:27 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/07 15:45:46 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "cube.h"
 
 int	handle_direction(t_data *data, char c, int i, int j)
 {

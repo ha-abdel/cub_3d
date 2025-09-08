@@ -6,11 +6,11 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 16:06:27 by salahian          #+#    #+#             */
-/*   Updated: 2025/09/06 15:15:33 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/07 15:44:52 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "cube.h"
 
 int	get_long_line(char **map)
 {

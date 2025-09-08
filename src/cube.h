@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:43:41 by salahian          #+#    #+#             */
-/*   Updated: 2025/09/06 15:15:57 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/07 15:43:53 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define PI 3.1415926535
 # define MAP_WIDTH 16
 # define MAP_HEIGHT 12
-# define PLAYER_SPEED 5
+# define PLAYER_SPEED 10
 # define MAX_RAY_DISTANCE 10000
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
@@ -46,6 +46,7 @@
 # include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
@@ -189,38 +190,34 @@ int					is_facing_right(double angle);
 int					is_facing_left(double angle);
 int					is_facing_down(double angle);
 int					is_facing_up(double angle);
-void				ft_player_debug(t_data *data);
 int					is_wall(t_data *data, double x, double y);
 int					render(t_data *data);
 void				my_mlx_pixel_put(t_sprite *img, int x, int y, int color);
 int					inside_bounds(t_data *data, double x, double y);
-void				draw_square(t_data *data, int x, int y, int color);
 void				draw_line(t_data *data, t_point start_p, t_point end_p,
 						int color);
-void				draw_walls(t_data *data);
-void				draw_grid_lines(t_data *data);
-void				draw_player(t_data *data);
-void				draw_direction_lines(t_data *data);
 void				init_data(t_data *data);
 void				initial_data(t_data *data);
 void				cast_rays(t_data *data);
-void				draw_map(t_data *data);
 void				clear_image(t_sprite *img, int color);
-int	fill_map(char **map, char *line, int fd);
-int	calculate_lines(char *buf);
-int	check_walls(t_data *data, int size);
-char	*get_new_line(char *str, int size);
-int	help_fill_data(t_data *data, char *tmp, char *s, int *count);
-int	fill_color(t_data *data, char *s, char *tmp, int count);
-char	*append_char(char c);
-void	fill_tmp(char **tmp);
-int	get_last_slash(char *file);
-int	check_data(t_data *data);
-int	check_is_map(char *line);
-int	fill_data(t_data *data, char *line, char *s, int index);
-void	take_path(t_data *data, char *line, char *s, int index);
-int		take_color(t_data *data, char *line, char *s, int index);
-int	parse_spaces(char *line, int *index, int flag);
-int		check_is_valid_param(char **tmp, char *str, char **s);
-int	handle_direction(t_data *data, char c, int i, int j);
+int					fill_map(char **map, char *line, int fd);
+int					calculate_lines(char *buf);
+int					check_walls(t_data *data, int size);
+char				*get_new_line(char *str, int size);
+int					help_fill_data(t_data *data, char *tmp, char *s,
+						int *count);
+int					fill_color(t_data *data, char *s, char *tmp, int count);
+char				*append_char(char c);
+void				fill_tmp(char **tmp);
+int					get_last_slash(char *file);
+int					check_data(t_data *data);
+int					check_is_map(char *line);
+int					fill_data(t_data *data, char *line, char *s, int index);
+void				take_path(t_data *data, char *line, char *s, int index);
+int					take_color(t_data *data, char *line, char *s, int index);
+int					parse_spaces(char *line, int *index, int flag);
+int					check_is_valid_param(char **tmp, char *str, char **s);
+int					handle_direction(t_data *data, char c, int i, int j);
+void				check_collision(t_data *data, double old_px, double old_py);
+bool				is_valid_move(t_data *data, double x, double y);
 #endif

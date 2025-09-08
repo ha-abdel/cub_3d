@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 15:33:50 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/07 15:48:23 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-# include <unistd.h>
 # include <sys/time.h>
-# include <stdbool.h>
+# include <unistd.h>
 
 # define SCREEN_WIDTH 1500
 # define SCREEN_HEIGHT 1000
@@ -148,7 +148,7 @@ typedef struct s_hit
 	double			h_dist;
 	double			v_dist;
 	double			distance;
-} t_hit;
+}					t_hit;
 
 typedef struct s_door
 {
@@ -156,15 +156,11 @@ typedef struct s_door
 	int				col;
 	int				row;
 	t_sprite		frame_door;
-	// t_ray			ray;
-
 }					t_door;
 
 typedef struct s_exit
 {
-	// int				open;
 	t_sprite		frame_exit;
-	// t_ray			ray;
 }					t_exit;
 
 typedef struct s_map
@@ -188,36 +184,23 @@ typedef struct minimap
 	double			r2;
 }					t_minimap;
 
-// typedef enum event
-// {
-// 	UP,
-// 	DOWN,
-// 	LEFT,
-// 	RIGHT,
-// 	OPEN,
-// 	MOUSE_MOVE,
-// 	QUIT,
-// 	NO_EVENT,
-// } e_event;
-
 typedef struct events
 {
-	bool	up;
-	bool	down;
-	bool	left;
-	bool	right;
-	bool	mouse_move;
-	bool	open_door;
-	bool	quit;
-} t_event;
+	bool			up;
+	bool			down;
+	bool			left;
+	bool			right;
+	bool			mouse_move;
+	bool			open_door;
+	bool			quit;
+}					t_event;
 
-
-typedef	struct mouse
+typedef struct mouse
 {
-	double	x;
-	double	y;
-	double	old_x;
-} t_mouse;
+	double			x;
+	double			y;
+	double			old_x;
+}					t_mouse;
 
 typedef struct s_data
 {
@@ -248,12 +231,13 @@ typedef struct s_data
 	t_map			map;
 	t_hit			hit;
 }					t_data;
-void	print_data(t_data *data);
-void	print_info(t_data *data);
-void	print_hit_info(t_data *data);
-int	check_if_open(t_data **data, int index, int horizontal, t_ray *ray);
-int	get_door_index(t_data *data, t_point p);
-t_point	construct_point(int	x, int y);
+void				print_data(t_data *data);
+void				print_info(t_data *data);
+void				print_hit_info(t_data *data);
+int					check_if_open(t_data **data, int index, int horizontal,
+						t_ray *ray);
+int					get_door_index(t_data *data, t_point p);
+t_point				construct_point(int x, int y);
 void				print_map(char **map);
 int					main_function_parsing(t_data *data, char *file);
 int					map_check(t_data *data, char *file, char *line, int fd);
@@ -267,8 +251,6 @@ int					clean_all(t_data **data);
 void				clean_mlx_mandatory_resources(t_data **data);
 int					render(t_data *data);
 int					get_t(int trgb);
-void				calc_wall_ditance(t_data *data, t_ray **ray, t_door **door);
-void				calc_door_ditance(t_data *data, t_ray **ray, t_door **door);
 int					is_door(t_data *data, double x, double y);
 void				wall_projection(t_data *data, t_ray *ray, int col);
 void				check_vertical_intersect(t_data *data, t_ray *ray);
@@ -290,9 +272,7 @@ int					is_facing_right(double angle);
 int					is_facing_left(double angle);
 int					is_facing_down(double angle);
 int					is_facing_up(double angle);
-void				ft_player_debug(t_data *data);
 int					is_wall(t_data *data, double x, double y);
-// int					render(t_data *data);
 void				my_mlx_pixel_put(t_sprite *img, int x, int y, int color);
 int					inside_bounds(t_data *data, double x, double y);
 void				draw_square(t_data *data, int x, int y, int color);
@@ -310,56 +290,65 @@ void				clear_image(t_sprite *img, int color);
 void				create_minimap(t_data *data);
 unsigned int		get_color(t_sprite *img, int x, int y);
 void				animate_door(t_data *data);
-void	fill_img_door(t_data *data);
+void				fill_img_door(t_data *data);
 
 /* FUNCTIONS */
-int	release_key(int key, t_data *data);
-void	set_direction(t_data *data, int key);
-long	get_time(void);
-int	is_facing_right1(double angle);
-int	is_facing_left1(double angle);
-int	is_facing_down1(double angle);
-int	is_facing_up1(double angle);
-void	init_images(t_data **data);
-void	calc_vertical_step(t_data *data, t_ray *ray, double tan_val);
-void	calc_first_v_intersect(t_data *data, t_ray *ray, double tan_val);
-void	calc_horizontal_step(t_data *data, t_ray *ray, double tan_val);
-void	calc_first_h_intersect(t_data *data, t_ray *ray, double tan_val);
-double	handle_division_by_zero(double angle);
-int	check_if_open(t_data **data, int index, int horizontal, t_ray *ray);
-int	is_exit(t_data *data, double x, double y);
-int	get_door_index(t_data *data, t_point p);
-int	check_distance(t_data *data);
-void	get_the_closest_door(t_data *data);
-void	fill_img_door(t_data *data);
-int	handle_mouse(int x, int y, t_data *data);
-void	get_the_closest_door(t_data *data);
-int	handle_key(int key, t_data *data);
-void	check_collision(t_data *data, double old_px, double old_py);
-void	move_player(t_data *data);
-void	print_front_doors(t_data *data);
-void	print_info(t_data *data);
-void	print_hit_info(t_data *data);
-void	animate_door(t_data *data);
-void	animate_exit(t_data *data);
-int	calculate_lines(char *buf);
-int	check_every_character(char *s);
-char	*get_new_line(char *str, int size);
-int	get_long_line(char **map);
-int	fill_map(char **map, char *line, int fd);
-int		get_last_slash(char *file);
-int		check_data(t_data *data);
-int		check_is_map(char *line);
-int		fill_data(t_data *data, char *line, char *s, int index);
-void		take_path(t_data *data, char *line, char *s, int index);
-int		help_fill_data(t_data *data, char *tmp, char *s, int *count);
-char *append_char(char c);
-void	fill_tmp(char **tmp);
-int		parse_spaces(char *line, int *index, int flag);
-int		check_is_valid_param(char **tmp, char *str, char **s);
-int	handle_direction(t_data *data, char c, int i, int j);
-int	fill_color(t_data *data, char *s, char *tmp, int count);
-int		take_color(t_data *data, char *line, char *s, int index);
-void	rotate_the_map(t_data *data, t_point wxy, t_point dxy);
+int					release_key(int key, t_data *data);
+void				set_direction(t_data *data, int key);
+long				get_time(void);
+int					is_facing_right1(double angle);
+int					is_facing_left1(double angle);
+int					is_facing_down1(double angle);
+int					is_facing_up1(double angle);
+void				init_images(t_data **data);
+void				calc_vertical_step(t_data *data, t_ray *ray,
+						double tan_val);
+void				calc_first_v_intersect(t_data *data, t_ray *ray,
+						double tan_val);
+void				calc_horizontal_step(t_data *data, t_ray *ray,
+						double tan_val);
+void				calc_first_h_intersect(t_data *data, t_ray *ray,
+						double tan_val);
+double				handle_division_by_zero(double angle);
+int					check_if_open(t_data **data, int index, int horizontal,
+						t_ray *ray);
+int					is_exit(t_data *data, double x, double y);
+int					get_door_index(t_data *data, t_point p);
+int					check_distance(t_data *data);
+void				get_the_closest_door(t_data *data);
+void				fill_img_door(t_data *data);
+int					handle_mouse(int x, int y, t_data *data);
+void				get_the_closest_door(t_data *data);
+int					handle_key(int key, t_data *data);
+void				check_collision(t_data *data, double old_px, double old_py);
+void				move_player(t_data *data);
+void				print_front_doors(t_data *data);
+void				print_info(t_data *data);
+void				print_hit_info(t_data *data);
+void				animate_door(t_data *data);
+void				animate_exit(t_data *data);
+int					calculate_lines(char *buf);
+int					check_every_character(char *s);
+char				*get_new_line(char *str, int size);
+int					get_long_line(char **map);
+int					fill_map(char **map, char *line, int fd);
+int					get_last_slash(char *file);
+int					check_data(t_data *data);
+int					check_is_map(char *line);
+int					fill_data(t_data *data, char *line, char *s, int index);
+void				take_path(t_data *data, char *line, char *s, int index);
+int					help_fill_data(t_data *data, char *tmp, char *s,
+						int *count);
+char				*append_char(char c);
+void				fill_tmp(char **tmp);
+int					parse_spaces(char *line, int *index, int flag);
+int					check_is_valid_param(char **tmp, char *str, char **s);
+int					handle_direction(t_data *data, char c, int i, int j);
+int					fill_color(t_data *data, char *s, char *tmp, int count);
+int					take_color(t_data *data, char *line, char *s, int index);
+void				rotate_the_map(t_data *data, t_point wxy, t_point dxy);
+void				init_wall_images(t_data **data);
+void				check_walls_addresses(t_data **data);
+void				check_addresses(t_data **data);
 
 #endif

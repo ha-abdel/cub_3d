@@ -6,11 +6,11 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:28:13 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 16:24:50 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 15:54:19 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "cube.h"
 
 int	is_perpendicular_to_yaxis(double ray_angle)
 {

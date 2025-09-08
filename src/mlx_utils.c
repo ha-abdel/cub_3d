@@ -6,11 +6,11 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:34 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/07/20 17:21:34 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 17:47:12 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "cube.h"
 
 int	is_wall(t_data *data, double x, double y)
 {
@@ -32,7 +32,8 @@ int	is_wall(t_data *data, double x, double y)
 int	inside_bounds(t_data *data, double x, double y)
 {
 	(void)data;
-	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
+	if (x < 0 || x >= (data->map.width * TILE_SIZE) || y < 0
+		|| y >= (data->map.height * TILE_SIZE))
 		return (0);
 	return (1);
 }

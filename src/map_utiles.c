@@ -6,11 +6,11 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:51:15 by salahian          #+#    #+#             */
-/*   Updated: 2025/09/06 15:27:55 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/07 15:45:23 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "cube.h"
 
 int	check_every_character(char *s)
 {

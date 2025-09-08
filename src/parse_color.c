@@ -6,11 +6,11 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:07:47 by salahian          #+#    #+#             */
-/*   Updated: 2025/09/06 15:28:08 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/07 15:45:32 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "cube.h"
 
 void	fill_tmp(char **tmp)
 {
