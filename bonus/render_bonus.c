@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:10 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/08 09:05:01 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/08 09:18:05 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	check_other_events(t_data *data)
 		get_the_closest_door(data);
 	else if (data->event.quit == true)
 		destroy_window(data);
+	else if (data->event.space == true)
+		data->center_mouse = false;
 }
 
 int	render(t_data *data)
@@ -60,8 +62,11 @@ int	render(t_data *data)
 		cast_rays(data);
 		create_minimap(data);
 		mlx_put_image_to_window(data->mlx, data->win_3d, data->bg1.img, 0, 0);
-		mlx_mouse_move(data->mlx, data->win_3d, SCREEN_WIDTH / 2, SCREEN_HEIGHT
-			/ 2);
+		if (data->center_mouse)
+		{
+			mlx_mouse_move(data->mlx, data->win_3d, SCREEN_WIDTH / 2,
+				SCREEN_HEIGHT / 2);
+		}
 		mlx_mouse_get_pos(data->mlx, data->win_3d, &x, &y);
 	}
 	return (0);

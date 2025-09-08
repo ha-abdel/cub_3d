@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:06:15 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 15:06:16 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/08 09:17:03 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	handle_key(int key, t_data *data)
 		data->event.right = true;
 	if (key == A_KEY)
 		data->event.left = true;
+	if (key == SPACE_KEY)
+		data->event.space = true;
 	return (0);
 }
 
@@ -43,6 +45,8 @@ int	release_key(int key, t_data *data)
 		data->event.right = false;
 	if (key == A_KEY)
 		data->event.left = false;
+	if (key == SPACE_KEY)
+		data->event.space = false;
 	return (0);
 }
 

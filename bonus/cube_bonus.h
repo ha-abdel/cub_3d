@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/07 15:48:23 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/08 09:16:40 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@
 # define D_KEY 100
 # define O_KEY 111
 # define ESC_KEY 65307
+# define SPACE_KEY 32
 
 # define SAHM "wolfenstein/AnyConv.com__minimap_player-resized.xpm"
 
@@ -193,6 +194,7 @@ typedef struct events
 	bool			mouse_move;
 	bool			open_door;
 	bool			quit;
+	bool			space;
 }					t_event;
 
 typedef struct mouse
@@ -214,6 +216,7 @@ typedef struct s_data
 	float			rotation_speed;
 	int				max_dist_pixel;
 	long			start_time;
+	bool			center_mouse;
 	t_event			event;
 	t_mouse			mouse;
 	t_player		player;

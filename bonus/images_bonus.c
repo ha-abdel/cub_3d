@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 18:34:40 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 14:59:33 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/08 09:58:15 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,6 @@ void	init_images(t_data **data)
 	(*data)->door.img = mlx_xpm_file_to_image((*data)->mlx,
 			"wolfenstein/door.xpm", &(*data)->door.width,
 			&(*data)->door.height);
-	(*data)->exit_sprite.img = mlx_xpm_file_to_image((*data)->mlx,
-			"wolfenstein/grey_stone.xpm", &(*data)->exit_sprite.width,
-			&(*data)->exit_sprite.height);
 	(*data)->minimap.img = mlx_xpm_file_to_image((*data)->mlx, SAHM,
 			&(*data)->minimap.width, &(*data)->minimap.height);
 	(*data)->exit_sprite.img = mlx_xpm_file_to_image((*data)->mlx,

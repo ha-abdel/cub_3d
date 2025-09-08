@@ -6,11 +6,22 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:02 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 14:53:54 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/08 14:11:54 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
+
+void	clean_doors(t_data **data)
+{
+	int	i = 0;
+	while ((*data)->doors[i])
+	{
+		if ((*data)->doors[i]->frame_door.img)
+			mlx_destroy_image((*data)->mlx, (*data)->doors[i]->frame_door.img);
+		i++;
+	}
+}
 
 void	clean_mlx_mandatory_resources(t_data **data)
 {
@@ -28,6 +39,11 @@ void	clean_mlx_mandatory_resources(t_data **data)
 		mlx_destroy_image((*data)->mlx, (*data)->w_wall.img);
 	if ((*data)->bg1.img)
 		mlx_destroy_image((*data)->mlx, (*data)->bg1.img);
+	if ((*data)->minimap.img)
+		mlx_destroy_image((*data)->mlx, (*data)->minimap.img);
+	if ((*data)->exit.frame_exit.img)
+		mlx_destroy_image((*data)->mlx, (*data)->exit.frame_exit.img);
+	clean_doors(data);
 	if ((*data)->win_3d)
 		mlx_destroy_window((*data)->mlx, (*data)->win_3d);
 	if ((*data)->mlx)
