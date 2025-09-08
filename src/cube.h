@@ -6,7 +6,7 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:43:41 by salahian          #+#    #+#             */
-/*   Updated: 2025/09/06 17:52:31 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/06 17:56:14 by abdel-ha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,23 @@ void				init_data(t_data *data);
 void				initial_data(t_data *data);
 void				cast_rays(t_data *data);
 void				clear_image(t_sprite *img, int color);
+int	fill_map(char **map, char *line, int fd);
+int	calculate_lines(char *buf);
+int	check_walls(t_data *data, int size);
+char	*get_new_line(char *str, int size);
+int	help_fill_data(t_data *data, char *tmp, char *s, int *count);
+int	fill_color(t_data *data, char *s, char *tmp, int count);
+char	*append_char(char c);
+void	fill_tmp(char **tmp);
+int	get_last_slash(char *file);
+int	check_data(t_data *data);
+int	check_is_map(char *line);
+int	fill_data(t_data *data, char *line, char *s, int index);
+void	take_path(t_data *data, char *line, char *s, int index);
+int		take_color(t_data *data, char *line, char *s, int index);
+int	parse_spaces(char *line, int *index, int flag);
+int		check_is_valid_param(char **tmp, char *str, char **s);
+int	handle_direction(t_data *data, char c, int i, int j);
 void				check_collision(t_data *data, double old_px, double old_py);
 bool				is_valid_move(t_data *data, double x, double y);
-
 #endif

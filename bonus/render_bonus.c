@@ -6,12 +6,17 @@
 /*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:10 by abdel-ha          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/09/06 15:29:20 by abdel-ha         ###   ########.fr       */
+=======
+/*   Updated: 2025/09/06 14:21:15 by salahian         ###   ########.fr       */
+>>>>>>> norm_1
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
 
+<<<<<<< HEAD
 void	make_animation(t_data *data, t_door *door)
 {
 	int				x;
@@ -52,6 +57,27 @@ void	animate_door(t_data *data)
 		}
 		i++;
 	}
+=======
+long	get_time(void)
+{
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
+void	rotate_view(t_data *data)
+{
+	if (data->mouse.x > (SCREEN_WIDTH / 2))
+	{
+		data->player.angle += data->rotation_speed;
+	}
+	else
+	{
+		data->player.angle -= data->rotation_speed;
+	}
+	// data->event = no
+	// data->mouse.old_x = data->mouse.;
+>>>>>>> norm_1
 }
 
 void	check_movements(t_data *data)
@@ -71,32 +97,6 @@ void	check_other_events(t_data *data)
 		get_the_closest_door(data);
 	else if (data->event.quit == true)
 		destroy_window(data);
-}
-
-void	animate_exit(t_data *data)
-{
-	int				x;
-	int				y;
-	unsigned int	color;
-
-	y = 0;
-	while (y < 16)
-	{
-		x = data->exit.frame_exit.frame_count;
-		while (x < (data->exit.frame_exit.frame_count + 16))
-		{
-			color = get_color(&data->exit_sprite, x, y);
-			if (color != 0x00000000)
-				my_mlx_pixel_put(&data->exit.frame_exit, x
-					- data->exit.frame_exit.frame_count, y, color);
-			x++;
-		}
-		y++;
-	}
-	if (data->exit.frame_exit.frame_count < 512)
-		data->exit.frame_exit.frame_count += 16;
-	else
-		data->exit.frame_exit.frame_count = 0;
 }
 
 int	render(t_data *data)

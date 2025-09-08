@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/09/06 15:44:12 by abdel-ha         ###   ########.fr       */
+=======
+/*   Updated: 2025/09/06 15:33:50 by salahian         ###   ########.fr       */
+>>>>>>> norm_1
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,6 +296,7 @@ unsigned int		get_color(t_sprite *img, int x, int y);
 void				animate_door(t_data *data);
 void				fill_img_door(t_data *data);
 
+<<<<<<< HEAD
 void				init_wall_images(t_data **data);
 void				check_walls_addresses(t_data **data);
 void				check_addresses(t_data **data);
@@ -322,5 +327,56 @@ void				move_player(t_data *data);
 void				print_info(t_data *data);
 void				print_hit_info(t_data *data);
 long				get_time(void);
+=======
+/* FUNCTIONS */
+int	release_key(int key, t_data *data);
+void	set_direction(t_data *data, int key);
+long	get_time(void);
+int	is_facing_right1(double angle);
+int	is_facing_left1(double angle);
+int	is_facing_down1(double angle);
+int	is_facing_up1(double angle);
+void	init_images(t_data **data);
+void	calc_vertical_step(t_data *data, t_ray *ray, double tan_val);
+void	calc_first_v_intersect(t_data *data, t_ray *ray, double tan_val);
+void	calc_horizontal_step(t_data *data, t_ray *ray, double tan_val);
+void	calc_first_h_intersect(t_data *data, t_ray *ray, double tan_val);
+double	handle_division_by_zero(double angle);
+int	check_if_open(t_data **data, int index, int horizontal, t_ray *ray);
+int	is_exit(t_data *data, double x, double y);
+int	get_door_index(t_data *data, t_point p);
+int	check_distance(t_data *data);
+void	get_the_closest_door(t_data *data);
+void	fill_img_door(t_data *data);
+int	handle_mouse(int x, int y, t_data *data);
+void	get_the_closest_door(t_data *data);
+int	handle_key(int key, t_data *data);
+void	check_collision(t_data *data, double old_px, double old_py);
+void	move_player(t_data *data);
+void	print_front_doors(t_data *data);
+void	print_info(t_data *data);
+void	print_hit_info(t_data *data);
+void	animate_door(t_data *data);
+void	animate_exit(t_data *data);
+int	calculate_lines(char *buf);
+int	check_every_character(char *s);
+char	*get_new_line(char *str, int size);
+int	get_long_line(char **map);
+int	fill_map(char **map, char *line, int fd);
+int		get_last_slash(char *file);
+int		check_data(t_data *data);
+int		check_is_map(char *line);
+int		fill_data(t_data *data, char *line, char *s, int index);
+void		take_path(t_data *data, char *line, char *s, int index);
+int		help_fill_data(t_data *data, char *tmp, char *s, int *count);
+char *append_char(char c);
+void	fill_tmp(char **tmp);
+int		parse_spaces(char *line, int *index, int flag);
+int		check_is_valid_param(char **tmp, char *str, char **s);
+int	handle_direction(t_data *data, char c, int i, int j);
+int	fill_color(t_data *data, char *s, char *tmp, int count);
+int		take_color(t_data *data, char *line, char *s, int index);
+void	rotate_the_map(t_data *data, t_point wxy, t_point dxy);
+>>>>>>> norm_1
 
 #endif
