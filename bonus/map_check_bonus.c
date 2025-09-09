@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 16:06:27 by salahian          #+#    #+#             */
-/*   Updated: 2025/09/06 15:42:19 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/09 11:13:17 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,25 @@ int	check_around_floor(t_data *data, int i, int j)
 
 int	valid_map(t_data *data)
 {
-	int	i;
-	int	j;
+	int			i;
+	int			j;
+	static int	exit;
 
 	i = 0;
 	while (data->map.map[i])
 	{
 		j = 0;
+		if (exit > 1)
+			return (0);
 		while (data->map.map[i][j])
 		{
-			if (!ft_isdigit(data->map.map[i][j]) && data->map.map[i][j] != ' ')
-			{
-				if (!handle_direction(data, data->map.map[i][j], i, j))
-					return (0);
-			}
-			if (data->map.map[i][j] == '0')
-			{
-				if (!check_around_floor(data, i, j))
-					return (0);
-			}
+			if (data->map.map[i][j] == 'P')
+				exit++;
+			if ((!ft_isdigit(data->map.map[i][j]) && data->map.map[i][j] != ' ')
+				&& (!handle_direction(data, data->map.map[i][j], i, j)))
+				return (0);
+			if (data->map.map[i][j] == '0' && (!check_around_floor(data, i, j)))
+				return (0);
 			j++;
 		}
 		i++;
