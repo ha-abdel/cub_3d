@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:38:29 by salahian          #+#    #+#             */
-/*   Updated: 2025/09/06 15:44:58 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:02:27 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,26 @@ int	parse_spaces(char *line, int *index, int flag)
 			return (0);
 	}
 	return (1);
+}
+
+int	count_doors(t_data **data)
+{
+	int	y;
+	int	x;
+	int	count;
+
+	y = 0;
+	count = 0;
+	while (y < (*data)->map.height)
+	{
+		x = 0;
+		while (x < (*data)->map.width)
+		{
+			if ((*data)->map.map[y][x] == 'D')
+				count++;
+			x++;
+		}
+		y++;
+	}
+	return (count);
 }

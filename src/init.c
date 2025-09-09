@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:32:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/06 17:52:48 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/09 09:19:05 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ void	init_images(t_data **data)
 			&(*data)->w_wall.height);
 	if (!(*data)->bg1.img || !(*data)->n_wall.img
 		|| !(*data)->s_wall.img || !(*data)->e_wall.img || !(*data)->w_wall.img)
+	{
+		printf("Error\nfail to load textures\n");
 		clean_all(data);
+	}
 	get_imgs_addresses(data);
 }
 

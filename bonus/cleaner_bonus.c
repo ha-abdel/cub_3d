@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleaner_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 14:39:02 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/08 18:00:53 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/09 09:43:46 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void	clean_mlx_mandatory_resources(t_data **data)
 		mlx_destroy_image((*data)->mlx, (*data)->minimap.img);
 	if ((*data)->exit.frame_exit.img)
 		mlx_destroy_image((*data)->mlx, (*data)->exit.frame_exit.img);
-	clean_doors(data);
+	if ((*data)->doors)
+		clean_doors(data);
 	if ((*data)->win_3d)
 		mlx_destroy_window((*data)->mlx, (*data)->win_3d);
 	if ((*data)->mlx)

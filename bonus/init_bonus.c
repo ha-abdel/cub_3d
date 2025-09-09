@@ -3,36 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:17 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/08 18:01:23 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:02:14 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube_bonus.h"
-
-int	count_doors(t_data **data)
-{
-	int	y;
-	int	x;
-	int	count;
-
-	y = 0;
-	count = 0;
-	while (y < (*data)->map.height)
-	{
-		x = 0;
-		while (x < (*data)->map.width)
-		{
-			if ((*data)->map.map[y][x] == 'D')
-				count++;
-			x++;
-		}
-		y++;
-	}
-	return (count);
-}
 
 void	fill_door(t_data **data, int index, t_point p)
 {
@@ -82,11 +60,26 @@ void	save_doors_info(t_data **data)
 	(*data)->doors[i] = NULL;
 }
 
+void	pre_init_imgs(t_data **data)
+{
+	(*data)->bg1.img = NULL;
+	(*data)->door.img = NULL;
+	(*data)->exit_sprite.img = NULL;
+	(*data)->exit.frame_exit.img = NULL;
+	(*data)->n_wall.img = NULL;
+	(*data)->s_wall.img = NULL;
+	(*data)->w_wall.img = NULL;
+	(*data)->e_wall.img = NULL;
+	(*data)->minimap.img = NULL;
+}
+
 void	init_data(t_data *data)
 {
 	data->mlx = mlx_init();
 	data->win_3d = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT,
 			"3D View");
+	data->doors = NULL;
+	pre_init_imgs(&data);
 	init_wall_images(&data);
 	init_images(&data);
 	ft_bzero(&data->mini_map, sizeof(t_minimap));

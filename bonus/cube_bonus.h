@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 15:49:21 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/08 09:16:40 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:02:47 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -353,5 +353,6 @@ void				rotate_the_map(t_data *data, t_point wxy, t_point dxy);
 void				init_wall_images(t_data **data);
 void				check_walls_addresses(t_data **data);
 void				check_addresses(t_data **data);
+int					count_doors(t_data **data);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/20 20:14:27 by abdel-ha          #+#    #+#             */
-/*   Updated: 2025/09/08 18:01:33 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/09 09:34:39 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,23 @@
 
 void	check_addresses(t_data **data)
 {
-	if (!(*data)->bg1.img || !(*data)->door.img || !(*data)->exit_sprite.img
+	if (!(*data)->bg1.img || !(*data)->door.img
 		|| !(*data)->exit_sprite.img || !(*data)->exit.frame_exit.img
 		|| !(*data)->minimap.img)
+	{
+		printf("Error\nfail to load textures\n");
 		clean_all(data);
+	}
 }
 
 void	check_walls_addresses(t_data **data)
 {
 	if (!(*data)->n_wall.img || !(*data)->s_wall.img || !(*data)->e_wall.img
 		|| !(*data)->w_wall.img)
+	{
+		printf("Error\nfail to load textures\n");
 		clean_all(data);
+	}
 }
 
 long	get_time(void)

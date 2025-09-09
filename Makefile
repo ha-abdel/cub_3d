@@ -1,6 +1,6 @@
 NAME = cube_3D
 CC = cc
-CFLAGS =-g3 -Ilibft -Wall -Wextra -Werror
+CFLAGS =-Ilibft -Wall -Wextra -Werror -O3
 LFLAGS = -lmlx -lXext -lX11 -lm
 
 # main_src = main.c

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdel-ha <abdel-ha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 08:15:15 by salahian          #+#    #+#             */
-/*   Updated: 2025/09/08 09:34:16 by abdel-ha         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:00:49 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,9 @@ int	check_name(char *file)
 	{
 		if (ft_strlen(file) <= 4)
 			return (0);
+		if (file[0] == '.' && ft_strncmp(&file[ft_strlen(file) - 4], ".cub",
+				4) == 0)
+			return (0);
 		if (ft_strncmp(&file[ft_strlen(file) - 4], ".cub", 4) != 0)
 			return (0);
 	}
@@ -113,39 +116,14 @@ int	check_name(char *file)
 	{
 		if (ft_strlen(&file[slash + 1]) <= 4)
 			return (0);
+		if (file[slash + 1] == '.' && ft_strncmp(&file[ft_strlen(file) - 4],
+				".cub", 4) == 0)
+			return (0);
 		if (ft_strncmp(&file[ft_strlen(file) - 4], ".cub", 4) != 0)
 			return (0);
 	}
 	return (1);
 }
-
-// void	print_map(char **map)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (map[i])
-// 	{
-// 		printf("[%s]\n", map[i]);
-// 		i++;
-// 	}
-// }
-
-// void	print_data(t_data *data)
-// {
-// 	printf("path_s:[%s]\n", data->map.s_path);
-// 	printf("path_n:[%s]\n", data->map.n_path);
-// 	printf("path_w:[%s]\n", data->map.w_path);
-// 	printf("path_e:[%s]\n", data->map.e_path);
-// 	printf("angle:[%f]\n", data->player.angle);
-// 	printf("color_c:[%d]\n", data->map.c_color);
-// 	printf("color_f:[%d]\n", data->map.f_color);
-// 	printf("height:[%d]\n", data->map.height);
-// 	printf("width:[%d]\n", data->map.width);
-// 	printf("pos.x:[%f]\n", data->player.x);
-// 	printf("pos.y:[%f]\n", data->player.y);
-// 	print_map(data->map.map);
-// }
 
 int	main_function_parsing(t_data *data, char *file)
 {

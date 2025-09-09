@@ -6,7 +6,7 @@
 /*   By: salahian <salahian@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 14:51:15 by salahian          #+#    #+#             */
-/*   Updated: 2025/09/07 15:45:23 by salahian         ###   ########.fr       */
+/*   Updated: 2025/09/09 09:23:38 by salahian         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int	fill_map(char **map, char *line, int fd)
 	{
 		if (line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
+		if (line[0] == '\0')
+			return (0);
 		map[i] = ft_strdup(line);
 		i++;
 		line = get_next_line(fd);
